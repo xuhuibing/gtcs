@@ -319,12 +319,18 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
             </div>
             <div class="form-group">
               <label>目的国（进口国）</label>
-              <div style="position:relative">
-                <div class="input" style="background:#4361ee;color:#fff;font-weight:600;display:inline-block;padding:7px 16px">🇨🇳 中国 (CN)</div>
-              </div>
+              <select class="sel-input sel-dest" data-target="hs" style="width:100%;padding:7px 10px;border:1px solid #4361ee;border-radius:5px;font-size:13px;background:#eef2ff;color:#4361ee;font-weight:600;outline:none">
+                <option value="CN">🇨🇳 中国 (CN)</option>
+                <option value="VN">🇻🇳 越南 (VN)</option>
+                <option value="US">🇺🇸 美国 (US)</option>
+                <option value="KR">🇰🇷 韩国 (KR)</option>
+                <option value="JP">🇯🇵 日本 (JP)</option>
+                <option value="DE">🇩🇪 德国 (DE)</option>
+                <option value="TH">🇹🇭 泰国 (TH)</option>
+              </select>
             </div>
             <div style="margin-top:8px;text-align:center">
-              <div style="background:#4361ee;color:#fff;padding:8px 0;border-radius:6px;font-size:13px;font-weight:600">🔄 推荐 HS 编码</div>
+              <div class="btn-primary" data-action="hs-recommend" style="background:#4361ee;color:#fff;padding:8px 0;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;text-align:center">🔄 推荐 HS 编码</div>
             </div>
             <div style="margin-top:14px;background:#f9fafb;border-radius:6px;padding:12px;border:1px solid #e8ecf4">
               <div style="font-size:12px;color:#6b7280;margin-bottom:6px">📋 历史归类记录</div>
@@ -344,7 +350,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
               <div style="display:flex;gap:8px;align-items:center">
                 <span class="tag blue" style="font-size:12px;padding:4px 12px">3 个候选</span>
                 <span class="tag green" style="font-size:12px;padding:4px 12px">推荐: 852852</span>
-                <div style="background:#059669;color:#fff;padding:6px 16px;border-radius:5px;font-size:12px;font-weight:600">✅ 确认归类</div>
+                <div class="btn-primary" data-action="hs-confirm" style="background:#059669;color:#fff;padding:6px 16px;border-radius:5px;font-size:12px;font-weight:600;cursor:pointer">✅ 确认归类</div>
               </div>
             </div>
 
@@ -391,25 +397,25 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 
             <!-- Tariff Detail -->
             <div style="margin-top:12px;background:#f9fafb;border-radius:6px;padding:14px;border:1px solid #e8ecf4">
-              <div style="font-size:13px;font-weight:600;margin-bottom:8px">💰 选定 HS 852852 关税税率（目的国：中国）</div>
+              <div style="font-size:13px;font-weight:600;margin-bottom:8px">💰 选定 HS 852852 关税税率（目的国：<span id="hs-dest-label">🇨🇳 中国 (CN)</span>）</div>
               <div class="cost-grid">
                 <div class="cost-item">
-                  <div class="amt" style="color:#dc2626">25%</div>
+                  <div class="amt"><span id="hs-mfn" class="tag red" style="font-size:18px">25%</span></div>
                   <div class="lbl">MFN 税率</div>
                 </div>
                 <div class="cost-item">
-                  <div class="amt" style="color:#059669">0%</div>
-                  <div class="lbl">ACFTA 优惠</div>
+                  <div class="amt" style="color:#059669"><span id="hs-fta" class="tag green" style="font-size:18px">ACFTA 0%</span></div>
+                  <div class="lbl">FTA 优惠</div>
                 </div>
                 <div class="cost-item total">
-                  <div class="amt">0%</div>
+                  <div class="amt" style="font-size:18px"><span id="hs-eff">0%</span></div>
                   <div class="lbl">综合有效税率</div>
                 </div>
               </div>
             </div>
 
             <!-- Success -->
-            <div style="margin-top:12px;background:#ecfdf5;border:1px solid #a7f3d0;border-radius:6px;padding:14px;text-align:center">
+            <div id="hs-success" style="display:none;margin-top:12px;background:#ecfdf5;border:1px solid #a7f3d0;border-radius:6px;padding:14px;text-align:center">
               <div style="font-size:16px;font-weight:700;color:#059669">✅ 归类确认成功</div>
               <div style="font-size:12px;color:#6b7280;margin-top:4px">HS 852852 | 归类依据：SELF_CLASSIFY | 状态：ACTIVE</div>
               <div style="margin-top:8px;display:flex;gap:8px;justify-content:center">
@@ -433,7 +439,18 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
             </div>
             <div class="form-row">
               <div class="form-group"><label>HS 编码</label><div class="input">852852</div></div>
-              <div class="form-group"><label>目的国</label><div class="input">🇻🇳 越南 (VN)</div></div>
+              <div class="form-group">
+                <label>目的国</label>
+                <select class="sel-input sel-dest" data-target="cost" style="width:100%;padding:7px 10px;border:1px solid #d1d5db;border-radius:5px;font-size:13px;background:#f9fafb;outline:none">
+                  <option value="VN">🇻🇳 越南 (VN)</option>
+                  <option value="CN">🇨🇳 中国 (CN)</option>
+                  <option value="US">🇺🇸 美国 (US)</option>
+                  <option value="KR">🇰🇷 韩国 (KR)</option>
+                  <option value="JP">🇯🇵 日本 (JP)</option>
+                  <option value="TH">🇹🇭 泰国 (TH)</option>
+                  <option value="DE">🇩🇪 德国 (DE)</option>
+                </select>
+              </div>
             </div>
             <div class="form-row">
               <div class="form-group"><label>数量</label><div class="input">100 台</div></div>
@@ -453,7 +470,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
             </table>
 
             <div style="margin-top:12px;text-align:center">
-              <div style="background:#4361ee;color:#fff;padding:8px 0;border-radius:6px;font-size:13px;font-weight:600">🔄 执行成本模拟</div>
+              <div class="btn-primary" data-action="cost-simulate" style="background:#4361ee;color:#fff;padding:8px 0;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;text-align:center">🔄 执行成本模拟</div>
             </div>
           </div>
 
@@ -464,19 +481,19 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
             <!-- HS Summary -->
             <div style="display:flex;gap:8px;margin-bottom:12px">
               <span style="background:#eef2ff;color:#4361ee;padding:4px 12px;border-radius:4px;font-size:12px">HS 852852 · 交互式智能平板</span>
-              <span style="background:#ecfdf5;color:#059669;padding:4px 12px;border-radius:4px;font-size:12px">目的国: VN</span>
+              <span id="cost-dest-tag" style="background:#ecfdf5;color:#059669;padding:4px 12px;border-radius:4px;font-size:12px">目的国: VN</span>
             </div>
 
             <!-- VAT + Certification -->
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
               <div style="background:#f9fafb;border-radius:6px;padding:12px;border:1px solid #e8ecf4">
                 <div style="font-size:11px;color:#6b7280;margin-bottom:4px">VAT 增值税</div>
-                <div style="font-size:20px;font-weight:700;color:#4361ee">10%</div>
-                <div style="font-size:10px;color:#6b7280">越南 VAT (GTGT)</div>
+                <div id="cost-vat" style="font-size:20px;font-weight:700;color:#4361ee">10%</div>
+                <div id="cost-vat-lbl" style="font-size:10px;color:#6b7280">越南 VAT (GTGT)</div>
               </div>
               <div style="background:#f9fafb;border-radius:6px;padding:12px;border:1px solid #e8ecf4">
                 <div style="font-size:11px;color:#6b7280;margin-bottom:4px">认证要求</div>
-                <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:4px">
+                <div id="cost-cert" style="display:flex;flex-wrap:wrap;gap:4px;margin-top:4px">
                   <span style="padding:2px 8px;background:#eef2ff;border-radius:3px;font-size:10px;color:#4361ee">CR Mark</span>
                   <span style="padding:2px 8px;background:#eef2ff;border-radius:3px;font-size:10px;color:#4361ee">QCVN</span>
                 </div>
@@ -486,12 +503,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
             <!-- Comparison table -->
             <table class="comp-table">
               <tr><th>原产国</th><th>完税价格(CIF)</th><th>关税</th><th>VAT</th><th>到岸总成本</th><th></th></tr>
-              <tr class="best">
+              <tr class="best" id="cost-row-cn">
                 <td>🇨🇳 中国</td>
                 <td>$88,500</td>
-                <td><span class="tag green">$0 (ACFTA)</span></td>
+                <td class="duty"><span class="tag green">$0 (ACFTA)</span></td>
                 <td>$8,850</td>
-                <td><strong>$97,350</strong></td>
+                <td class="total"><strong>$97,350</strong></td>
                 <td><span class="best-badge">推荐</span></td>
               </tr>
               <tr>
@@ -507,7 +524,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
             <!-- Waterfall -->
             <div style="margin-top:12px;background:#f9fafb;border-radius:6px;padding:14px;border:1px solid #e8ecf4">
               <div style="font-size:12px;font-weight:600;margin-bottom:8px">📈 成本瀑布图（中国原产）</div>
-              <div class="waterfall">
+              <div id="cost-waterfall" class="waterfall">
                 <div class="wf-row"><span class="wf-lbl">FOB 货值</span><div class="wf-bar" style="width:120px;background:#4361ee">$85,000</div></div>
                 <div class="wf-row"><span class="wf-lbl">+ 运费</span><div class="wf-bar" style="width:20px;background:#7c3aed">$3,000</div></div>
                 <div class="wf-row"><span class="wf-lbl">+ 保费</span><div class="wf-bar" style="width:10px;background:#7c3aed">$500</div></div>
@@ -519,7 +536,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
             </div>
 
             <!-- Recommendation -->
-            <div style="margin-top:12px;background:#ecfdf5;border:1px solid #a7f3d0;border-radius:6px;padding:14px">
+            <div id="cost-rec" style="margin-top:12px;background:#ecfdf5;border:1px solid #a7f3d0;border-radius:6px;padding:14px">
               <div style="font-size:14px;font-weight:700;color:#059669">🏆 推荐方案：中国原产</div>
               <div style="font-size:12px;color:#374151;margin-top:4px">通过 ACFTA 优惠税率 0%，较越南原产节省 <strong>$22,000</strong>（18.4%）</div>
               <div style="margin-top:6px;display:flex;gap:8px;flex-wrap:wrap">
@@ -537,11 +554,32 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
         <div style="display:grid;grid-template-columns:300px 1fr;gap:14px;min-height:400px">
           <div style="background:#fff;border-radius:8px;border:1px solid #e8ecf4;padding:18px">
             <h3 style="font-size:14px;font-weight:600;margin-bottom:12px">🔍 税则查询</h3>
-            <div class="form-group"><label>HS 编码</label><div class="input">852852</div></div>
-            <div class="form-group"><label>目的国</label><div class="input">🇨🇳 中国</div></div>
-            <div class="form-group"><label>原产国</label><div class="input">🇻🇳 越南</div></div>
+            <div class="form-group"><label>HS 编码</label><div class="input" id="tariff-hs-code">852852</div></div>
+            <div class="form-group">
+              <label>目的国</label>
+              <select id="tariff-dest" style="width:100%;padding:7px 10px;border:1px solid #d1d5db;border-radius:5px;font-size:13px;background:#f9fafb;outline:none">
+                <option value="CN">🇨🇳 中国 (CN)</option>
+                <option value="VN">🇻🇳 越南 (VN)</option>
+                <option value="US">🇺🇸 美国 (US)</option>
+                <option value="KR">🇰🇷 韩国 (KR)</option>
+                <option value="JP">🇯🇵 日本 (JP)</option>
+                <option value="TH">🇹🇭 泰国 (TH)</option>
+                <option value="DE">🇩🇪 德国 (DE)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>原产国</label>
+              <select id="tariff-origin" style="width:100%;padding:7px 10px;border:1px solid #d1d5db;border-radius:5px;font-size:13px;background:#f9fafb;outline:none">
+                <option value="CN">🇨🇳 中国 (CN)</option>
+                <option value="VN" selected>🇻🇳 越南 (VN)</option>
+                <option value="US">🇺🇸 美国 (US)</option>
+                <option value="KR">🇰🇷 韩国 (KR)</option>
+                <option value="JP">🇯🇵 日本 (JP)</option>
+                <option value="TH">🇹🇭 泰国 (TH)</option>
+              </select>
+            </div>
             <div style="margin-top:8px;text-align:center">
-              <div style="background:#4361ee;color:#fff;padding:8px 0;border-radius:6px;font-size:13px;font-weight:600">查税率</div>
+              <div class="btn-primary" data-action="tariff-lookup" style="background:#4361ee;color:#fff;padding:8px 0;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;text-align:center">查税率</div>
             </div>
 
             <div style="margin-top:14px">
@@ -596,10 +634,27 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
           <h3 style="font-size:14px;font-weight:600;margin-bottom:12px">🤝 FTA 自由贸易协定推荐</h3>
           <div class="form-row" style="margin-bottom:10px;max-width:500px">
             <div class="form-group"><label>HS 编码</label><div class="input">852852</div></div>
-            <div class="form-group"><label>原产国</label><div class="input">🇨🇳 中国</div></div>
-            <div class="form-group"><label>目的国</label><div class="input">🇻🇳 越南</div></div>
+            <div class="form-group">
+              <label>原产国</label>
+              <select id="fta-origin" style="width:100%;padding:7px 10px;border:1px solid #d1d5db;border-radius:5px;font-size:13px;background:#f9fafb;outline:none">
+                <option value="CN">🇨🇳 中国 (CN)</option>
+                <option value="VN">🇻🇳 越南 (VN)</option>
+                <option value="KR">🇰🇷 韩国 (KR)</option>
+                <option value="JP">🇯🇵 日本 (JP)</option>
+                <option value="TH">🇹🇭 泰国 (TH)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>目的国</label>
+              <select id="fta-dest" style="width:100%;padding:7px 10px;border:1px solid #d1d5db;border-radius:5px;font-size:13px;background:#f9fafb;outline:none">
+                <option value="VN">🇻🇳 越南 (VN)</option>
+                <option value="CN">🇨🇳 中国 (CN)</option>
+                <option value="US">🇺🇸 美国 (US)</option>
+                <option value="KR">🇰🇷 韩国 (KR)</option>
+              </select>
+            </div>
           </div>
-          <div style="background:#4361ee;color:#fff;padding:6px 20px;border-radius:5px;display:inline-block;font-size:13px;font-weight:600">查询优惠</div>
+          <div class="btn-primary" data-action="fta-query" style="background:#4361ee;color:#fff;padding:6px 20px;border-radius:5px;display:inline-block;font-size:13px;font-weight:600;cursor:pointer">查询优惠</div>
         </div>
 
         <table class="rec-table" style="background:#fff;border-radius:8px;overflow:hidden;border:1px solid #e8ecf4">
@@ -857,29 +912,279 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 </div><!-- /app-container -->
 
 <script>
-// ─── Tab switching ───
-document.querySelectorAll('.sidebar nav a').forEach(link => {
-  link.addEventListener('click', e => {
-    e.preventDefault();
-    const page = link.dataset.page;
+// ═══════════════════════════════════════════════════════════════
+// GTCS Demo — 动态数据模拟
+// ═══════════════════════════════════════════════════════════════
 
-    // Sidebar active
-    document.querySelectorAll('.sidebar nav a').forEach(a => a.classList.remove('active'));
-    link.classList.add('active');
+// ─── 国别数据 ───
+const COUNTRIES = {
+  CN:{flag:'🇨🇳',name:'中国',vat:13,vatName:'VAT 增值税'},
+  VN:{flag:'🇻🇳',name:'越南',vat:10,vatName:'GTGT 增值税'},
+  US:{flag:'🇺🇸',name:'美国',vat:0,vatName:'无 VAT（销售税）'},
+  KR:{flag:'🇰🇷',name:'韩国',vat:10,vatName:'VAT 增值税'},
+  JP:{flag:'🇯🇵',name:'日本',vat:10,vatName:'消费税'},
+  DE:{flag:'🇩🇪',name:'德国',vat:19,vatName:'VAT (MwSt)'},
+  TH:{flag:'🇹🇭',name:'泰国',vat:7,vatName:'VAT'},
+};
 
-    // Page visibility
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    const target = document.getElementById('page-' + page);
-    if (target) target.classList.add('active');
+// ─── HS 852852 各国关税 ───
+const TARIFF_DATA = {
+  CN:{mfn:25,mfnColor:'red',ftas:[{name:'ACFTA',rate:0},{name:'RCEP',rate:0},{name:'MFN',rate:25,base:true}]},
+  VN:{mfn:25,mfnColor:'red',ftas:[{name:'ACFTA',rate:0,note:'从 ASEAN 进口'},{name:'MFN',rate:25,base:true}]},
+  US:{mfn:3.9,mfnColor:'green',ftas:[{name:'MFN',rate:3.9,base:true}]},
+  KR:{mfn:8,mfnColor:'yellow',ftas:[{name:'RCEP',rate:0},{name:'MFN',rate:8,base:true}]},
+  JP:{mfn:12,mfnColor:'red',ftas:[{name:'RCEP',rate:0},{name:'JP-CN EPA',rate:0},{name:'MFN',rate:12,base:true}]},
+  DE:{mfn:14,mfnColor:'red',ftas:[{name:'MFN',rate:14,base:true}]},
+  TH:{mfn:25,mfnColor:'red',ftas:[{name:'ACFTA',rate:0},{name:'RCEP',rate:0},{name:'MFN',rate:25,base:true}]},
+};
 
-    // Topbar title
-    const titles = {
-      dashboard:'📊 仪表盘', hs:'🏷️ HS 归类工作台', cost:'💰 进口成本分析',
-      tariff:'🔍 税则查询', fta:'🤝 FTA 优惠推荐', origin:'🌍 原产地判定',
-      screening:'🚫 制裁名单筛查', declaration:'📋 报关单管理', risk:'⚠️ 价格风险监控'
-    };
-    document.getElementById('pageTitle').textContent = titles[page] || page;
+// ─── 各国认证要求 ───
+const CERT_DATA = {
+  CN:['CCC 认证','SRRC（无线电核准）'],
+  VN:['CR Mark','QCVN','ICTQC'],
+  US:['FCC','UL','ETL'],
+  KR:['KC Mark','MSIP'],
+  JP:['PSE','VCCI','JATE'],
+  DE:['CE','REACH','RoHS','WEEE'],
+  TH:['NBTC','TISI','SASO'],
+};
+
+// ─── 更新 HS 归类页面 ───
+function updateHsPage(country) {
+  const c = COUNTRIES[country];
+  if (!c) return;
+  const t = TARIFF_DATA[country];
+  // 税率卡片
+  const mfnEl = document.getElementById('hs-mfn');
+  const ftaEl = document.getElementById('hs-fta');
+  const effEl = document.getElementById('hs-eff');
+  if (mfnEl) { mfnEl.textContent = t.mfn + '%'; mfnEl.className = 'tag ' + t.mfnColor; }
+  const ftaRate = t.ftas.find(f => !f.base);
+  if (ftaEl) { ftaEl.textContent = (ftaRate ? ftaRate.name + ' ' + ftaRate.rate + '%' : '-'); ftaEl.className = 'tag ' + (ftaRate && ftaRate.rate === 0 ? 'green' : 'yellow'); }
+  if (effEl) { effEl.textContent = (ftaRate ? ftaRate.rate + '%' : t.mfn + '%'); effEl.className = 'tag ' + (ftaRate && ftaRate.rate < 5 ? 'green' : t.mfnColor); }
+  // 目的国标签
+  const lbl = document.getElementById('hs-dest-label');
+  if (lbl) lbl.textContent = c.flag + ' ' + c.name + ' (' + country + ')';
+  // 税率详情标题
+  const title = document.querySelector('#page-hs .rightpanel .cost-grid')?.previousElementSibling;
+  if (title) title.textContent = '💰 选定 HS 852852 关税税率（目的国：' + c.name + '）';
+}
+
+// ─── 更新成本分析页面 ───
+function updateCostPage(country) {
+  const c = COUNTRIES[country];
+  if (!c) return;
+  const t = TARIFF_DATA[country];
+  // 目的国标签
+  const tag = document.getElementById('cost-dest-tag');
+  if (tag) tag.textContent = '目的国: ' + country;
+  // VAT
+  const vatAmt = document.getElementById('cost-vat');
+  const vatLbl = document.getElementById('cost-vat-lbl');
+  if (vatAmt) vatAmt.textContent = c.vat + '%';
+  if (vatLbl) vatLbl.textContent = c.vatName;
+  // 认证
+  const certBox = document.getElementById('cost-cert');
+  if (certBox) {
+    certBox.innerHTML = (CERT_DATA[country] || []).map(n => '<span style="padding:2px 8px;background:#eef2ff;border-radius:3px;font-size:10px;color:#4361ee">' + n + '</span>').join('');
+  }
+  // 对比表 — 计算新数据
+  const ftaRate = t.ftas.find(f => !f.base);
+  const price = 850, qty = 100, freight = 30, insur = 5;
+  const cifCN = (price + freight + insur) * qty;
+  const dutyCN = ftaRate ? 0 : cifCN * t.mfn / 100;
+  const vatCN = (cifCN + dutyCN) * c.vat / 100;
+  const totalCN = cifCN + dutyCN + vatCN;
+  const rowCn = document.getElementById('cost-row-cn');
+  if (rowCn) {
+    rowCn.querySelector('.duty').innerHTML = dutyCN === 0 ? '<span class="tag green">$0 (' + ftaRate.name + ')</span>' : '$' + Math.round(dutyCN);
+    rowCn.querySelector('.total').innerHTML = '<strong>$' + Math.round(totalCN).toLocaleString() + '</strong>';
+  }
+  // 瀑布图
+  updateWaterfall(cifCN, dutyCN, vatCN, totalCN, country);
+  // 推荐方案
+  const rec = document.getElementById('cost-rec');
+  if (rec) {
+    const fromVN = (price + 15 + 3) * qty;
+    const dutyVN = fromVN * (TARIFF_DATA.VN?.mfn || 25) / 100;
+    const vatVN = (fromVN + dutyVN) * (c.vat || 10) / 100;
+    const totalVN = fromVN + dutyVN + vatVN;
+    const saved = Math.round(totalVN - totalCN);
+    rec.innerHTML = '🏆 推荐方案：中国原产（' + c.name + '进口）<br><span style="font-size:12px;color:#374151;font-weight:400">较越南原产约节省 <strong>$' + saved.toLocaleString() + '</strong></span>';
+  }
+}
+
+function updateWaterfall(cif, duty, vat, total, country) {
+  const wfBox = document.getElementById('cost-waterfall');
+  if (!wfBox) return;
+  const maxW = 200;
+  function bar(lbl, val, color) {
+    const w = Math.max(15, val / (total || 1) * maxW);
+    return '<div class="wf-row"><span class="wf-lbl">' + lbl + '</span><div class="wf-bar" style="width:' + w + 'px;background:' + color + '">$' + Math.round(val).toLocaleString() + '</div></div>';
+  }
+  wfBox.innerHTML =
+    bar('FOB 货值', 85000, '#4361ee') +
+    bar('+ 运费', 3000, '#7c3aed') +
+    bar('+ 保费', 500, '#7c3aed') +
+    bar('= CIF', cif, '#0891b2') +
+    bar('+ 关税', duty, duty === 0 ? '#059669' : '#dc2626') +
+    bar('+ VAT', vat, '#d97706') +
+    bar('= 总成本', total, '#059669');
+}
+
+// ─── 更新税则查询页面 ───
+function updateTariffPage() {
+  const dest = document.getElementById('tariff-dest')?.value || 'CN';
+  const origin = document.getElementById('tariff-origin')?.value || 'VN';
+  const cd = COUNTRIES[dest], co = COUNTRIES[origin];
+  const t = TARIFF_DATA[dest];
+  if (!cd || !t) return;
+  // 标题
+  const title = document.querySelector('#page-tariff h3');
+  if (title) title.textContent = '📊 HS 852852 关税详情（目的国：' + cd.name + '）';
+  // 税率卡片
+  const items = document.querySelectorAll('#page-tariff .cost-item .amt');
+  if (items.length >= 3) {
+    items[0].textContent = t.mfn + '%';
+    items[0].style.color = t.mfn > 10 ? '#dc2626' : t.mfn > 5 ? '#d97706' : '#059669';
+    const fta = t.ftas.find(f => !f.base);
+    items[1].textContent = (fta ? fta.rate : t.mfn) + '%';
+    items[1].style.color = (fta && fta.rate === 0) ? '#059669' : '#d97706';
+    items[2].textContent = (fta ? fta.rate : t.mfn) + '%';
+  }
+  // 税率表
+  const trs = document.querySelectorAll('#page-tariff .rec-table tr');
+  if (trs.length >= 4) {
+    // trs[0] is header row — skip it
+    const fta0 = t.ftas[0], fta1 = t.ftas[1], base = t.ftas.find(f => f.base);
+    if (fta0 && !fta0.base) {
+      trs[1].innerHTML = '<td>' + fta0.name + '</td><td><span class="tag ' + (fta0.rate === 0 ? 'green' : 'yellow') + '">' + fta0.rate + '%</span></td><td>' + (fta0.note || co.name + ' 原产') + '</td><td><span class="tag blue" style="font-size:10px">RVC ≥ 40%</span></td>';
+    }
+    if (fta1 && !fta1.base) {
+      trs[2].innerHTML = '<td>' + fta1.name + '</td><td><span class="tag ' + (fta1.rate === 0 ? 'green' : 'yellow') + '">' + fta1.rate + '%</span></td><td>' + (fta1.note || co.name + ' 原产') + '</td><td><span class="tag blue" style="font-size:10px">RVC ≥ 40%</span></td>';
+    }
+    if (base) {
+      trs[3].innerHTML = '<td>MFN 基本税率</td><td><span class="tag ' + t.mfnColor + '">' + base.rate + '%</span></td><td>无 FTA</td><td><span class="tag gray">-</span></td>';
+    }
+  }
+  // 提示
+  const tip = document.querySelector('#page-tariff .panel-bd, #page-tariff [class] div[style*="background:#f1f4fd"]');
+  if (tip) {
+    tip.innerHTML = '<strong>提示：</strong>' + cd.name + '对 8528 项下显示器征收 ' + t.mfn + '% MFN 关税。' +
+      (t.ftas.some(f => !f.base) ? '如满足原产地规则可申请优惠税率。' : '');
+  }
+}
+
+// ─── 更新 FTA 页面 ───
+function updateFtaPage() {
+  const origin = document.getElementById('fta-origin')?.value || 'CN';
+  const dest = document.getElementById('fta-dest')?.value || 'VN';
+  const co = COUNTRIES[origin], cd = COUNTRIES[dest];
+  const t = TARIFF_DATA[dest];
+  if (!co || !cd || !t) return;
+  const trs = document.querySelectorAll('#page-fta .rec-table tr');
+  // trs[0] is header — skip it
+  for (let i = 1; i < trs.length && i - 1 < t.ftas.length; i++) {
+    const tds = trs[i].querySelectorAll('td');
+    if (tds.length < 4) return;
+    const fta = t.ftas[i - 1];
+    if (fta) {
+      tds[0].innerHTML = '<strong>' + fta.name + '</strong>';
+      tds[1].innerHTML = co.flag + ' ' + co.name + ' → ' + cd.flag + ' ' + cd.name;
+      tds[2].innerHTML = '<span class="tag ' + t.mfnColor + '">' + t.mfn + '%</span>';
+      tds[3].innerHTML = '<span class="tag ' + (fta.rate === 0 ? 'green' : 'yellow') + '" style="font-weight:600">' + fta.rate + '%</span>';
+    }
+  }
+}
+
+// ─── 事件绑定 ───
+document.addEventListener('DOMContentLoaded', function() {
+
+  // Tab switching
+  document.querySelectorAll('.sidebar nav a').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const page = link.dataset.page;
+      document.querySelectorAll('.sidebar nav a').forEach(a => a.classList.remove('active'));
+      link.classList.add('active');
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      const target = document.getElementById('page-' + page);
+      if (target) target.classList.add('active');
+      const titles = {
+        dashboard:'📊 仪表盘', hs:'🏷️ HS 归类工作台', cost:'💰 进口成本分析',
+        tariff:'🔍 税则查询', fta:'🤝 FTA 优惠推荐', origin:'🌍 原产地判定',
+        screening:'🚫 制裁名单筛查', declaration:'📋 报关单管理', risk:'⚠️ 价格风险监控'
+      };
+      document.getElementById('pageTitle').textContent = titles[page] || page;
+    });
   });
+
+  // HS 目的国切换 → 即时更新税率
+  document.querySelectorAll('.sel-dest[data-target="hs"]').forEach(sel => {
+    sel.addEventListener('change', function() { updateHsPage(this.value); });
+  });
+
+  // Cost 目的国切换
+  document.querySelectorAll('.sel-dest[data-target="cost"]').forEach(sel => {
+    sel.addEventListener('change', function() { updateCostPage(this.value); });
+  });
+
+  // Tariff 切换
+  document.getElementById('tariff-dest')?.addEventListener('change', updateTariffPage);
+  document.getElementById('tariff-origin')?.addEventListener('change', updateTariffPage);
+
+  // FTA 切换
+  document.getElementById('fta-origin')?.addEventListener('change', updateFtaPage);
+  document.getElementById('fta-dest')?.addEventListener('change', updateFtaPage);
+
+  // ─── 按钮点击 ───
+  // 推荐 HS
+  document.querySelector('[data-action="hs-recommend"]')?.addEventListener('click', function() {
+    const sel = document.querySelector('.sel-dest[data-target="hs"]');
+    const country = sel ? sel.value : 'CN';
+    updateHsPage(country);
+    this.textContent = '✅ 已推荐';
+    this.style.background = '#059669';
+    setTimeout(() => { this.textContent = '🔄 推荐 HS 编码'; this.style.background = '#4361ee'; }, 2000);
+  });
+
+  // 确认归类
+  document.querySelector('[data-action="hs-confirm"]')?.addEventListener('click', function() {
+    const box = document.getElementById('hs-success');
+    if (box) { box.style.display = 'block'; box.scrollIntoView({behavior:'smooth',block:'center'}); }
+  });
+
+  // 执行成本模拟
+  document.querySelector('[data-action="cost-simulate"]')?.addEventListener('click', function() {
+    const sel = document.querySelector('.sel-dest[data-target="cost"]');
+    const country = sel ? sel.value : 'VN';
+    updateCostPage(country);
+    this.textContent = '✅ 模拟完成';
+    this.style.background = '#059669';
+    setTimeout(() => { this.textContent = '🔄 执行成本模拟'; this.style.background = '#4361ee'; }, 2000);
+  });
+
+  // 查税率
+  document.querySelector('[data-action="tariff-lookup"]')?.addEventListener('click', function() {
+    updateTariffPage();
+    this.textContent = '✅ 查询完成';
+    this.style.background = '#059669';
+    setTimeout(() => { this.textContent = '查税率'; this.style.background = '#4361ee'; }, 2000);
+  });
+
+  // FTA 查询
+  document.querySelector('[data-action="fta-query"]')?.addEventListener('click', function() {
+    updateFtaPage();
+    this.textContent = '✅ 查询完成';
+    this.style.background = '#059669';
+    setTimeout(() => { this.textContent = '查询优惠'; this.style.background = '#4361ee'; }, 2000);
+  });
+
+  // 初始加载
+  updateHsPage('CN');
+  updateCostPage('VN');
+  updateTariffPage();
+  updateFtaPage();
 });
 </script>
 
