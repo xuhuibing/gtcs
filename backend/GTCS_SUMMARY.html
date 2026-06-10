@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GTCS 全球贸易通关系统 v2.0 — 实施总结报告</title>
+<style>
+  :root { --primary: #001529; --accent: #409EFF; --success: #67C23A; --warning: #E6A23C; --danger: #F56C6C; --bg: #f0f2f5; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: #333; line-height: 1.6; }
+  .header { background: var(--primary); color: #fff; padding: 24px 40px; }
+  .header h1 { font-size: 24px; }
+  .header p { opacity: .8; margin-top: 4px; font-size: 14px; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 24px; }
+  .card { background: #fff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,.08); padding: 20px; margin-bottom: 20px; }
+  .card h2 { font-size: 18px; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid var(--accent); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+  .module { border: 1px solid #e8e8e8; border-radius: 6px; padding: 16px; transition: box-shadow .2s; }
+  .module:hover { box-shadow: 0 4px 12px rgba(0,0,0,.12); }
+  .module .tag { display: inline-block; padding: 2px 8px; border-radius: 3px; font-size: 11px; margin-bottom: 8px; }
+  .tag-blue { background: #ecf5ff; color: var(--accent); }
+  .tag-green { background: #f0f9eb; color: var(--success); }
+  .tag-orange { background: #fdf6ec; color: var(--warning); }
+  .tag-red { background: #fef0f0; color: var(--danger); }
+  .module h3 { font-size: 15px; margin-bottom: 8px; }
+  .module .count { font-size: 28px; font-weight: 700; color: var(--accent); }
+  .module p { font-size: 13px; color: #666; }
+  .module .endpoints { font-size: 12px; color: #999; margin-top: 8px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid #eee; }
+  th { background: #fafafa; font-weight: 600; }
+  tr:hover { background: #f5f7fa; }
+  .bar { display: flex; gap: 4px; height: 32px; margin-top: 8px; }
+  .bar div { display: flex; align-items: center; justify-content: center; color: #fff; font-size: 11px; border-radius: 4px; }
+  .status-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 4px; }
+  .dot-green { background: var(--success); }
+  .dot-orange { background: var(--warning); }
+  .container-footer { text-align: center; padding: 24px; color: #999; font-size: 12px; }
+  .col-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 700px) { .col-2 { grid-template-columns: 1fr; } }
+  .spec-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #f0f0f0; font-size: 13px; }
+  .spec-row .label { color: #666; }
+  .spec-row .value { font-weight: 500; }
+  .flex-col { display: flex; flex-direction: column; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>📦 GTCS 全球贸易通关系统 v2.0</h1>
+  <p>实施总结报告 · 2026-06-09</p>
+</div>
+
+<div class="container">
+
+  <!-- 概览 -->
+  <div class="card">
+    <h2>系统概览</h2>
+    <div class="col-2">
+      <div>
+        <div class="spec-row"><span class="label">系统名称</span><span class="value">全球贸易通关决策平台</span></div>
+        <div class="spec-row"><span class="label">版本</span><span class="value">v2.0.0</span></div>
+        <div class="spec-row"><span class="label">后端框架</span><span class="value">FastAPI + SQLAlchemy 2.0</span></div>
+        <div class="spec-row"><span class="label">前端框架</span><span class="value">Vue 3 + Element Plus</span></div>
+        <div class="spec-row"><span class="label">数据库</span><span class="value">SQLite (17.6 MB)</span></div>
+      </div>
+      <div>
+        <div class="spec-row"><span class="label">API 模块</span><span class="value">12 个</span></div>
+        <div class="spec-row"><span class="label">API 端点</span><span class="value">26+ 个</span></div>
+        <div class="spec-row"><span class="label">国家税则库</span><span class="value">4 国 (US/VN/TH/MY)</span></div>
+        <div class="spec-row"><span class="label">关税税目</span><span class="value">71,960 条</span></div>
+        <div class="spec-row"><span class="label">税率记录</span><span class="value">36,862 条</span></div>
+        <div class="spec-row"><span class="label">贸易协定</span><span class="value">8 项</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 功能模块 -->
+  <div class="card">
+    <h2>功能模块 (12个)</h2>
+    <div class="grid">
+
+      <div class="module">
+        <span class="tag tag-blue">税则查询</span>
+        <h3>海关税则与税率速查</h3>
+        <div class="count">29,581</div><p>条美国税则 + 36,862 条税率</p>
+        <div class="endpoints">GET /lookup · GET /search</div>
+      </div>
+
+      <div class="module">
+        <span class="tag tag-green">FTA 优选</span>
+        <h3>自由贸易协定推荐</h3>
+        <div class="count">8</div><p>项贸易协定 + 证书要求 + ROO 规则</p>
+        <div class="endpoints">GET /recommend · GET /compare-origins</div>
+      </div>
+
+      <div class="module">
+        <span class="tag tag-blue">成本模拟</span>
+        <h3>进口落地成本模拟</h3>
+        <div class="count">6</div><p>成本项: FOB→运费→保险→关税→附加税→增值税</p>
+        <div class="endpoints">POST /simulate</div>
+      </div>
+
+      <div class="module">
+        <span class="tag tag-orange">HS 归类</span>
+        <h3>HS 编码归类辅助</h3>
+        <p>归类记录 + 裁定查询 + 一致性检查</p>
+        <div class="endpoints">POST /classify · GET /rulings</div>
+      </div>
+
+      <div class="module">
+        <span class="tag tag-red">价格风控</span>
+        <h3>价格风险预警引擎</h3>
+        <div class="count">6</div><p>类风险规则: 基线偏离/突发波动/关联方</p>
+        <div class="endpoints">POST /record · GET /alerts</div>
+      </div>
+
+      <div class="module">
+        <span class="tag tag-green">原产地</span>
+        <h3>RVC/CTC 原产地评估</h3>
+        <p>RVC 扣减法/累加法 + CTC CC/CTH/CTSH + FTA 资格</p>
+        <div class="endpoints">POST /rvc/calculate · POST /assess</div>
+      </div>
+
+      <div class="module">
+        <span class="tag tag-blue">报关单</span>
+        <h3>报关单全生命周期</h3>
+        <p>draft → submitted → query_received → amended → cleared → closed</p>
+        <div class="endpoints">POST /create · POST /transition</div>
+      </div>
+
+      <div class="module">
+        <span class="tag tag-blue">附加税</span>
+        <h3>301/AD/CVD/232 查询</h3>
+        <div class="count">1,667</div><p>条 Section 301 附加税记录</p>
+        <div class="endpoints">GET /lookup</div>
+      </div>
+
+      <div class="module">
+        <span class="tag tag-green">企业管理</span>
+        <h3>企业信息管理</h3>
+        <p>企业/工厂/供应商/资质管理 CRUD</p>
+        <div class="endpoints">CRUD</div>
+      </div>
+
+      <div class="module">
+        <span class="tag tag-orange">产品管理</span>
+        <h3>产品数据管理</h3>
+        <p>产品/HS映射/分类管理 CRUD</p>
+        <div class="endpoints">CRUD</div>
+      </div>
+
+      <div class="module">
+        <span class="tag tag-blue">认证授权</span>
+        <h3>JWT 认证 + RBAC</h3>
+        <p>5种角色: admin / customs_mgr / customs_staff / compliance / viewer</p>
+        <div class="endpoints">POST /login · GET /profile</div>
+      </div>
+
+      <div class="module">
+        <span class="tag tag-green">部署配置</span>
+        <h3>Docker + Nginx 部署</h3>
+        <p>Dockerfile · docker-compose · nginx 反向代理</p>
+        <div class="endpoints">🐳 一键部署</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 数据统计 -->
+  <div class="card">
+    <h2>税则库数据统计</h2>
+    <table>
+      <thead>
+        <tr><th>国家</th><th>数据来源</th><th>税目数</th><th>税率/附加税</th><th>说明</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>🇺🇸 美国 (US)</td><td>hts.db (hts_subheadings + hts_rates + s122_exempt)</td><td>29,581</td><td>36,862 税率 + 1,667 S301</td><td>含 General/Column2/Special 三类税率</td></tr>
+        <tr><td>🇻🇳 越南 (VN)</td><td>hts_source.db (vn_tariff_items)</td><td>14,453</td><td>30+ FTA 税率</td><td>含 RCEP/ACFTA/CPTPP 等协定税率</td></tr>
+        <tr><td>🇹🇭 泰国 (TH)</td><td>THAI.zip (JSONL)</td><td>14,425</td><td>—</td><td>英泰双语描述</td></tr>
+        <tr><td>🇲🇾 马来西亚 (MY)</td><td>hts_source.db (my_tariff_items)</td><td>13,501</td><td>—</td><td>标准税则数据</td></tr>
+      </tbody>
+    </table>
+    <div class="bar" style="margin-top:12px">
+      <div style="flex:29581;background:#409EFF">US 29,581</div>
+      <div style="flex:14453;background:#67C23A">VN 14,453</div>
+      <div style="flex:14425;background:#E6A23C">TH 14,425</div>
+      <div style="flex:13501;background:#909399">MY 13,501</div>
+    </div>
+  </div>
+
+  <!-- 技术架构 -->
+  <div class="card">
+    <h2>系统架构</h2>
+    <div class="col-2">
+      <div>
+        <h3 style="font-size:14px;margin-bottom:8px;color:var(--accent)">后端 (Python FastAPI)</h3>
+        <table>
+          <tr><td>API 层</td><td>12 路由模块 · 26+ 端点</td></tr>
+          <tr><td>服务层</td><td>6 业务服务 (tariff/fta/cost/price-risk/origin/declaration)</td></tr>
+          <tr><td>模型层</td><td>14 SQLAlchemy 模型 · 18 张表</td></tr>
+          <tr><td>数据库</td><td>SQLite · 17.6MB</td></tr>
+        </table>
+      </div>
+      <div>
+        <h3 style="font-size:14px;margin-bottom:8px;color:var(--success)">前端 (Vue 3)</h3>
+        <table>
+          <tr><td>UI 框架</td><td>Element Plus · 中文本地化</td></tr>
+          <tr><td>页面数</td><td>11 个功能页面</td></tr>
+          <tr><td>路由</td><td>Vue Router · JWT 鉴权守卫</td></tr>
+          <tr><td>API 通信</td><td>Axios · 统一拦截/错误处理</td></tr>
+        </table>
+      </div>
+    </div>
+    <div style="margin-top:12px;background:#f5f7fa;padding:12px;border-radius:6px;font-family:monospace;font-size:12px;white-space:pre">
+backend/
+├── app/api/v1/         12 路由模块
+├── app/services/        6 业务服务
+├── app/models/         14 数据模型
+├── scripts/            导入/种子脚本
+├── frontend/           Vue 3 SPA
+├── static/             前端构建产物
+├── data/gtcs.db        数据库 (17.6MB)
+├── Dockerfile
+└── docker-compose.yml</div>
+  </div>
+
+  <!-- 数据库模型 -->
+  <div class="card">
+    <h2>核心数据库表 (18张)</h2>
+    <div class="col-2">
+      <div>
+        <table>
+          <tr><th>表名</th><th>用途</th></tr>
+          <tr><td>country</td><td>国家基础数据</td></tr>
+          <tr><td>hs_nomenclature</td><td>HS 编码骨架</td></tr>
+          <tr><td>national_tariff_line</td><td>各国本地税目</td></tr>
+          <tr><td>tariff_rate</td><td>税率主表 (一品多率)</td></tr>
+          <tr><td>additional_duty</td><td>附加税 (301/AD/CVD)</td></tr>
+          <tr><td>trade_agreement</td><td>贸易协定</td></tr>
+          <tr><td>rules_of_origin</td><td>原产地规则</td></tr>
+          <tr><td>origin_profile</td><td>产品原产地档案</td></tr>
+          <tr><td>origin_bom_detail</td><td>BOM 料件明细</td></tr>
+        </table>
+      </div>
+      <div>
+        <table>
+          <tr><th>表名</th><th>用途</th></tr>
+          <tr><td>origin_process_step</td><td>制造工序</td></tr>
+          <tr><td>origin_cost_breakdown</td><td>成本分解底稿</td></tr>
+          <tr><td>origin_certificate</td><td>原产地证书</td></tr>
+          <tr><td>origin_assessment</td><td>评估记录</td></tr>
+          <tr><td>declarations</td><td>报关单主表</td></tr>
+          <tr><td>declaration_items</td><td>报关单项明细</td></tr>
+          <tr><td>price_record</td><td>价格记录</td></tr>
+          <tr><td>price_baseline</td><td>价格基线</td></tr>
+          <tr><td>price_alert</td><td>价格告警</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- 已知问题与改进 -->
+  <div class="card">
+    <h2>已知问题与建议</h2>
+    <table>
+      <tr><th>#</th><th>项目</th><th>优先级</th><th>说明</th></tr>
+      <tr><td>1</td><td>中国税则导入</td><td><span class="tag tag-orange">中</span></td><td>PDF 解析 (当前用户指定跳过)</td></tr>
+      <tr><td>2</td><td>ID/JP/KR 等国税则</td><td><span class="tag tag-blue">低</span></td><td>hts_source.db 含31国表可逐步导入</td></tr>
+      <tr><td>3</td><td>迁移 PostgreSQL</td><td><span class="tag tag-orange">中</span></td><td>SQLite 不适合高并发生产</td></tr>
+      <tr><td>4</td><td>搜索增强</td><td><span class="tag tag-orange">中</span></td><td>全文索引 + 中文商品名搜索</td></tr>
+      <tr><td>5</td><td>测试覆盖</td><td><span class="tag tag-red">高</span></td><td>增加 pytest 自动化测试</td></tr>
+      <tr><td>6</td><td>CI/CD</td><td><span class="tag tag-blue">低</span></td><td>GitHub Actions 自动构建部署</td></tr>
+      <tr><td>7</td><td>HTTPS</td><td><span class="tag tag-orange">中</span></td><td>Let's Encrypt 证书配置</td></tr>
+      <tr><td>8</td><td>数据备份</td><td><span class="tag tag-red">高</span></td><td>SQLite 自动备份/归档策略</td></tr>
+    </table>
+  </div>
+
+  <!-- API 状态 -->
+  <div class="card">
+    <h2>API 端点状态</h2>
+    <table>
+      <tr><th>模块</th><th>端点</th><th>状态</th></tr>
+      <tr><td>税则查询</td><td>GET /api/v1/tariff/lookup</td><td><span class="status-dot dot-green"></span>正常</td></tr>
+      <tr><td>税则搜索</td><td>GET /api/v1/tariff/search</td><td><span class="status-dot dot-green"></span>正常</td></tr>
+      <tr><td>FTA 推荐</td><td>GET /api/v1/fta/recommend</td><td><span class="status-dot dot-green"></span>正常</td></tr>
+      <tr><td>原产地对比</td><td>GET /api/v1/fta/compare-origins</td><td><span class="status-dot dot-green"></span>正常</td></tr>
+      <tr><td>成本模拟</td><td>POST /api/v1/cost/simulate</td><td><span class="status-dot dot-green"></span>正常</td></tr>
+      <tr><td>附加税查询</td><td>GET /api/v1/additional-duty/lookup</td><td><span class="status-dot dot-green"></span>正常</td></tr>
+      <tr><td>价格风控</td><td>POST /api/v1/price-risk/record</td><td><span class="status-dot dot-green"></span>正常</td></tr>
+      <tr><td>价格历史</td><td>GET /api/v1/price-risk/history</td><td><span class="status-dot dot-green"></span>正常</td></tr>
+      <tr><td>价格告警</td><td>GET /api/v1/price-risk/alerts</td><td><span class="status-dot dot-green"></span>正常</td></tr>
+      <tr><td>HS 归类</td><td>POST /api/v1/hs-classification/classify</td><td><span class="status-dot dot-green"></span>正常</td></tr>
+      <tr><td>原产地评估</td><td>GET /api/v1/origin/assess</td><td><span class="status-dot dot-green"></span>正常</td></tr>
+      <tr><td>RVC 计算</td><td>POST /api/v1/origin/rvc/calculate/:id</td><td><span class="status-dot dot-green"></span>正常</td></tr>
+      <tr><td>FTA 资格</td><td>GET /api/v1/origin/assess/:id/agreements</td><td><span class="status-dot dot-green"></span>正常</td></tr>
+      <tr><td>CTC 检查</td><td>POST /api/v1/origin/ctc/check</td><td><span class="status-dot dot-green"></span>正常</td></tr>
+      <tr><td>报关单创建</td><td>POST /api/v1/declaration/create</td><td><span class="status-dot dot-green"></span>正常</td></tr>
+      <tr><td>状态变更</td><td>POST /api/v1/declaration/:id/transition</td><td><span class="status-dot dot-green"></span>正常</td></tr>
+      <tr><td>一致性检查</td><td>POST /api/v1/declaration/:id/check</td><td><span class="status-dot dot-green"></span>正常</td></tr>
+      <tr><td>登录认证</td><td>POST /api/v1/auth/login</td><td><span class="status-dot dot-green"></span>正常</td></tr>
+      <tr><td>健康检查</td><td>GET /health</td><td><span class="status-dot dot-green"></span>正常</td></tr>
+    </table>
+  </div>
+
+  <!-- 快速启动 -->
+  <div class="card">
+    <h2>快速启动</h2>
+    <pre style="background:#001529;color:#fff;padding:16px;border-radius:6px;overflow-x:auto;font-size:13px;line-height:1.5">
+# 开发环境
+cd backend
+python3 -m uvicorn app.main:app --host 0.0.0.0 --port 8008
+
+# 前端 (另一个终端)
+cd frontend
+npm run dev
+
+# 生产部署
+docker-compose up -d
+
+# 数据导入
+python3 scripts/import_tariff_data.py     # 全部
+python3 scripts/import_tariff_data.py --country US  # 仅美国
+python3 scripts/import_tariff_data.py --clean       # 清理重导
+python3 scripts/seed_data.py             # 初始化种子数据
+
+# 访问
+# API:    http://localhost:8008/docs
+# 前端:   http://localhost:5173 (开发)
+#         http://localhost:8008 (生产)
+# 默认:   admin / admin123</pre>
+  </div>
+
+</div>
+
+<div class="container-footer">
+  GTCS 全球贸易通关系统 v2.0.0 · 2026-06-09 · Generated by Claude Code
+</div>
+
+</body>
+</html>

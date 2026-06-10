@@ -1,0 +1,1632 @@
+[
+  {
+    "name": "IRISL ISLAMIC REPUBLIC OF IRAN SHIPPING LINES",
+    "name_cn": "伊朗伊斯兰共和国航运公司",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "IR"
+  },
+  {
+    "name": "KOREA UNITED DEVELOPMENT BANK",
+    "name_cn": "朝鲜统一发展银行",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "KP"
+  },
+  {
+    "name": "BANCO PAST S.A.",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "CU"
+  },
+  {
+    "name": "BUREAU OF CUSTOMS AND ECONOMIC SECURITY",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "IR"
+  },
+  {
+    "name": "KOMID",
+    "name_cn": "朝鲜矿业开发贸易公司",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "KP"
+  },
+  {
+    "name": "HIZBULLAH",
+    "name_cn": "真主党",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "LB"
+  },
+  {
+    "name": "HAMAS",
+    "name_cn": "哈马斯",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "PS"
+  },
+  {
+    "name": "TALIBAN",
+    "name_cn": "塔利班",
+    "list_type": "UN",
+    "id_type": "ENTITY",
+    "country": "AF"
+  },
+  {
+    "name": "AL QAIDA",
+    "name_cn": "基地组织",
+    "list_type": "UN",
+    "id_type": "ENTITY",
+    "country": "ZZ"
+  },
+  {
+    "name": "ISLAMIC STATE OF IRAQ AND THE LEVANT",
+    "name_cn": "伊拉克和黎凡特伊斯兰国",
+    "list_type": "UN",
+    "id_type": "ENTITY",
+    "country": "IQ"
+  },
+  {
+    "name": "BANK SEPAH",
+    "name_cn": "伊朗塞帕银行",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "IR"
+  },
+  {
+    "name": "BANK MELLAT",
+    "name_cn": "伊朗梅拉特银行",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "IR"
+  },
+  {
+    "name": "BANK SADERAT IRAN",
+    "name_cn": "伊朗萨德拉特银行",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "IR"
+  },
+  {
+    "name": "BANK TEJARAT",
+    "name_cn": "伊朗商业银行",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "IR"
+  },
+  {
+    "name": "DAEWOO INTERNATIONAL CORPORATION",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "KR"
+  },
+  {
+    "name": "IRAN AIR",
+    "name_cn": "伊朗航空",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "IR"
+  },
+  {
+    "name": "SYRIAN ARAB AIRLINES",
+    "name_cn": "叙利亚阿拉伯航空",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "SY"
+  },
+  {
+    "name": "AL BADER FOR COMMUNICATION AND COMPUTER",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "YE"
+  },
+  {
+    "name": "CNNPEC (CHINA NUCLEAR POWER ENGINEERING CO., LTD.)",
+    "name_cn": "中国核电工程有限公司",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "CN"
+  },
+  {
+    "name": "AVIC CHINA",
+    "name_cn": "中国航空工业集团",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "CN"
+  },
+  {
+    "name": "CETC CHINA",
+    "name_cn": "中国电子科技集团",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "CN"
+  },
+  {
+    "name": "HUAWEI TECHNOLOGIES CO., LTD.",
+    "name_cn": "华为技术有限公司",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "CN"
+  },
+  {
+    "name": "ZTE CORPORATION",
+    "name_cn": "中兴通讯股份有限公司",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "CN"
+  },
+  {
+    "name": "SUPER MICRO COMPUTER INC.",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "US"
+  },
+  {
+    "name": "CATHAY BANK",
+    "name_cn": "国泰银行",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "US"
+  },
+  {
+    "name": "UNION BANCAIRE POUR LE COMMERCE ET L INDUSTRIE",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "TN"
+  },
+  {
+    "name": "ALPHAPLUS CONSULTING INC.",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "AE"
+  },
+  {
+    "name": "RUSSIAN AIRCRAFT CORPORATION",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "RU"
+  },
+  {
+    "name": "UNITED AIRCRAFT CORPORATION",
+    "name_cn": "俄罗斯联合航空制造集团",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "RU"
+  },
+  {
+    "name": "ROSTEC STATE CORPORATION",
+    "name_cn": "俄罗斯国家技术集团",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "RU"
+  },
+  {
+    "name": "ALROSA",
+    "name_cn": "阿尔罗萨钻石公司",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "RU"
+  },
+  {
+    "name": "GAZPROM",
+    "name_cn": "俄罗斯天然气工业股份公司",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "RU"
+  },
+  {
+    "name": "ROSSIYA BANK",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "RU"
+  },
+  {
+    "name": "VTB BANK",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "RU"
+  },
+  {
+    "name": "SBERBANK",
+    "name_cn": "俄罗斯联邦储蓄银行",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "RU"
+  },
+  {
+    "name": "NOVATEK",
+    "name_cn": "诺瓦泰克公司",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "RU"
+  },
+  {
+    "name": "SEVERSTAL",
+    "name_cn": "谢韦尔钢铁公司",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "RU"
+  },
+  {
+    "name": "URALKALI",
+    "name_cn": "乌拉尔钾肥公司",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "RU"
+  },
+  {
+    "name": "VLADIMIR PUTIN",
+    "name_cn": "Vladimir Putin",
+    "list_type": "OFAC",
+    "id_type": "INDIVIDUAL",
+    "country": "RU"
+  },
+  {
+    "name": "SERGEI LAVROV",
+    "list_type": "OFAC",
+    "id_type": "INDIVIDUAL",
+    "country": "RU"
+  },
+  {
+    "name": "KIM JONG UN",
+    "name_cn": "金正恩",
+    "list_type": "OFAC",
+    "id_type": "INDIVIDUAL",
+    "country": "KP"
+  },
+  {
+    "name": "KIM JONG IL",
+    "name_cn": "金正日",
+    "list_type": "UN",
+    "id_type": "INDIVIDUAL",
+    "country": "KP"
+  },
+  {
+    "name": "BASHAR AL ASSAD",
+    "name_cn": "巴沙尔·阿萨德",
+    "list_type": "OFAC",
+    "id_type": "INDIVIDUAL",
+    "country": "SY"
+  },
+  {
+    "name": "ALI KHAMENEI",
+    "name_cn": "阿里·哈梅内伊",
+    "list_type": "OFAC",
+    "id_type": "INDIVIDUAL",
+    "country": "IR"
+  },
+  {
+    "name": "HASSAN NASRALLAH",
+    "list_type": "OFAC",
+    "id_type": "INDIVIDUAL",
+    "country": "LB"
+  },
+  {
+    "name": "MOHAMMED ZIA UL HAQ",
+    "list_type": "OFAC",
+    "id_type": "INDIVIDUAL",
+    "country": "PK"
+  },
+  {
+    "name": "OSAMA BIN LADEN",
+    "list_type": "UN",
+    "id_type": "INDIVIDUAL",
+    "country": "SA"
+  },
+  {
+    "name": "ABU BAKR AL BAGHDADI",
+    "list_type": "UN",
+    "id_type": "INDIVIDUAL",
+    "country": "IQ"
+  },
+  {
+    "name": "DMITRY MEDVEDEV",
+    "name_cn": "德米特里·梅德韦杰夫",
+    "list_type": "OFAC",
+    "id_type": "INDIVIDUAL",
+    "country": "RU"
+  },
+  {
+    "name": "WANG AL FAISAL",
+    "name_cn": "Wang Al Faisal",
+    "list_type": "BIS",
+    "id_type": "INDIVIDUAL",
+    "country": "RU"
+  },
+  {
+    "name": "TRADING YOON GROUP",
+    "name_cn": "TRADING 公司",
+    "list_type": "EU",
+    "id_type": "ENTITY",
+    "country": "SY"
+  },
+  {
+    "name": "TECHNOLOGY KUZNETSOV GROUP",
+    "name_cn": "TECHNOLOGY 公司",
+    "list_type": "EU",
+    "id_type": "ENTITY",
+    "country": "YE"
+  },
+  {
+    "name": "ENGINEERING PETROV S.A.",
+    "name_cn": "ENGINEERING 公司",
+    "list_type": "UN",
+    "id_type": "ENTITY",
+    "country": "KP"
+  },
+  {
+    "name": "LI IVANOV",
+    "name_cn": "Li Ivanov",
+    "list_type": "OFAC",
+    "id_type": "INDIVIDUAL",
+    "country": "SA"
+  },
+  {
+    "name": "ALI YOON",
+    "name_cn": "Ali Yoon",
+    "list_type": "OFAC",
+    "id_type": "INDIVIDUAL",
+    "country": "IQ"
+  },
+  {
+    "name": "TECHNOLOGY JUNG S.A.",
+    "name_cn": "TECHNOLOGY 公司",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "KP"
+  },
+  {
+    "name": "ENGINEERING AL QASIMI CORP.",
+    "name_cn": "ENGINEERING 公司",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "AF"
+  },
+  {
+    "name": "INVESTMENT AL QASIMI INC.",
+    "name_cn": "INVESTMENT 公司",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "SY"
+  },
+  {
+    "name": "ZHANG KANG",
+    "name_cn": "Zhang Kang",
+    "list_type": "BIS",
+    "id_type": "INDIVIDUAL",
+    "country": "YE"
+  },
+  {
+    "name": "LIU AL QASIMI",
+    "name_cn": "Liu Al Qasimi",
+    "list_type": "BIS",
+    "id_type": "INDIVIDUAL",
+    "country": "AE"
+  },
+  {
+    "name": "LOGISTICS CHOI LTD.",
+    "name_cn": "LOGISTICS 公司",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "AE"
+  },
+  {
+    "name": "CONSTRUCTION SINGH GMBH",
+    "name_cn": "CONSTRUCTION 公司",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "SY"
+  },
+  {
+    "name": "ALI PETROV",
+    "name_cn": "Ali Petrov",
+    "list_type": "OFAC",
+    "id_type": "INDIVIDUAL",
+    "country": "SA"
+  },
+  {
+    "name": "ANDREI PETROV",
+    "name_cn": "Andrei Petrov",
+    "list_type": "OFAC",
+    "id_type": "INDIVIDUAL",
+    "country": "AF"
+  },
+  {
+    "name": "LI SINGH",
+    "name_cn": "Li Singh",
+    "list_type": "OFAC",
+    "id_type": "INDIVIDUAL",
+    "country": "SY"
+  },
+  {
+    "name": "IMPORT AND EXPORT POPOV JSC",
+    "name_cn": "IMPORT AND EXPORT 公司",
+    "list_type": "EU",
+    "id_type": "ENTITY",
+    "country": "SY"
+  },
+  {
+    "name": "SERGEI IVANOV",
+    "name_cn": "Sergei Ivanov",
+    "list_type": "BIS",
+    "id_type": "INDIVIDUAL",
+    "country": "IR"
+  },
+  {
+    "name": "VLADIMIR POPOV",
+    "name_cn": "Vladimir Popov",
+    "list_type": "BIS",
+    "id_type": "INDIVIDUAL",
+    "country": "IR"
+  },
+  {
+    "name": "IVAN PETROV",
+    "name_cn": "Ivan Petrov",
+    "list_type": "BIS",
+    "id_type": "INDIVIDUAL",
+    "country": "CN"
+  },
+  {
+    "name": "SHIPPING SOKOLOV S.R.L.",
+    "name_cn": "SHIPPING 公司",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "AE"
+  },
+  {
+    "name": "AHMAD KANG",
+    "name_cn": "Ahmad Kang",
+    "list_type": "UN",
+    "id_type": "INDIVIDUAL",
+    "country": "AE"
+  },
+  {
+    "name": "SHIPPING POPOV JSC",
+    "name_cn": "SHIPPING 公司",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "AF"
+  },
+  {
+    "name": "SHIPPING PARK S.A.",
+    "name_cn": "SHIPPING 公司",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "SA"
+  },
+  {
+    "name": "LIU PATEL",
+    "name_cn": "Liu Patel",
+    "list_type": "BIS",
+    "id_type": "INDIVIDUAL",
+    "country": "SY"
+  },
+  {
+    "name": "ANDREI KUZNETSOV",
+    "name_cn": "Andrei Kuznetsov",
+    "list_type": "OFAC",
+    "id_type": "INDIVIDUAL",
+    "country": "IR"
+  },
+  {
+    "name": "INVESTMENT PATEL GROUP",
+    "name_cn": "INVESTMENT 公司",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "SA"
+  },
+  {
+    "name": "DMITRY SOKOLOV",
+    "name_cn": "Dmitry Sokolov",
+    "list_type": "UN",
+    "id_type": "INDIVIDUAL",
+    "country": "SA"
+  },
+  {
+    "name": "WANG PATEL",
+    "name_cn": "Wang Patel",
+    "list_type": "BIS",
+    "id_type": "INDIVIDUAL",
+    "country": "RU"
+  },
+  {
+    "name": "MOHAMMED PARK",
+    "name_cn": "Mohammed Park",
+    "list_type": "UN",
+    "id_type": "INDIVIDUAL",
+    "country": "IQ"
+  },
+  {
+    "name": "ALI AL FAISAL",
+    "name_cn": "Ali Al Faisal",
+    "list_type": "BIS",
+    "id_type": "INDIVIDUAL",
+    "country": "AF"
+  },
+  {
+    "name": "IMPORT AND EXPORT AL MAKTOUM GMBH",
+    "name_cn": "IMPORT AND EXPORT 公司",
+    "list_type": "EU",
+    "id_type": "ENTITY",
+    "country": "AE"
+  },
+  {
+    "name": "ENGINEERING AL MAKTOUM GMBH",
+    "name_cn": "ENGINEERING 公司",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "SA"
+  },
+  {
+    "name": "MOHAMMED KUZNETSOV",
+    "name_cn": "Mohammed Kuznetsov",
+    "list_type": "OFAC",
+    "id_type": "INDIVIDUAL",
+    "country": "IQ"
+  },
+  {
+    "name": "CHEN PARK",
+    "name_cn": "Chen Park",
+    "list_type": "BIS",
+    "id_type": "INDIVIDUAL",
+    "country": "CN"
+  },
+  {
+    "name": "IMPORT AND EXPORT PATEL S.A.",
+    "name_cn": "IMPORT AND EXPORT 公司",
+    "list_type": "EU",
+    "id_type": "ENTITY",
+    "country": "CN"
+  },
+  {
+    "name": "MOHAMMED AL MAKTOUM",
+    "name_cn": "Mohammed Al Maktoum",
+    "list_type": "OFAC",
+    "id_type": "INDIVIDUAL",
+    "country": "AF"
+  },
+  {
+    "name": "TECHNOLOGY KANG INC.",
+    "name_cn": "TECHNOLOGY 公司",
+    "list_type": "EU",
+    "id_type": "ENTITY",
+    "country": "IR"
+  },
+  {
+    "name": "SERGEI AL QASIMI",
+    "name_cn": "Sergei Al Qasimi",
+    "list_type": "OFAC",
+    "id_type": "INDIVIDUAL",
+    "country": "KP"
+  },
+  {
+    "name": "LIU KIM",
+    "name_cn": "Liu Kim",
+    "list_type": "OFAC",
+    "id_type": "INDIVIDUAL",
+    "country": "AE"
+  },
+  {
+    "name": "INVESTMENT KUZNETSOV S.R.L.",
+    "name_cn": "INVESTMENT 公司",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "CN"
+  },
+  {
+    "name": "DMITRY IVANOV",
+    "name_cn": "Dmitry Ivanov",
+    "list_type": "BIS",
+    "id_type": "INDIVIDUAL",
+    "country": "IR"
+  },
+  {
+    "name": "PETROCHEMICAL PATEL CO., LTD.",
+    "name_cn": "PETROCHEMICAL 公司",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "SY"
+  },
+  {
+    "name": "VLADIMIR KIM",
+    "name_cn": "Vladimir Kim",
+    "list_type": "OFAC",
+    "id_type": "INDIVIDUAL",
+    "country": "KP"
+  },
+  {
+    "name": "SERGEI JUNG",
+    "name_cn": "Sergei Jung",
+    "list_type": "OFAC",
+    "id_type": "INDIVIDUAL",
+    "country": "CN"
+  },
+  {
+    "name": "CONSTRUCTION CHOI GROUP",
+    "name_cn": "CONSTRUCTION 公司",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "AE"
+  },
+  {
+    "name": "LOGISTICS KIM GROUP",
+    "name_cn": "LOGISTICS 公司",
+    "list_type": "UN",
+    "id_type": "ENTITY",
+    "country": "AF"
+  },
+  {
+    "name": "LI POPOV",
+    "name_cn": "Li Popov",
+    "list_type": "OFAC",
+    "id_type": "INDIVIDUAL",
+    "country": "AE"
+  },
+  {
+    "name": "IVAN AL QASIMI",
+    "name_cn": "Ivan Al Qasimi",
+    "list_type": "BIS",
+    "id_type": "INDIVIDUAL",
+    "country": "IQ"
+  },
+  {
+    "name": "LOGISTICS IVANOV LTD.",
+    "name_cn": "LOGISTICS 公司",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "IQ"
+  },
+  {
+    "name": "INVESTMENT KIM CORP.",
+    "name_cn": "INVESTMENT 公司",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "SA"
+  },
+  {
+    "name": "HASSAN JUNG",
+    "name_cn": "Hassan Jung",
+    "list_type": "EU",
+    "id_type": "INDIVIDUAL",
+    "country": "IQ"
+  },
+  {
+    "name": "LOGISTICS AL QASIMI CO., LTD.",
+    "name_cn": "LOGISTICS 公司",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "IQ"
+  },
+  {
+    "name": "HASSAN AL FAISAL",
+    "name_cn": "Hassan Al Faisal",
+    "list_type": "BIS",
+    "id_type": "INDIVIDUAL",
+    "country": "YE"
+  },
+  {
+    "name": "TRADING KANG JSC",
+    "name_cn": "TRADING 公司",
+    "list_type": "UN",
+    "id_type": "ENTITY",
+    "country": "RU"
+  },
+  {
+    "name": "ALI KANG",
+    "name_cn": "Ali Kang",
+    "list_type": "BIS",
+    "id_type": "INDIVIDUAL",
+    "country": "CN"
+  },
+  {
+    "name": "LOGISTICS AL SAUD S.R.L.",
+    "name_cn": "LOGISTICS 公司",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "SA"
+  },
+  {
+    "name": "DMITRY CHO",
+    "name_cn": "Dmitry Cho",
+    "list_type": "OFAC",
+    "id_type": "INDIVIDUAL",
+    "country": "IQ"
+  },
+  {
+    "name": "IVAN POPOV",
+    "name_cn": "Ivan Popov",
+    "list_type": "UN",
+    "id_type": "INDIVIDUAL",
+    "country": "IR"
+  },
+  {
+    "name": "MANUFACTURING SOKOLOV S.R.L.",
+    "name_cn": "MANUFACTURING 公司",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "IQ"
+  },
+  {
+    "name": "PETROCHEMICAL AL SAUD INC.",
+    "name_cn": "PETROCHEMICAL 公司",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "IR"
+  },
+  {
+    "name": "AHMAD YOON",
+    "name_cn": "Ahmad Yoon",
+    "list_type": "BIS",
+    "id_type": "INDIVIDUAL",
+    "country": "AE"
+  },
+  {
+    "name": "WANG PETROV",
+    "name_cn": "Wang Petrov",
+    "list_type": "UN",
+    "id_type": "INDIVIDUAL",
+    "country": "IQ"
+  },
+  {
+    "name": "PETROCHEMICAL CHO GMBH",
+    "name_cn": "PETROCHEMICAL 公司",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "AE"
+  },
+  {
+    "name": "CONSTRUCTION JUNG LTD.",
+    "name_cn": "CONSTRUCTION 公司",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "SA"
+  },
+  {
+    "name": "MOHAMMED AL FAISAL",
+    "name_cn": "Mohammed Al Faisal",
+    "list_type": "OFAC",
+    "id_type": "INDIVIDUAL",
+    "country": "AF"
+  },
+  {
+    "name": "MOHAMMED SOKOLOV",
+    "name_cn": "Mohammed Sokolov",
+    "list_type": "UN",
+    "id_type": "INDIVIDUAL",
+    "country": "SY"
+  },
+  {
+    "name": "SHIPPING CHOI CORP.",
+    "name_cn": "SHIPPING 公司",
+    "list_type": "UN",
+    "id_type": "ENTITY",
+    "country": "RU"
+  },
+  {
+    "name": "SHIPPING AL QASIMI LLC",
+    "name_cn": "SHIPPING 公司",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "SA"
+  },
+  {
+    "name": "ENGINEERING AL QASIMI LLC",
+    "name_cn": "ENGINEERING 公司",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "IQ"
+  },
+  {
+    "name": "LIU SINGH",
+    "name_cn": "Liu Singh",
+    "list_type": "BIS",
+    "id_type": "INDIVIDUAL",
+    "country": "CN"
+  },
+  {
+    "name": "ZHANG JUNG",
+    "name_cn": "Zhang Jung",
+    "list_type": "BIS",
+    "id_type": "INDIVIDUAL",
+    "country": "CN"
+  },
+  {
+    "name": "HASSAN PARK",
+    "name_cn": "Hassan Park",
+    "list_type": "EU",
+    "id_type": "INDIVIDUAL",
+    "country": "KP"
+  },
+  {
+    "name": "LI AL FAISAL",
+    "name_cn": "Li Al Faisal",
+    "list_type": "BIS",
+    "id_type": "INDIVIDUAL",
+    "country": "AE"
+  },
+  {
+    "name": "VLADIMIR JUNG",
+    "name_cn": "Vladimir Jung",
+    "list_type": "OFAC",
+    "id_type": "INDIVIDUAL",
+    "country": "IQ"
+  },
+  {
+    "name": "LIU SOKOLOV",
+    "name_cn": "Liu Sokolov",
+    "list_type": "EU",
+    "id_type": "INDIVIDUAL",
+    "country": "IR"
+  },
+  {
+    "name": "ALI JUNG",
+    "name_cn": "Ali Jung",
+    "list_type": "UN",
+    "id_type": "INDIVIDUAL",
+    "country": "CN"
+  },
+  {
+    "name": "SHIPPING SINGH S.A.",
+    "name_cn": "SHIPPING 公司",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "KP"
+  },
+  {
+    "name": "CONSTRUCTION KUZNETSOV LLC",
+    "name_cn": "CONSTRUCTION 公司",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "CN"
+  },
+  {
+    "name": "CONSTRUCTION AL SAUD GROUP",
+    "name_cn": "CONSTRUCTION 公司",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "IQ"
+  },
+  {
+    "name": "SHIPPING PARK INC.",
+    "name_cn": "SHIPPING 公司",
+    "list_type": "EU",
+    "id_type": "ENTITY",
+    "country": "KP"
+  },
+  {
+    "name": "CONSTRUCTION AL QASIMI INC.",
+    "name_cn": "CONSTRUCTION 公司",
+    "list_type": "UN",
+    "id_type": "ENTITY",
+    "country": "IQ"
+  },
+  {
+    "name": "MANUFACTURING AL MAKTOUM GMBH",
+    "name_cn": "MANUFACTURING 公司",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "IR"
+  },
+  {
+    "name": "INVESTMENT PATEL GMBH",
+    "name_cn": "INVESTMENT 公司",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "CN"
+  },
+  {
+    "name": "HUSSEIN SINGH",
+    "name_cn": "Hussein Singh",
+    "list_type": "UN",
+    "id_type": "INDIVIDUAL",
+    "country": "SA"
+  },
+  {
+    "name": "DMITRY PETROV",
+    "name_cn": "Dmitry Petrov",
+    "list_type": "BIS",
+    "id_type": "INDIVIDUAL",
+    "country": "CN"
+  },
+  {
+    "name": "SHIPPING AL SAUD GMBH",
+    "name_cn": "SHIPPING 公司",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "AE"
+  },
+  {
+    "name": "IMPORT AND EXPORT YOON JSC",
+    "name_cn": "IMPORT AND EXPORT 公司",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "AE"
+  },
+  {
+    "name": "MOHAMMED PETROV",
+    "name_cn": "Mohammed Petrov",
+    "list_type": "OFAC",
+    "id_type": "INDIVIDUAL",
+    "country": "KP"
+  },
+  {
+    "name": "TRADING KHAN GMBH",
+    "name_cn": "TRADING 公司",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "IQ"
+  },
+  {
+    "name": "HASSAN CHOI",
+    "name_cn": "Hassan Choi",
+    "list_type": "BIS",
+    "id_type": "INDIVIDUAL",
+    "country": "CN"
+  },
+  {
+    "name": "PETROCHEMICAL SINGH CO., LTD.",
+    "name_cn": "PETROCHEMICAL 公司",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "YE"
+  },
+  {
+    "name": "SHIPPING KUZNETSOV CO., LTD.",
+    "name_cn": "SHIPPING 公司",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "YE"
+  },
+  {
+    "name": "ALI AL MAKTOUM",
+    "name_cn": "Ali Al Maktoum",
+    "list_type": "BIS",
+    "id_type": "INDIVIDUAL",
+    "country": "AF"
+  },
+  {
+    "name": "CONSTRUCTION SOKOLOV LTD.",
+    "name_cn": "CONSTRUCTION 公司",
+    "list_type": "EU",
+    "id_type": "ENTITY",
+    "country": "IQ"
+  },
+  {
+    "name": "ALI PATEL",
+    "name_cn": "Ali Patel",
+    "list_type": "BIS",
+    "id_type": "INDIVIDUAL",
+    "country": "IR"
+  },
+  {
+    "name": "ENGINEERING KANG JSC",
+    "name_cn": "ENGINEERING 公司",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "SA"
+  },
+  {
+    "name": "PETROCHEMICAL YOON CO., LTD.",
+    "name_cn": "PETROCHEMICAL 公司",
+    "list_type": "EU",
+    "id_type": "ENTITY",
+    "country": "AF"
+  },
+  {
+    "name": "AHMAD PATEL",
+    "name_cn": "Ahmad Patel",
+    "list_type": "BIS",
+    "id_type": "INDIVIDUAL",
+    "country": "YE"
+  },
+  {
+    "name": "LOGISTICS KIM LTD.",
+    "name_cn": "LOGISTICS 公司",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "RU"
+  },
+  {
+    "name": "VLADIMIR SINGH",
+    "name_cn": "Vladimir Singh",
+    "list_type": "BIS",
+    "id_type": "INDIVIDUAL",
+    "country": "SY"
+  },
+  {
+    "name": "LIU AL MAKTOUM",
+    "name_cn": "Liu Al Maktoum",
+    "list_type": "BIS",
+    "id_type": "INDIVIDUAL",
+    "country": "AE"
+  },
+  {
+    "name": "PETROCHEMICAL KIM INC.",
+    "name_cn": "PETROCHEMICAL 公司",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "RU"
+  },
+  {
+    "name": "INVESTMENT KANG GMBH",
+    "name_cn": "INVESTMENT 公司",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "YE"
+  },
+  {
+    "name": "AHMAD AL FAISAL",
+    "name_cn": "Ahmad Al Faisal",
+    "list_type": "OFAC",
+    "id_type": "INDIVIDUAL",
+    "country": "CN"
+  },
+  {
+    "name": "WANG CHOI",
+    "name_cn": "Wang Choi",
+    "list_type": "BIS",
+    "id_type": "INDIVIDUAL",
+    "country": "AF"
+  },
+  {
+    "name": "TRADING POPOV S.A.",
+    "name_cn": "TRADING 公司",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "IR"
+  },
+  {
+    "name": "MANUFACTURING KUZNETSOV CORP.",
+    "name_cn": "MANUFACTURING 公司",
+    "list_type": "UN",
+    "id_type": "ENTITY",
+    "country": "YE"
+  },
+  {
+    "name": "DMITRY AL FAISAL",
+    "name_cn": "Dmitry Al Faisal",
+    "list_type": "OFAC",
+    "id_type": "INDIVIDUAL",
+    "country": "CN"
+  },
+  {
+    "name": "SERGEI PATEL",
+    "name_cn": "Sergei Patel",
+    "list_type": "BIS",
+    "id_type": "INDIVIDUAL",
+    "country": "SY"
+  },
+  {
+    "name": "PETROCHEMICAL AL SAUD LLC",
+    "name_cn": "PETROCHEMICAL 公司",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "AF"
+  },
+  {
+    "name": "MANUFACTURING PARK GROUP",
+    "name_cn": "MANUFACTURING 公司",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "IQ"
+  },
+  {
+    "name": "SERGEI CHOI",
+    "name_cn": "Sergei Choi",
+    "list_type": "OFAC",
+    "id_type": "INDIVIDUAL",
+    "country": "CN"
+  },
+  {
+    "name": "HASSAN POPOV",
+    "name_cn": "Hassan Popov",
+    "list_type": "OFAC",
+    "id_type": "INDIVIDUAL",
+    "country": "IQ"
+  },
+  {
+    "name": "CONSTRUCTION PARK S.A.",
+    "name_cn": "CONSTRUCTION 公司",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "RU"
+  },
+  {
+    "name": "IVAN CHOI",
+    "name_cn": "Ivan Choi",
+    "list_type": "UN",
+    "id_type": "INDIVIDUAL",
+    "country": "IQ"
+  },
+  {
+    "name": "LI KHAN",
+    "name_cn": "Li Khan",
+    "list_type": "BIS",
+    "id_type": "INDIVIDUAL",
+    "country": "CN"
+  },
+  {
+    "name": "PETROCHEMICAL IVANOV S.R.L.",
+    "name_cn": "PETROCHEMICAL 公司",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "AE"
+  },
+  {
+    "name": "CONSTRUCTION AL FAISAL GROUP",
+    "name_cn": "CONSTRUCTION 公司",
+    "list_type": "EU",
+    "id_type": "ENTITY",
+    "country": "IR"
+  },
+  {
+    "name": "ALI AL QASIMI",
+    "name_cn": "Ali Al Qasimi",
+    "list_type": "OFAC",
+    "id_type": "INDIVIDUAL",
+    "country": "KP"
+  },
+  {
+    "name": "MOHAMMED KHAN",
+    "name_cn": "Mohammed Khan",
+    "list_type": "OFAC",
+    "id_type": "INDIVIDUAL",
+    "country": "SY"
+  },
+  {
+    "name": "VLADIMIR AL FAISAL",
+    "name_cn": "Vladimir Al Faisal",
+    "list_type": "OFAC",
+    "id_type": "INDIVIDUAL",
+    "country": "RU"
+  },
+  {
+    "name": "TECHNOLOGY CHOI LTD.",
+    "name_cn": "TECHNOLOGY 公司",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "CN"
+  },
+  {
+    "name": "INVESTMENT AL MAKTOUM GROUP",
+    "name_cn": "INVESTMENT 公司",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "AF"
+  },
+  {
+    "name": "MANUFACTURING CHOI CORP.",
+    "name_cn": "MANUFACTURING 公司",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "IQ"
+  },
+  {
+    "name": "IMPORT AND EXPORT CHOI LTD.",
+    "name_cn": "IMPORT AND EXPORT 公司",
+    "list_type": "UN",
+    "id_type": "ENTITY",
+    "country": "IQ"
+  },
+  {
+    "name": "SHIPPING AL QASIMI S.A.",
+    "name_cn": "SHIPPING 公司",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "IQ"
+  },
+  {
+    "name": "DMITRY KUZNETSOV",
+    "name_cn": "Dmitry Kuznetsov",
+    "list_type": "BIS",
+    "id_type": "INDIVIDUAL",
+    "country": "YE"
+  },
+  {
+    "name": "LIU AL SAUD",
+    "name_cn": "Liu Al Saud",
+    "list_type": "UN",
+    "id_type": "INDIVIDUAL",
+    "country": "IR"
+  },
+  {
+    "name": "SHIPPING YOON GMBH",
+    "name_cn": "SHIPPING 公司",
+    "list_type": "UN",
+    "id_type": "ENTITY",
+    "country": "IR"
+  },
+  {
+    "name": "LI CHO",
+    "name_cn": "Li Cho",
+    "list_type": "BIS",
+    "id_type": "INDIVIDUAL",
+    "country": "KP"
+  },
+  {
+    "name": "PETROCHEMICAL SOKOLOV INC.",
+    "name_cn": "PETROCHEMICAL 公司",
+    "list_type": "UN",
+    "id_type": "ENTITY",
+    "country": "IR"
+  },
+  {
+    "name": "ALI POPOV",
+    "name_cn": "Ali Popov",
+    "list_type": "BIS",
+    "id_type": "INDIVIDUAL",
+    "country": "IQ"
+  },
+  {
+    "name": "AHMAD KUZNETSOV",
+    "name_cn": "Ahmad Kuznetsov",
+    "list_type": "EU",
+    "id_type": "INDIVIDUAL",
+    "country": "IR"
+  },
+  {
+    "name": "INVESTMENT KUZNETSOV JSC",
+    "name_cn": "INVESTMENT 公司",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "AF"
+  },
+  {
+    "name": "MANUFACTURING AL FAISAL S.R.L.",
+    "name_cn": "MANUFACTURING 公司",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "AF"
+  },
+  {
+    "name": "CHEN PETROV",
+    "name_cn": "Chen Petrov",
+    "list_type": "OFAC",
+    "id_type": "INDIVIDUAL",
+    "country": "AF"
+  },
+  {
+    "name": "PETROCHEMICAL CHO S.R.L.",
+    "name_cn": "PETROCHEMICAL 公司",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "SY"
+  },
+  {
+    "name": "TRADING SOKOLOV LTD.",
+    "name_cn": "TRADING 公司",
+    "list_type": "UN",
+    "id_type": "ENTITY",
+    "country": "SY"
+  },
+  {
+    "name": "TRADING IVANOV CO., LTD.",
+    "name_cn": "TRADING 公司",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "KP"
+  },
+  {
+    "name": "IMPORT AND EXPORT CHO INC.",
+    "name_cn": "IMPORT AND EXPORT 公司",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "IQ"
+  },
+  {
+    "name": "CHEN CHO",
+    "name_cn": "Chen Cho",
+    "list_type": "OFAC",
+    "id_type": "INDIVIDUAL",
+    "country": "IQ"
+  },
+  {
+    "name": "LI YOON",
+    "name_cn": "Li Yoon",
+    "list_type": "EU",
+    "id_type": "INDIVIDUAL",
+    "country": "AF"
+  },
+  {
+    "name": "IVAN KIM",
+    "name_cn": "Ivan Kim",
+    "list_type": "EU",
+    "id_type": "INDIVIDUAL",
+    "country": "SY"
+  },
+  {
+    "name": "CONSTRUCTION KIM CO., LTD.",
+    "name_cn": "CONSTRUCTION 公司",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "AE"
+  },
+  {
+    "name": "HASSAN PATEL",
+    "name_cn": "Hassan Patel",
+    "list_type": "OFAC",
+    "id_type": "INDIVIDUAL",
+    "country": "RU"
+  },
+  {
+    "name": "HASSAN PETROV",
+    "name_cn": "Hassan Petrov",
+    "list_type": "BIS",
+    "id_type": "INDIVIDUAL",
+    "country": "RU"
+  },
+  {
+    "name": "HUSSEIN PATEL",
+    "name_cn": "Hussein Patel",
+    "list_type": "OFAC",
+    "id_type": "INDIVIDUAL",
+    "country": "AE"
+  },
+  {
+    "name": "DMITRY KANG",
+    "name_cn": "Dmitry Kang",
+    "list_type": "OFAC",
+    "id_type": "INDIVIDUAL",
+    "country": "RU"
+  },
+  {
+    "name": "LOGISTICS AL SAUD INC.",
+    "name_cn": "LOGISTICS 公司",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "YE"
+  },
+  {
+    "name": "INVESTMENT AL MAKTOUM S.A.",
+    "name_cn": "INVESTMENT 公司",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "AF"
+  },
+  {
+    "name": "SERGEI YOON",
+    "name_cn": "Sergei Yoon",
+    "list_type": "OFAC",
+    "id_type": "INDIVIDUAL",
+    "country": "IQ"
+  },
+  {
+    "name": "MOHAMMED JUNG",
+    "name_cn": "Mohammed Jung",
+    "list_type": "UN",
+    "id_type": "INDIVIDUAL",
+    "country": "CN"
+  },
+  {
+    "name": "INVESTMENT KHAN CO., LTD.",
+    "name_cn": "INVESTMENT 公司",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "IR"
+  },
+  {
+    "name": "WANG KIM",
+    "name_cn": "Wang Kim",
+    "list_type": "OFAC",
+    "id_type": "INDIVIDUAL",
+    "country": "AF"
+  },
+  {
+    "name": "TRADING KANG GROUP",
+    "name_cn": "TRADING 公司",
+    "list_type": "EU",
+    "id_type": "ENTITY",
+    "country": "IR"
+  },
+  {
+    "name": "HASSAN KUZNETSOV",
+    "name_cn": "Hassan Kuznetsov",
+    "list_type": "BIS",
+    "id_type": "INDIVIDUAL",
+    "country": "YE"
+  },
+  {
+    "name": "ENGINEERING POPOV GROUP",
+    "name_cn": "ENGINEERING 公司",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "YE"
+  },
+  {
+    "name": "TECHNOLOGY YOON CORP.",
+    "name_cn": "TECHNOLOGY 公司",
+    "list_type": "UN",
+    "id_type": "ENTITY",
+    "country": "SA"
+  },
+  {
+    "name": "INVESTMENT PETROV CORP.",
+    "name_cn": "INVESTMENT 公司",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "AE"
+  },
+  {
+    "name": "TECHNOLOGY IVANOV CORP.",
+    "name_cn": "TECHNOLOGY 公司",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "AE"
+  },
+  {
+    "name": "PETROCHEMICAL PETROV JSC",
+    "name_cn": "PETROCHEMICAL 公司",
+    "list_type": "UN",
+    "id_type": "ENTITY",
+    "country": "YE"
+  },
+  {
+    "name": "LI AL SAUD",
+    "name_cn": "Li Al Saud",
+    "list_type": "OFAC",
+    "id_type": "INDIVIDUAL",
+    "country": "AE"
+  },
+  {
+    "name": "LI CHOI",
+    "name_cn": "Li Choi",
+    "list_type": "BIS",
+    "id_type": "INDIVIDUAL",
+    "country": "AE"
+  },
+  {
+    "name": "LIU KHAN",
+    "name_cn": "Liu Khan",
+    "list_type": "OFAC",
+    "id_type": "INDIVIDUAL",
+    "country": "YE"
+  },
+  {
+    "name": "ANDREI CHO",
+    "name_cn": "Andrei Cho",
+    "list_type": "BIS",
+    "id_type": "INDIVIDUAL",
+    "country": "IQ"
+  },
+  {
+    "name": "LIU CHO",
+    "name_cn": "Liu Cho",
+    "list_type": "BIS",
+    "id_type": "INDIVIDUAL",
+    "country": "AE"
+  },
+  {
+    "name": "SHIPPING PATEL CORP.",
+    "name_cn": "SHIPPING 公司",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "CN"
+  },
+  {
+    "name": "TRADING PETROV LTD.",
+    "name_cn": "TRADING 公司",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "AE"
+  },
+  {
+    "name": "INVESTMENT AL SAUD CORP.",
+    "name_cn": "INVESTMENT 公司",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "IR"
+  },
+  {
+    "name": "MOHAMMED SINGH",
+    "name_cn": "Mohammed Singh",
+    "list_type": "BIS",
+    "id_type": "INDIVIDUAL",
+    "country": "IQ"
+  },
+  {
+    "name": "CONSTRUCTION SOKOLOV S.R.L.",
+    "name_cn": "CONSTRUCTION 公司",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "CN"
+  },
+  {
+    "name": "TECHNOLOGY KUZNETSOV INC.",
+    "name_cn": "TECHNOLOGY 公司",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "YE"
+  },
+  {
+    "name": "HASSAN KHAN",
+    "name_cn": "Hassan Khan",
+    "list_type": "OFAC",
+    "id_type": "INDIVIDUAL",
+    "country": "CN"
+  },
+  {
+    "name": "TRADING JUNG S.A.",
+    "name_cn": "TRADING 公司",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "AE"
+  },
+  {
+    "name": "CONSTRUCTION PARK CO., LTD.",
+    "name_cn": "CONSTRUCTION 公司",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "SY"
+  },
+  {
+    "name": "ALI CHOI",
+    "name_cn": "Ali Choi",
+    "list_type": "OFAC",
+    "id_type": "INDIVIDUAL",
+    "country": "AE"
+  },
+  {
+    "name": "IVAN JUNG",
+    "name_cn": "Ivan Jung",
+    "list_type": "BIS",
+    "id_type": "INDIVIDUAL",
+    "country": "AE"
+  },
+  {
+    "name": "IMPORT AND EXPORT CHO S.A.",
+    "name_cn": "IMPORT AND EXPORT 公司",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "YE"
+  },
+  {
+    "name": "LOGISTICS CHOI GROUP",
+    "name_cn": "LOGISTICS 公司",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "YE"
+  },
+  {
+    "name": "MANUFACTURING KUZNETSOV INC.",
+    "name_cn": "MANUFACTURING 公司",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "AF"
+  },
+  {
+    "name": "SHIPPING KHAN GROUP",
+    "name_cn": "SHIPPING 公司",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "KP"
+  },
+  {
+    "name": "MANUFACTURING AL FAISAL LTD.",
+    "name_cn": "MANUFACTURING 公司",
+    "list_type": "BIS",
+    "id_type": "ENTITY",
+    "country": "AF"
+  },
+  {
+    "name": "CONSTRUCTION PETROV S.R.L.",
+    "name_cn": "CONSTRUCTION 公司",
+    "list_type": "OFAC",
+    "id_type": "ENTITY",
+    "country": "SY"
+  },
+  {
+    "name": "LI PETROV",
+    "name_cn": "Li Petrov",
+    "list_type": "OFAC",
+    "id_type": "INDIVIDUAL",
+    "country": "AE"
+  },
+  {
+    "name": "AHMAD AL MAKTOUM",
+    "name_cn": "Ahmad Al Maktoum",
+    "list_type": "BIS",
+    "id_type": "INDIVIDUAL",
+    "country": "RU"
+  }
+]

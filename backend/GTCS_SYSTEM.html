@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GTCS 全球贸易通关系统 v2.0</title>
+<!-- Vue 3 + Element Plus 生产版 CDN -->
+<script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+<script src="https://unpkg.com/element-plus"></script>
+<link rel="stylesheet" href="https://unpkg.com/element-plus/dist/index.css">
+<!-- dayjs 国际化 -->
+<script src="https://unpkg.com/dayjs"></script>
+<!-- Font Awesome 图标库 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei', sans-serif; background: #f0f2f5; color: #333; }
+:root { --primary: #001529; --accent: #409EFF; --success: #67C23A; --warning: #E6A23C; --danger: #F56C6C; --info: #909399; --bg: #f0f2f5; --card: #fff; --shadow: 0 2px 12px rgba(0,0,0,.08); }
+
+/* Login */
+.login-page { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: linear-gradient(135deg, #001529 0%, #003366 100%); }
+.login-card { width: 420px; padding: 40px; background: #fff; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,.3); }
+.login-card .logo { text-align: center; margin-bottom: 32px; }
+.login-card .logo i { font-size: 48px; color: var(--accent); }
+.login-card .logo h1 { font-size: 22px; margin-top: 8px; color: var(--primary); }
+.login-card .logo p { font-size: 13px; color: #999; margin-top: 4px; }
+.login-card .el-button--primary { width: 100%; height: 44px; font-size: 16px; }
+.login-card .footer-hint { text-align: center; color: #bbb; font-size: 12px; margin-top: 16px; }
+
+/* Layout */
+.app-container { display: flex; flex-direction: column; height: 100vh; }
+.app-header { background: var(--primary); color: #fff; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; height: 56px; flex-shrink: 0; }
+.app-header .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 17px; }
+.app-header .brand i { font-size: 24px; color: var(--accent); }
+.app-header .user-area { display: flex; align-items: center; gap: 12px; font-size: 13px; }
+.app-body { display: flex; flex: 1; overflow: hidden; }
+.app-sidebar { width: 220px; background: var(--primary); overflow-y: auto; flex-shrink: 0; }
+.app-sidebar .menu-item { display: flex; align-items: center; gap: 10px; padding: 14px 20px; color: rgba(255,255,255,.7); cursor: pointer; transition: all .2s; font-size: 14px; border-left: 3px solid transparent; }
+.app-sidebar .menu-item:hover { color: #fff; background: rgba(255,255,255,.05); }
+.app-sidebar .menu-item.active { color: #fff; background: rgba(64,158,255,.2); border-left-color: var(--accent); }
+.app-main { flex: 1; overflow-y: auto; padding: 20px; background: var(--bg); }
+
+/* Page styles */
+.page-title { font-size: 18px; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+.page-title i { color: var(--accent); }
+
+/* Dashboard */
+.dash-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; margin-bottom: 20px; }
+.stat-card { background: var(--card); border-radius: 8px; padding: 20px; box-shadow: var(--shadow); display: flex; justify-content: space-between; align-items: center; }
+.stat-card .stat-num { font-size: 32px; font-weight: 700; }
+.stat-card .stat-label { font-size: 13px; color: #999; margin-top: 2px; }
+.stat-card .stat-icon { font-size: 36px; opacity: .15; }
+.dash-panels { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.dash-panel { background: var(--card); border-radius: 8px; box-shadow: var(--shadow); padding: 20px; }
+.dash-panel h3 { font-size: 15px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+.quick-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.quick-actions .el-button { flex: 1; min-width: 120px; }
+.module-list .module-row { display: flex; align-items: center; padding: 8px 0; border-bottom: 1px solid #f0f0f0; font-size: 13px; }
+.module-list .module-row i { width: 20px; margin-right: 10px; }
+
+/* Cards */
+.search-card { background: var(--card); border-radius: 8px; box-shadow: var(--shadow); padding: 20px; margin-bottom: 16px; }
+.result-card { background: var(--card); border-radius: 8px; box-shadow: var(--shadow); padding: 20px; }
+
+/* Result table */
+.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+.info-grid > div { padding: 10px 16px; border-bottom: 1px solid #f0f0f0; display: flex; justify-content: space-between; font-size: 13px; }
+.info-grid > div .label { color: #666; }
+.info-grid > div .value { font-weight: 500; }
+
+/* Cost visual bar */
+.cost-bar { display: flex; gap: 4px; height: 40px; margin-top: 12px; border-radius: 6px; overflow: hidden; }
+.cost-bar-seg { display: flex; align-items: center; justify-content: center; color: #fff; font-size: 11px; transition: flex .3s; min-width: 40px; }
+
+/* Alerts */
+.alert-item { padding: 12px; border-radius: 6px; margin-bottom: 8px; border-left: 4px solid; }
+.alert-item.high { background: #fef0f0; border-color: var(--danger); }
+.alert-item.medium { background: #fdf6ec; border-color: var(--warning); }
+.alert-item.low { background: #ecf5ff; border-color: var(--accent); }
+
+/* Status flow */
+.flow-steps { display: flex; align-items: center; gap: 0; margin: 20px 0; }
+.flow-step { display: flex; align-items: center; }
+.flow-step .dot { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; }
+.flow-step .dot.active { background: var(--accent); color: #fff; }
+.flow-step .dot.done { background: var(--success); color: #fff; }
+.flow-step .dot.pending { background: #e8e8e8; color: #999; }
+.flow-step .connector { width: 24px; height: 2px; background: #e8e8e8; }
+.flow-step .connector.done { background: var(--success); }
+.flow-step-label { font-size: 11px; text-align: center; margin-top: 4px; color: #999; }
+
+/* Responsive table */
+.data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.data-table th { background: #fafafa; padding: 10px 12px; text-align: left; font-weight: 600; border-bottom: 2px solid #e8e8e8; }
+.data-table td { padding: 10px 12px; border-bottom: 1px solid #f0f0f0; }
+.data-table tr:hover { background: #f5f7fa; }
+
+/* JSON display */
+.json-box { background: #1e1e1e; color: #d4d4d4; padding: 16px; border-radius: 6px; font-family: 'Cascadia Code', 'Fira Code', monospace; font-size: 12px; overflow-x: auto; max-height: 300px; overflow-y: auto; white-space: pre-wrap; word-break: break-all; }
+
+/* Modal overlay */
+.modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,.5); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+.modal-content { background: #fff; border-radius: 12px; padding: 24px; min-width: 400px; max-width: 640px; max-height: 80vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,.3); }
+.modal-content h3 { margin-bottom: 16px; }
+
+/* Util */
+.flex { display: flex; align-items: center; gap: 8px; }
+.gap-16 { gap: 16px; }
+.mb-12 { margin-bottom: 12px; }
+.mt-12 { margin-top: 12px; }
+.pointer { cursor: pointer; }
+.text-center { text-align: center; }
+.text-muted { color: #999; font-size: 12px; }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 3px; font-size: 11px; }
+.badge-primary { background: #ecf5ff; color: var(--accent); }
+.badge-success { background: #f0f9eb; color: var(--success); }
+.badge-warning { background: #fdf6ec; color: var(--warning); }
+.badge-danger { background: #fef0f0; color: var(--danger); }
+.badge-info { background: #f5f5f5; color: #999; }
+</style>
+</head>
+<body>
+
+<div id="app">
+  <!-- Login Page -->
+  <div v-if="!isLoggedIn" class="login-page">
+    <div class="login-card">
+      <div class="logo">
+        <i class="fas fa-ship"></i>
+        <h1>GTCS 全球贸易通关系统</h1>
+        <p>Global Trade Customs Clearance System</p>
+      </div>
+      <el-form :model="loginForm" @submit.prevent="doLogin" size="large">
+        <el-form-item>
+          <el-input v-model="loginForm.username" placeholder="用户名" />
+        </el-form-item>
+        <el-form-item>
+          <el-input v-model="loginForm.password" type="password" placeholder="密码" show-password />
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" native-type="submit" :loading="loginLoading">登 录</el-button>
+        </el-form-item>
+      </el-form>
+      <div class="footer-hint">默认管理员: admin / admin123</div>
+    </div>
+  </div>
+
+  <!-- Main App -->
+  <div v-else class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand"><i class="fas fa-ship"></i> GTCS 全球贸易通关系统</div>
+      <div class="user-area">
+        <el-tag size="small" type="warning">{{ userRole }}</el-tag>
+        <span><i class="fas fa-user-circle"></i> {{ userName }}</span>
+        <el-button size="small" type="danger" plain @click="logout"><i class="fas fa-sign-out-alt"></i> 退出</el-button>
+      </div>
+    </header>
+
+    <!-- Body -->
+    <div class="app-body">
+      <!-- Sidebar -->
+      <nav class="app-sidebar">
+        <div v-for="m in menuItems" :key="m.key" class="menu-item" :class="{active: currentPage === m.key}" @click="currentPage = m.key">
+          <i :class="m.icon"></i>
+          <span>{{ m.label }}</span>
+        </div>
+      </nav>
+
+      <!-- Main Content -->
+      <main class="app-main">
+        <!-- ═══════════ DASHBOARD ═══════════ -->
+        <div v-if="currentPage === 'dashboard'">
+          <div class="page-title"><i class="fas fa-chart-bar"></i> 工作台</div>
+          <div class="dash-grid">
+            <div class="stat-card" v-for="s in statCards" :key="s.label">
+              <div>
+                <div class="stat-num" :style="{color: s.color}">{{ s.value }}</div>
+                <div class="stat-label">{{ s.label }}</div>
+              </div>
+              <i :class="s.icon" class="stat-icon" :style="{color: s.color}"></i>
+            </div>
+          </div>
+          <div class="dash-panels">
+            <div class="dash-panel">
+              <h3><i class="fas fa-cubes" style="color:var(--accent)"></i> 系统模块</h3>
+              <div class="module-list">
+                <div class="module-row" v-for="m in moduleStatus" :key="m.name" @click="currentPage=m.key" style="cursor:pointer">
+                  <i :class="m.icon" :style="{color:m.color}"></i>
+                  <span style="flex:1">{{ m.name }}</span>
+                  <span class="badge badge-success">已上线</span>
+                </div>
+              </div>
+            </div>
+            <div class="dash-panel">
+              <h3><i class="fas fa-bolt" style="color:var(--warning)"></i> 快速操作</h3>
+              <div class="quick-actions">
+                <el-button type="primary" size="small" @click="currentPage='declaration'"><i class="fas fa-file-alt"></i> 新建报关单</el-button>
+                <el-button type="success" size="small" @click="currentPage='tariff'"><i class="fas fa-search"></i> 税则查询</el-button>
+                <el-button type="warning" size="small" @click="currentPage='fta'"><i class="fas fa-chart-line"></i> FTA 优选</el-button>
+                <el-button size="small" @click="currentPage='price-risk'"><i class="fas fa-exclamation-triangle"></i> 价格风控</el-button>
+                <el-button size="small" @click="currentPage='origin'"><i class="fas fa-link"></i> 原产地评估</el-button>
+                <el-button size="small" @click="currentPage='cost'"><i class="fas fa-dollar-sign"></i> 成本模拟</el-button>
+              </div>
+              <h3 style="margin-top:20px"><i class="fas fa-info-circle" style="color:var(--accent)"></i> 系统信息</h3>
+              <div class="info-grid">
+                <div><span class="label">系统状态</span><span class="value" style="color:var(--success)"><i class="fas fa-circle" style="font-size:8px;margin-right:4px"></i> 运行中</span></div>
+                <div><span class="label">国家税则库</span><span class="value">4 国</span></div>
+                <div><span class="label">版本</span><span class="value">v2.0.0</span></div>
+                <div><span class="label">API 模块</span><span class="value">12 个</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════ TARIFF ═══════════ -->
+        <div v-if="currentPage === 'tariff'">
+          <div class="page-title"><i class="fas fa-search"></i> 海关税则查询</div>
+          <div class="search-card">
+            <div class="flex gap-16">
+              <el-input v-model="tariffForm.hs_code" placeholder="HS 编码 (如 8528420000)" style="width:220px" clearable />
+              <el-select v-model="tariffForm.dest_country" placeholder="目的国" style="width:120px">
+                <el-option v-for="c in ['US','VN','TH','MY','CN','JP','KR','DE','GB']" :key="c" :label="c" :value="c" />
+              </el-select>
+              <el-select v-model="tariffForm.origin_country" placeholder="原产国" style="width:120px">
+                <el-option v-for="c in ['CN','US','VN','TH','MY','JP','KR','DE','GB']" :key="c" :label="c" :value="c" />
+              </el-select>
+              <el-button type="primary" @click="searchTariff" :loading="tariffLoading"><i class="fas fa-search"></i> 查询</el-button>
+              <el-button @click="tariffSearchMode = !tariffSearchMode; tariffResult=null">
+                <i class="fas fa-list"></i> {{ tariffSearchMode ? '精确查询' : '模糊搜索' }}
+              </el-button>
+            </div>
+            <div v-if="tariffSearchMode" class="flex gap-16" style="margin-top:12px">
+              <el-input v-model="tariffKeyword" placeholder="输入商品名称或HS编码前缀" style="width:400px" clearable @keyup.enter="searchTariff" />
+            </div>
+          </div>
+
+          <!-- Search Results -->
+          <div v-if="tariffSearchMode && tariffSearchResults" class="result-card">
+            <h3 style="margin-bottom:8px"><i class="fas fa-list"></i> 搜索结果 ({{ tariffSearchResults.length }} 条)</h3>
+            <table class="data-table" v-if="tariffSearchResults.length">
+              <thead><tr><th>HS 编码</th><th>英文描述</th><th>操作</th></tr></thead>
+              <tbody>
+                <tr v-for="r in tariffSearchResults" :key="r.local_code">
+                  <td><strong>{{ r.local_code }}</strong></td>
+                  <td>{{ r.description_en || '-' }}</td>
+                  <td><el-button size="small" type="primary" @click="tariffForm.hs_code = r.local_code; tariffSearchMode=false; searchTariff()">查询税率</el-button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Lookup Result -->
+          <div v-if="tariffResult && !tariffSearchMode" class="result-card">
+            <h3 style="margin-bottom:12px">
+              <i class="fas fa-file-invoice"></i> 查询结果 — {{ tariffResult.hs_code }}
+              <span class="badge badge-primary" style="margin-left:8px">{{ tariffResult.dest_country }}</span>
+            </h3>
+            <div class="info-grid">
+              <div><span class="label">目的国</span><span class="value">{{ tariffResult.dest_country }}</span></div>
+              <div><span class="label">原产国</span><span class="value">{{ tariffResult.origin_country }}</span></div>
+              <div>
+                <span class="label">MFN 税率</span>
+                <span class="value">
+                  <span :class="'badge ' + (parseFloat(tariffResult.mfn_rate || 0) > 5 ? 'badge-danger' : 'badge-success')">
+                    {{ tariffResult.mfn_rate || 0 }}%
+                  </span>
+                </span>
+              </div>
+              <div>
+                <span class="label">综合有效税率</span>
+                <span class="value">
+                  <span :class="'badge ' + (parseFloat(tariffResult.total_effective_rate || 0) > 5 ? 'badge-danger' : 'badge-success')" style="font-size:14px;padding:4px 12px">
+                    {{ tariffResult.total_effective_rate }}%
+                  </span>
+                </span>
+              </div>
+            </div>
+            <div v-if="tariffResult.additional_duties && tariffResult.additional_duties.length" style="margin-top:16px">
+              <h4 style="margin-bottom:8px;color:var(--danger)"><i class="fas fa-exclamation-triangle"></i> 附加税明细</h4>
+              <table class="data-table">
+                <thead><tr><th>类型</th><th>税率</th><th>针对原产国</th><th>法律依据</th></tr></thead>
+                <tbody>
+                  <tr v-for="d in tariffResult.additional_duties" :key="d.duty_type">
+                    <td><span class="badge badge-danger">{{ d.duty_type }}</span></td>
+                    <td>{{ d.rate_pct }}%</td>
+                    <td>{{ d.target_origin }}</td>
+                    <td>{{ d.legal_basis }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════ FTA ═══════════ -->
+        <div v-if="currentPage === 'fta'">
+          <div class="page-title"><i class="fas fa-chart-line"></i> FTA 原产地优选</div>
+          <div class="search-card">
+            <div class="flex gap-16">
+              <el-input v-model="ftaForm.hs_code" placeholder="HS 编码" style="width:180px" />
+              <el-select v-model="ftaForm.origin" placeholder="原产国" style="width:120px">
+                <el-option v-for="c in ['CN','VN','TH','MY','ID','JP','KR']" :key="c" :label="c" :value="c" />
+              </el-select>
+              <el-select v-model="ftaForm.dest" placeholder="目的国" style="width:120px">
+                <el-option v-for="c in ['US','CN','VN','TH','MY','JP','KR','EU']" :key="c" :label="c" :value="c" />
+              </el-select>
+              <el-button type="primary" @click="searchFta" :loading="ftaLoading"><i class="fas fa-search"></i> 推荐最优协定</el-button>
+            </div>
+          </div>
+
+          <div v-if="ftaResult" class="result-card" style="margin-bottom:16px">
+            <h3 style="margin-bottom:12px">{{ ftaResult.hs_code }} | {{ ftaResult.origin }} → {{ ftaResult.dest }}</h3>
+            <div v-if="ftaResult.notes" style="background:#ecf5ff;padding:10px 14px;border-radius:6px;margin-bottom:12px;font-size:13px;color:var(--accent)">
+              <i class="fas fa-info-circle"></i> {{ ftaResult.notes }}
+            </div>
+            <table class="data-table">
+              <thead><tr><th>协定</th><th>税率</th><th>节省%</th><th>所需证书</th><th>原产地规则</th></tr></thead>
+              <tbody>
+                <tr v-for="r in ftaResult.available_agreements" :key="r.code" :style="r.code === ftaResult.best_option ? 'background:#f0f9eb' : ''">
+                  <td><strong>{{ r.code }}</strong></td>
+                  <td><span :class="'badge ' + (r.code === 'MFN' ? 'badge-info' : 'badge-success')">{{ r.rate }}%</span></td>
+                  <td><span v-if="r.savings_vs_mfn > 0" style="color:var(--success)">-{{ r.savings_vs_mfn }}%</span><span v-else class="text-muted">-</span></td>
+                  <td>{{ r.certificate || '-' }}</td>
+                  <td style="font-size:12px;color:#666">{{ r.roo_requirement || '-' }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div v-if="ftaCompare.length" class="result-card">
+            <h3 style="margin-bottom:12px"><i class="fas fa-globe-asia"></i> 多原产国对比</h3>
+            <table class="data-table">
+              <thead><tr><th>原产国</th><th>最佳协定</th><th>最优税率</th><th>附加税</th><th style="color:var(--danger)">综合税率</th><th>证书要求</th></tr></thead>
+              <tbody>
+                <tr v-for="r in ftaCompare" :key="r.origin" :style="r.total_effective === Math.min(...ftaCompare.map(x=>x.total_effective)) ? 'background:#f0f9eb;font-weight:500' : ''">
+                  <td><strong>{{ r.origin }}</strong></td>
+                  <td><span class="badge badge-primary">{{ r.best_agreement }}</span></td>
+                  <td>{{ r.best_rate }}%</td>
+                  <td><span v-if="r.additional_duty > 0" class="badge badge-danger">{{ r.additional_duty }}%</span><span v-else class="badge badge-success">0%</span></td>
+                  <td><span :class="'badge ' + (r.total_effective > 5 ? 'badge-danger' : 'badge-success')" style="font-weight:600">{{ r.total_effective }}%</span></td>
+                  <td style="font-size:12px">{{ r.certificate || '-' }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ═══════════ COST ═══════════ -->
+        <div v-if="currentPage === 'cost'">
+          <div class="page-title"><i class="fas fa-dollar-sign"></i> 进口成本模拟</div>
+          <div class="search-card">
+            <div class="flex gap-16" style="flex-wrap:wrap">
+              <div><label class="text-muted">FOB 单价 ($)</label><el-input-number v-model="costForm.fob_unit_price" :min="0" :step="10" size="small" /></div>
+              <div><label class="text-muted">数量</label><el-input-number v-model="costForm.quantity" :min="1" :step="100" size="small" /></div>
+              <div><label class="text-muted">运费 ($)</label><el-input-number v-model="costForm.freight" :min="0" :step="100" size="small" /></div>
+              <div><label class="text-muted">保险 ($)</label><el-input-number v-model="costForm.insurance" :min="0" :step="10" size="small" /></div>
+              <div><label class="text-muted">HS 编码</label><el-input v-model="costForm.hs_code" style="width:140px" size="small" /></div>
+              <div><label class="text-muted">原产国</label>
+                <el-select v-model="costForm.origin_country" style="width:100px" size="small">
+                  <el-option v-for="c in ['CN','VN','TH','MY','JP','KR']" :key="c" :label="c" :value="c" />
+                </el-select>
+              </div>
+              <div><label class="text-muted">目的国</label>
+                <el-select v-model="costForm.dest_country" style="width:100px" size="small">
+                  <el-option v-for="c in ['US','VN','TH','MY']" :key="c" :label="c" :value="c" />
+                </el-select>
+              </div>
+            </div>
+            <el-button type="primary" @click="simulateCost" :loading="costLoading" style="margin-top:12px"><i class="fas fa-calculator"></i> 模拟计算</el-button>
+          </div>
+
+          <div v-if="costResult" class="result-card">
+            <h3 style="margin-bottom:12px"><i class="fas fa-chart-pie"></i> 成本分解</h3>
+            <div class="info-grid">
+              <div><span class="label">FOB 总价</span><span class="value">${{ costResult.fob_total }}</span></div>
+              <div><span class="label">运费</span><span class="value">${{ costResult.freight }}</span></div>
+              <div><span class="label">保险费</span><span class="value">${{ costResult.insurance }}</span></div>
+              <div><span class="label">CIF 价值</span><span class="value">${{ costResult.cif_value }}</span></div>
+              <div><span class="label">关税</span><span class="value" style="color:var(--danger)">${{ costResult.tariff_duty }}</span></div>
+              <div><span class="label">附加税</span><span class="value" style="color:var(--danger)">${{ costResult.additional_duties }}</span></div>
+              <div><span class="label">增值税</span><span class="value">${{ costResult.vat_amount }}</span></div>
+              <div>
+                <span class="label"><strong>完税后总成本</strong></span>
+                <span class="value" style="font-size:18px;color:var(--success);font-weight:700">${{ costResult.total_landed_cost }}</span>
+              </div>
+            </div>
+            <div style="margin-top:16px">
+              <h4 style="margin-bottom:8px;font-size:14px">价格构成占比</h4>
+              <div class="cost-bar">
+                <div class="cost-bar-seg" v-for="(seg,i) in costSegments" :key="i"
+                  :style="{flex:seg.pct,background:seg.color, minWidth:seg.pct < 0.05 ? '0' : '40px'}">
+                  {{ seg.pct > 0.05 ? seg.label+' $'+seg.value : '' }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════ HS CLASSIFICATION ═══════════ -->
+        <div v-if="currentPage === 'hs-classification'">
+          <div class="page-title"><i class="fas fa-list"></i> HS 归类辅助</div>
+          <div class="dash-panels">
+            <div class="dash-panel">
+              <h3><i class="fas fa-search" style="color:var(--accent)"></i> HS 编码查询</h3>
+              <div class="flex gap-16" style="margin-top:8px">
+                <el-input v-model="hsQuery" placeholder="输入商品名称或HS编码前缀" style="flex:1" clearable @keyup.enter="searchHS" />
+                <el-button type="primary" @click="searchHS" :loading="hsLoading"><i class="fas fa-search"></i> 搜索</el-button>
+              </div>
+              <table class="data-table" v-if="hsResults.length" style="margin-top:12px">
+                <thead><tr><th>HS 编码</th><th>英文描述</th></tr></thead>
+                <tbody>
+                  <tr v-for="r in hsResults" :key="r.local_code">
+                    <td><strong>{{ r.local_code }}</strong></td>
+                    <td style="font-size:12px;color:#666">{{ r.description_en || '-' }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="dash-panel">
+              <h3><i class="fas fa-history" style="color:var(--warning)"></i> 归类历史</h3>
+              <table class="data-table" v-if="hsHistory.length">
+                <thead><tr><th>产品</th><th>HS编码</th><th>置信度</th><th>状态</th></tr></thead>
+                <tbody>
+                  <tr v-for="r in hsHistory" :key="r.id || r.product_name">
+                    <td>{{ r.product_name }}</td>
+                    <td><strong>{{ r.hs_code }}</strong></td>
+                    <td>{{ r.confidence || '-' }}</td>
+                    <td><span :class="'badge ' + (r.status === 'CONFIRMED' ? 'badge-success' : 'badge-warning')">{{ r.status }}</span></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div v-else class="text-muted" style="padding:12px">暂无归类记录</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════ PRICE RISK ═══════════ -->
+        <div v-if="currentPage === 'price-risk'">
+          <div class="page-title"><i class="fas fa-exclamation-triangle"></i> 价格风控引擎</div>
+          <div class="search-card">
+            <h3 style="margin-bottom:8px;font-size:14px"><i class="fas fa-plus-circle" style="color:var(--accent)"></i> 录入价格记录</h3>
+            <div class="flex gap-16" style="flex-wrap:wrap">
+              <el-input v-model="prForm.hs_code" placeholder="HS编码" style="width:160px" size="small" />
+              <el-input-number v-model="prForm.unit_price" :min="0" :step="1" size="small" placeholder="单价" />
+              <el-input v-model="prForm.brand" placeholder="品牌" style="width:120px" size="small" />
+              <el-input v-model="prForm.model" placeholder="型号" style="width:120px" size="small" />
+              <el-button type="primary" size="small" @click="addPriceRecord" :loading="prLoading"><i class="fas fa-save"></i> 录入</el-button>
+            </div>
+            <div v-if="lastPriceRecord" style="margin-top:8px">
+              <el-alert :title="'风险状态: ' + lastPriceRecord.risk_flag + ' — ' + (lastPriceRecord.risk_reason || '正常')"
+                :type="lastPriceRecord.risk_flag === 'GREEN' ? 'success' : 'warning'" :closable="false" show-icon />
+            </div>
+          </div>
+
+          <el-tabs v-model="prTab">
+            <el-tab-pane label="历史价格" name="history">
+              <div class="result-card">
+                <div class="flex gap-16 mb-12">
+                  <el-input v-model="prHistoryCode" placeholder="HS编码" style="width:160px" size="small" />
+                  <el-button size="small" type="primary" @click="loadPriceHistory"><i class="fas fa-sync"></i> 刷新</el-button>
+                </div>
+                <table class="data-table" v-if="priceHistory.length">
+                  <thead><tr><th>单价</th><th>币种</th><th>品牌</th><th>型号</th><th>原产国</th><th>申报日期</th><th>风险</th></tr></thead>
+                  <tbody>
+                    <tr v-for="r in priceHistory" :key="r.id">
+                      <td><strong>${{ r.unit_price }}</strong></td>
+                      <td>{{ r.currency }}</td>
+                      <td>{{ r.brand || '-' }}</td>
+                      <td>{{ r.model || '-' }}</td>
+                      <td>{{ r.origin_country || '-' }}</td>
+                      <td style="font-size:12px">{{ r.declaration_date || '-' }}</td>
+                      <td><span :class="'badge ' + (r.risk_flag === 'GREEN' ? 'badge-success' : 'badge-danger')">{{ r.risk_flag }}</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div v-else class="text-muted">暂无价格记录</div>
+              </div>
+            </el-tab-pane>
+            <el-tab-pane label="风险告警" name="alerts">
+              <div class="result-card">
+                <div v-for="a in priceAlerts" :key="a.id" :class="'alert-item ' + (a.severity ? a.severity.toLowerCase() : 'low')">
+                  <div class="flex" style="justify-content:space-between">
+                    <div>
+                      <strong>{{ a.hs_code }}</strong>
+                      <span :class="'badge ' + (a.severity === 'HIGH' ? 'badge-danger' : a.severity === 'MEDIUM' ? 'badge-warning' : 'badge-info')" style="margin-left:8px">{{ a.severity }}</span>
+                      <span class="badge badge-primary" style="margin-left:4px">{{ a.alert_type }}</span>
+                    </div>
+                    <span class="text-muted">{{ a.triggered_at }}</span>
+                  </div>
+                  <div style="margin-top:4px;font-size:13px">
+                    当前: ${{ a.unit_price }} |
+                    前次: ${{ a.previous_price || '-' }}
+                  </div>
+                  <div v-if="a.customs_implication" style="margin-top:4px;font-size:12px;color:var(--danger)">
+                    <i class="fas fa-exclamation-circle"></i> {{ a.customs_implication }}
+                  </div>
+                </div>
+                <div v-if="!priceAlerts.length" class="text-muted">暂无告警</div>
+              </div>
+            </el-tab-pane>
+          </el-tabs>
+        </div>
+
+        <!-- ═══════════ ORIGIN ═══════════ -->
+        <div v-if="currentPage === 'origin'">
+          <div class="page-title"><i class="fas fa-link"></i> 原产地评估</div>
+          <div class="search-card">
+            <h3 style="margin-bottom:8px;font-size:14px"><i class="fas fa-random" style="color:var(--accent)"></i> CTC 税则改变检查</h3>
+            <div class="flex gap-16">
+              <el-input v-model="ctcForm.hs_code" placeholder="成品HS编码" style="width:160px" size="small" />
+              <el-input v-model="ctcForm.material_hs_code" placeholder="原料HS编码" style="width:160px" size="small" />
+              <el-select v-model="ctcForm.level" style="width:120px" size="small">
+                <el-option label="CC (章级2位)" value="CC" />
+                <el-option label="CTH (品目4位)" value="CTH" />
+                <el-option label="CTSH (子目6位)" value="CTSH" />
+              </el-select>
+              <el-button type="primary" size="small" @click="checkCtc"><i class="fas fa-check"></i> 检查</el-button>
+            </div>
+            <div v-if="ctcResult !== null" style="margin-top:8px">
+              <el-alert :title="ctcResult ? '✓ 满足税则改变要求' : '✗ 不满足税则改变要求'" :type="ctcResult ? 'success' : 'error'" :closable="false" show-icon />
+            </div>
+          </div>
+
+          <div class="result-card">
+            <h3 style="margin-bottom:8px"><i class="fas fa-address-book"></i> 原产地档案</h3>
+            <table class="data-table" v-if="originProfiles.length">
+              <thead><tr><th>产品代码</th><th>产品名称</th><th>HS编码</th><th>制造国</th><th>状态</th><th>RVC%</th><th>操作</th></tr></thead>
+              <tbody>
+                <tr v-for="p in originProfiles" :key="p.id">
+                  <td>{{ p.product_code }}</td>
+                  <td>{{ p.product_name }}</td>
+                  <td><strong>{{ p.hs_code }}</strong></td>
+                  <td>{{ p.manufacturing_country }}</td>
+                  <td><span :class="'badge ' + (p.origin_status === 'QUALIFIES' ? 'badge-success' : 'badge-danger')">{{ p.origin_status }}</span></td>
+                  <td>{{ p.rvc_calculated ?? '-' }}%</td>
+                  <td>
+                    <el-button size="small" type="primary" @click="runOriginAssessment(p.id)"><i class="fas fa-sync"></i> 评估</el-button>
+                    <el-button size="small" @click="viewOriginAgreements(p.id)"><i class="fas fa-handshake"></i> FTA</el-button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div v-else class="text-muted">暂无原产地档案</div>
+          </div>
+
+          <!-- FTA Agreement Modal -->
+          <div v-if="showAgreementModal" class="modal-overlay" @click.self="showAgreementModal=false">
+            <div class="modal-content">
+              <h3><i class="fas fa-handshake"></i> FTA 资格评估</h3>
+              <table class="data-table" v-if="ftaAgreements.length">
+                <thead><tr><th>协定</th><th>合格</th><th>方法</th><th>RVC%</th><th>阈值%</th><th>CTC</th><th>说明</th></tr></thead>
+                <tbody>
+                  <tr v-for="a in ftaAgreements" :key="a.agreement_code">
+                    <td><strong>{{ a.agreement_code }}</strong></td>
+                    <td><span :class="'badge ' + (a.qualified ? 'badge-success' : 'badge-info')" :style="a.qualified ? '' : 'background:#f5f5f5;color:#999'">{{ a.qualified ? '合格' : '不合格' }}</span></td>
+                    <td>{{ a.method_used }}</td>
+                    <td>{{ a.rvc_calculated ?? '-' }}</td>
+                    <td>{{ a.rvc_threshold ?? '-' }}</td>
+                    <td>{{ a.ctc_met === true ? '✓' : a.ctc_met === false ? '✗' : '-' }}</td>
+                    <td style="font-size:12px">{{ a.reasons?.join(', ') }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <el-button style="margin-top:12px" @click="showAgreementModal=false">关闭</el-button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════ DECLARATION ═══════════ -->
+        <div v-if="currentPage === 'declaration'">
+          <div class="page-title"><i class="fas fa-file-alt"></i> 报关单管理</div>
+          <div class="flex gap-16 mb-12">
+            <el-button type="primary" @click="showDeclForm = !showDeclForm"><i class="fas fa-plus"></i> 新建报关单</el-button>
+            <el-select v-model="declFilterStatus" placeholder="筛选状态" clearable style="width:140px" size="small">
+              <el-option v-for="s in ['draft','submitted','query_received','amended','cleared','closed']" :key="s" :label="s" :value="s" />
+            </el-select>
+            <el-button size="small" @click="loadDeclarations"><i class="fas fa-sync"></i> 刷新</el-button>
+          </div>
+
+          <!-- Create Form -->
+          <div v-if="showDeclForm" class="search-card">
+            <h3 style="margin-bottom:8px;font-size:14px"><i class="fas fa-file-export"></i> 新建报关单</h3>
+            <div class="flex gap-16" style="flex-wrap:wrap">
+              <div><label class="text-muted">方向</label>
+                <el-radio-group v-model="declForm.direction" size="small">
+                  <el-radio value="IMPORT">进口</el-radio>
+                  <el-radio value="EXPORT">出口</el-radio>
+                </el-radio-group>
+              </div>
+              <div><label class="text-muted">收货人</label><el-input v-model="declForm.consignee" style="width:160px" size="small" /></div>
+              <div><label class="text-muted">发货人</label><el-input v-model="declForm.consignor" style="width:160px" size="small" /></div>
+              <div><label class="text-muted">HS编码</label><el-input v-model="declForm.hs_code" style="width:140px" size="small" /></div>
+              <div><label class="text-muted">商品名称</label><el-input v-model="declForm.name_cn" style="width:160px" size="small" /></div>
+              <div><label class="text-muted">数量</label><el-input-number v-model="declForm.qty" :min="1" size="small" /></div>
+              <div><label class="text-muted">单价($)</label><el-input-number v-model="declForm.unit_price" :min="0" :step="10" size="small" /></div>
+            </div>
+            <el-button type="primary" size="small" @click="createDeclaration" style="margin-top:12px"><i class="fas fa-check"></i> 创建</el-button>
+          </div>
+
+          <div class="result-card">
+            <h3 style="margin-bottom:8px"><i class="fas fa-list"></i> 报关单列表 ({{ declList.total || 0 }})</h3>
+            <table class="data-table" v-if="declList.items?.length">
+              <thead><tr><th>ID</th><th>方向</th><th>状态</th><th>总价值</th><th>收货人</th><th>操作</th></tr></thead>
+              <tbody>
+                <tr v-for="d in declList.items" :key="d.id">
+                  <td>{{ d.id }}</td>
+                  <td><span :class="'badge ' + (d.direction === 'IMPORT' ? 'badge-danger' : 'badge-success')">{{ d.direction }}</span></td>
+                  <td><span :class="'badge ' + statusBadge(d.status)">{{ d.status }}</span></td>
+                  <td>${{ (d.total_value || 0).toFixed(2) }}</td>
+                  <td>{{ d.consignee || '-' }}</td>
+                  <td>
+                    <el-button v-for="a in (d.available_actions || [])" :key="a.action" size="small" @click="transitionDecl(d.id, a.action)">
+                      {{ a.label }}
+                    </el-button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div v-else class="text-muted">暂无报关单</div>
+
+            <div v-if="declList.total_pages > 1" class="flex" style="margin-top:12px;justify-content:center">
+              <el-button size="small" @click="declPage = Math.max(1, declPage-1); loadDeclarations()" :disabled="declPage === 1"><i class="fas fa-chevron-left"></i></el-button>
+              <span class="text-muted" style="margin:0 12px">第 {{ declPage }} / {{ declList.total_pages }} 页</span>
+              <el-button size="small" @click="declPage = Math.min(declList.total_pages, declPage+1); loadDeclarations()" :disabled="declPage >= declList.total_pages"><i class="fas fa-chevron-right"></i></el-button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════ ENTERPRISE ═══════════ -->
+        <div v-if="currentPage === 'enterprise'">
+          <div class="page-title"><i class="fas fa-building"></i> 企业管理</div>
+          <div class="search-card">
+            <div class="flex gap-16">
+              <el-input v-model="entName" placeholder="企业名称" style="width:240px" size="small" clearable />
+              <el-button type="primary" size="small" @click="loadEnterprises"><i class="fas fa-search"></i> 搜索</el-button>
+              <el-button size="small" @click="showEntForm = !showEntForm"><i class="fas fa-plus"></i> 新建企业</el-button>
+            </div>
+            <div v-if="showEntForm" class="flex gap-16" style="margin-top:12px;flex-wrap:wrap">
+              <el-input v-model="entForm.name_cn" placeholder="中文名称" style="width:180px" size="small" />
+              <el-input v-model="entForm.name_en" placeholder="英文名称" style="width:180px" size="small" />
+              <el-input v-model="entForm.country" placeholder="国家(FI: US/CN)" style="width:100px" size="small" maxlength="2" />
+              <el-input v-model="entForm.us_ein" placeholder="美国EIN" style="width:140px" size="small" />
+              <el-button type="primary" size="small" @click="createEnterprise"><i class="fas fa-check"></i> 确定</el-button>
+            </div>
+          </div>
+          <div class="result-card">
+            <table class="data-table" v-if="enterprises.length">
+              <thead><tr><th>ID</th><th>中文名称</th><th>英文名称</th><th>EIN</th><th>国家</th><th>状态</th></tr></thead>
+              <tbody>
+                <tr v-for="e in enterprises" :key="e.id">
+                  <td>{{ e.id }}</td>
+                  <td>{{ e.name_cn }}</td>
+                  <td style="font-size:12px;color:#666">{{ e.name_en }}</td>
+                  <td>{{ e.us_ein || '-' }}</td>
+                  <td>{{ e.country }}</td>
+                  <td><span class="badge badge-success">{{ e.status }}</span></td>
+                </tr>
+              </tbody>
+            </table>
+            <div v-else class="text-muted">暂无企业数据</div>
+          </div>
+        </div>
+
+        <!-- ═══════════ PRODUCT ═══════════ -->
+        <div v-if="currentPage === 'product'">
+          <div class="page-title"><i class="fas fa-box"></i> 产品管理</div>
+          <div class="search-card">
+            <div class="flex gap-16">
+              <el-button size="small" @click="showProdForm = !showProdForm"><i class="fas fa-plus"></i> 新建产品</el-button>
+              <el-button size="small" @click="loadProducts"><i class="fas fa-sync"></i> 刷新</el-button>
+            </div>
+            <div v-if="showProdForm" class="flex gap-16" style="margin-top:12px;flex-wrap:wrap">
+              <el-input v-model="prodForm.product_code" placeholder="产品代码" style="width:150px" size="small" />
+              <el-input v-model="prodForm.name_cn" placeholder="中文名称" style="width:180px" size="small" />
+              <el-input v-model="prodForm.name_en" placeholder="英文名称" style="width:180px" size="small" />
+              <el-input v-model="prodForm.hs_code" placeholder="HS编码" style="width:140px" size="small" />
+              <el-button type="primary" size="small" @click="createProduct"><i class="fas fa-check"></i> 确定</el-button>
+            </div>
+          </div>
+          <div class="result-card">
+            <table class="data-table" v-if="products.length">
+              <thead><tr><th>ID</th><th>产品代码</th><th>中文名称</th><th>HS编码</th><th>类别</th></tr></thead>
+              <tbody>
+                <tr v-for="p in products" :key="p.id">
+                  <td>{{ p.id }}</td>
+                  <td>{{ p.product_code }}</td>
+                  <td>{{ p.name_cn }}</td>
+                  <td><strong>{{ p.hs_code }}</strong></td>
+                  <td>{{ p.category || '-' }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div v-else class="text-muted">暂无产品数据</div>
+          </div>
+        </div>
+
+        <!-- ═══════════ ADMIN ═══════════ -->
+        <div v-if="currentPage === 'admin'">
+          <div class="page-title"><i class="fas fa-cog"></i> 系统设置</div>
+          <div class="dash-panels">
+            <div class="dash-panel">
+              <h3><i class="fas fa-info-circle" style="color:var(--accent)"></i> 系统信息</h3>
+              <div class="info-grid">
+                <div><span class="label">系统名称</span><span class="value">GTCS 全球贸易通关系统</span></div>
+                <div><span class="label">版本</span><span class="value">v2.0.0</span></div>
+                <div><span class="label">运行状态</span><span class="value" style="color:var(--success)"><i class="fas fa-circle" style="font-size:8px;margin-right:4px"></i> 运行中</span></div>
+                <div><span class="label">数据库</span><span class="value">SQLite</span></div>
+              </div>
+            </div>
+            <div class="dash-panel">
+              <h3><i class="fas fa-database" style="color:var(--success)"></i> 数据概览</h3>
+              <div class="info-grid">
+                <div><span class="label">国家</span><span class="value">15</span></div>
+                <div><span class="label">FTA 协定</span><span class="value">8</span></div>
+                <div><span class="label">关税税目</span><span class="value">71,960+</span></div>
+                <div><span class="label">税率记录</span><span class="value">36,862</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="result-card" style="margin-top:16px">
+            <h3 style="margin-bottom:8px"><i class="fas fa-flask" style="color:var(--warning)"></i> API 接口测试</h3>
+            <div class="flex gap-16" style="flex-wrap:wrap">
+              <el-button size="small" @click="testApi('health')">健康检查</el-button>
+              <el-button size="small" @click="testApi('tariff')">税则查询</el-button>
+              <el-button size="small" @click="testApi('fta')">FTA 推荐</el-button>
+              <el-button size="small" @click="testApi('cost')">成本模拟</el-button>
+              <el-button size="small" @click="testApi('origin')">原产地档案</el-button>
+              <el-button size="small" @click="testApi('declaration')">报关单列表</el-button>
+            </div>
+            <div v-if="apiTestResult" class="json-box" style="margin-top:12px">{{ apiTestResult }}</div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</div>
+
+<script>
+const { createApp, ref, reactive, computed, onMounted, watch } = Vue;
+const ElMessage = window.ElementPlus.ElMessage;
+const API_BASE = window.location.origin + '/api/v1';
+
+const app = createApp({
+  setup() {
+    // Auth state
+    const isLoggedIn = ref(!!localStorage.getItem('gtcs_token'));
+    const userName = ref(localStorage.getItem('gtcs_user') || '管理员');
+    const userRole = ref(localStorage.getItem('gtcs_role') || 'admin');
+    const loginLoading = ref(false);
+    const loginForm = reactive({ username: 'admin', password: 'admin123' });
+    const currentPage = ref('dashboard');
+
+    const menuItems = [
+      { key: 'dashboard', icon: 'fas fa-chart-bar', label: '工作台' },
+      { key: 'tariff', icon: 'fas fa-search', label: '税则查询' },
+      { key: 'fta', icon: 'fas fa-chart-line', label: 'FTA 优选' },
+      { key: 'cost', icon: 'fas fa-dollar-sign', label: '成本模拟' },
+      { key: 'hs-classification', icon: 'fas fa-list', label: 'HS 归类' },
+      { key: 'price-risk', icon: 'fas fa-exclamation-triangle', label: '价格风控' },
+      { key: 'origin', icon: 'fas fa-link', label: '原产地评估' },
+      { key: 'declaration', icon: 'fas fa-file-alt', label: '报关单' },
+      { key: 'enterprise', icon: 'fas fa-building', label: '企业管理' },
+      { key: 'product', icon: 'fas fa-box', label: '产品管理' },
+      { key: 'admin', icon: 'fas fa-cog', label: '系统设置' },
+    ];
+
+    // Dashboard
+    const statCards = [
+      { label: '国家税则库', value: '4 国', icon: 'fas fa-database', color: '#409EFF' },
+      { label: 'API 模块', value: '12 个', icon: 'fas fa-cubes', color: '#67C23A' },
+      { label: '贸易协定', value: '8 项', icon: 'fas fa-handshake', color: '#E6A23C' },
+      { label: '系统状态', value: '运行中', icon: 'fas fa-check-circle', color: '#67C23A' },
+    ];
+    const moduleStatus = [
+      { name: '税则查询', key: 'tariff', icon: 'fas fa-search', color: '#409EFF' },
+      { name: 'FTA 优选', key: 'fta', icon: 'fas fa-chart-line', color: '#67C23A' },
+      { name: '成本模拟', key: 'cost', icon: 'fas fa-dollar-sign', color: '#409EFF' },
+      { name: 'HS 归类', key: 'hs-classification', icon: 'fas fa-list', color: '#E6A23C' },
+      { name: '价格风控', key: 'price-risk', icon: 'fas fa-exclamation-triangle', color: '#F56C6C' },
+      { name: '原产地评估', key: 'origin', icon: 'fas fa-link', color: '#67C23A' },
+      { name: '报关单管理', key: 'declaration', icon: 'fas fa-file-alt', color: '#409EFF' },
+    ];
+
+    // ============ TARIFF ============
+    const tariffForm = reactive({ hs_code: '8528420000', dest_country: 'US', origin_country: 'CN' });
+    const tariffResult = ref(null);
+    const tariffLoading = ref(false);
+    const tariffSearchMode = ref(false);
+    const tariffKeyword = ref('');
+    const tariffSearchResults = ref(null);
+
+    async function searchTariff() {
+      tariffLoading.value = true;
+      try {
+        if (tariffSearchMode.value) {
+          const r = await fetch(`${API_BASE}/tariff/search?q=${encodeURIComponent(tariffKeyword.value || tariffForm.hs_code)}&country=${tariffForm.dest_country}&limit=20`);
+          tariffSearchResults.value = await r.json();
+          tariffResult.value = null;
+        } else {
+          const r = await fetch(`${API_BASE}/tariff/lookup?hs_code=${tariffForm.hs_code}&dest_country=${tariffForm.dest_country}&origin_country=${tariffForm.origin_country}`);
+          tariffResult.value = await r.json();
+          tariffSearchResults.value = null;
+        }
+      } catch(e) { ElMessage.error('查询失败'); }
+      tariffLoading.value = false;
+    }
+
+    // ============ FTA ============
+    const ftaForm = reactive({ hs_code: '8528420000', origin: 'CN', dest: 'US' });
+    const ftaResult = ref(null);
+    const ftaCompare = ref([]);
+    const ftaLoading = ref(false);
+
+    async function searchFta() {
+      ftaLoading.value = true;
+      try {
+        const params = `hs_code=${ftaForm.hs_code}&origin=${ftaForm.origin}&dest=${ftaForm.dest}`;
+        const [r1, r2] = await Promise.all([
+          fetch(`${API_BASE}/fta/recommend?${params}`),
+          fetch(`${API_BASE}/fta/compare-origins?${params}&origins=CN&origins=VN&origins=TH&origins=MY&origins=ID`),
+        ]);
+        ftaResult.value = await r1.json();
+        ftaCompare.value = await r2.json();
+      } catch(e) { ElMessage.error('查询失败'); }
+      ftaLoading.value = false;
+    }
+
+    // ============ COST ============
+    const costForm = reactive({ fob_unit_price: 100, quantity: 1000, freight: 2000, insurance: 500, hs_code: '8528420000', origin_country: 'CN', dest_country: 'US', exchange_rate: 7.25 });
+    const costResult = ref(null);
+    const costLoading = ref(false);
+    const costSegments = computed(() => {
+      if (!costResult.value) return [];
+      const r = costResult.value;
+      const total = parseFloat(r.total_landed_cost);
+      if (!total) return [];
+      const segs = [
+        { label: 'FOB', value: parseFloat(r.fob_total), pct: parseFloat(r.fob_total)/total, color: '#409EFF' },
+        { label: '运费', value: parseFloat(r.freight), pct: parseFloat(r.freight)/total, color: '#67C23A' },
+        { label: '保险', value: parseFloat(r.insurance), pct: parseFloat(r.insurance)/total, color: '#E6A23C' },
+        { label: '关税', value: parseFloat(r.tariff_duty), pct: parseFloat(r.tariff_duty)/total, color: '#F56C6C' },
+        { label: '附加税', value: parseFloat(r.additional_duties), pct: parseFloat(r.additional_duties)/total, color: '#F56C6C' },
+        { label: '增值税', value: parseFloat(r.vat_amount), pct: parseFloat(r.vat_amount)/total, color: '#909399' },
+      ];
+      return segs.filter(s => s.pct > 0.01);
+    });
+
+    async function simulateCost() {
+      costLoading.value = true;
+      try {
+        const r = await fetch(`${API_BASE}/cost/simulate`, {
+          method: 'POST', headers: {'Content-Type':'application/json'},
+          body: JSON.stringify(costForm),
+        });
+        costResult.value = await r.json();
+      } catch(e) { ElMessage.error('模拟失败'); }
+      costLoading.value = false;
+    }
+
+    // ============ HS CLASSIFICATION ============
+    const hsQuery = ref('');
+    const hsResults = ref([]);
+    const hsHistory = ref([]);
+    const hsLoading = ref(false);
+
+    async function searchHS() {
+      hsLoading.value = true;
+      try {
+        const r = await fetch(`${API_BASE}/tariff/search?q=${encodeURIComponent(hsQuery.value || '852842')}&country=US&limit=20`);
+        hsResults.value = await r.json();
+        const h = await fetch(`${API_BASE}/hs-classification/history?limit=10`);
+        hsHistory.value = await h.json();
+      } catch(e) { }
+      hsLoading.value = false;
+    }
+
+    // ============ PRICE RISK ============
+    const prTab = ref('history');
+    const prForm = reactive({ hs_code: '8528420000', unit_price: 150, brand: 'Samsung', model: 'XYZ' });
+    const lastPriceRecord = ref(null);
+    const prLoading = ref(false);
+    const prHistoryCode = ref('8528420000');
+    const priceHistory = ref([]);
+    const priceAlerts = ref([]);
+
+    async function addPriceRecord() {
+      prLoading.value = true;
+      try {
+        const r = await fetch(`${API_BASE}/price-risk/record`, {
+          method: 'POST', headers: {'Content-Type':'application/json'},
+          body: JSON.stringify(prForm),
+        });
+        lastPriceRecord.value = await r.json();
+        ElMessage.success('价格记录已录入');
+        loadPriceHistory();
+        loadPriceAlerts();
+      } catch(e) { }
+      prLoading.value = false;
+    }
+    async function loadPriceHistory() {
+      try {
+        const r = await fetch(`${API_BASE}/price-risk/history?hs_code=${prHistoryCode.value}&limit=20`);
+        priceHistory.value = await r.json();
+      } catch(e) { }
+    }
+    async function loadPriceAlerts() {
+      try {
+        const r = await fetch(`${API_BASE}/price-risk/alerts?limit=20`);
+        priceAlerts.value = await r.json();
+      } catch(e) { }
+    }
+
+    // ============ ORIGIN ============
+    const ctcForm = reactive({ hs_code: '8528420000', material_hs_code: '8471300000', level: 'CTH' });
+    const ctcResult = ref(null);
+    const originProfiles = ref([]);
+    const showAgreementModal = ref(false);
+    const ftaAgreements = ref([]);
+
+    async function checkCtc() {
+      try {
+        const r = await fetch(`${API_BASE}/origin/ctc/check?hs_code=${ctcForm.hs_code}&material_hs_code=${ctcForm.material_hs_code}&level=${ctcForm.level}`, { method: 'POST' });
+        const data = await r.json();
+        ctcResult.value = data.shifted;
+      } catch(e) { }
+    }
+    async function loadOriginProfiles() {
+      try {
+        const r = await fetch(`${API_BASE}/origin/profiles?limit=20`);
+        originProfiles.value = await r.json();
+      } catch(e) { }
+    }
+    async function runOriginAssessment(id) {
+      try {
+        await fetch(`${API_BASE}/origin/assess/${id}`, { method: 'POST' });
+        ElMessage.success('评估完成');
+        loadOriginProfiles();
+      } catch(e) { }
+    }
+    async function viewOriginAgreements(id) {
+      try {
+        const r = await fetch(`${API_BASE}/origin/assess/${id}/agreements`);
+        ftaAgreements.value = await r.json();
+        showAgreementModal.value = true;
+      } catch(e) { }
+    }
+
+    // ============ DECLARATION ============
+    const showDeclForm = ref(false);
+    const declForm = reactive({ direction: 'IMPORT', consignee: 'Test Corp', consignor: 'ABC Ltd', hs_code: '8528420000', name_cn: '电子产品', qty: 100, unit_price: 150 });
+    const declFilterStatus = ref('');
+    const declList = ref({ items: [], total: 0, total_pages: 1 });
+    const declPage = ref(1);
+
+    function statusBadge(s) {
+      const m = { draft: 'badge-info', submitted: 'badge-primary', query_received: 'badge-warning', amended: 'badge-warning', cleared: 'badge-success', closed: 'badge-info' };
+      return m[s] || 'badge-info';
+    }
+
+    async function loadDeclarations() {
+      try {
+        const params = `page=${declPage.value}&page_size=20${declFilterStatus.value ? '&status='+declFilterStatus.value : ''}`;
+        const r = await fetch(`${API_BASE}/declaration/list?${params}`);
+        declList.value = await r.json();
+      } catch(e) { }
+    }
+    async function createDeclaration() {
+      try {
+        const f = declForm;
+        await fetch(`${API_BASE}/declaration/create`, {
+          method: 'POST', headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({
+            direction: f.direction, consignee: f.consignee, consignor: f.consignor,
+            items: [{ hs_code: f.hs_code, name_cn: f.name_cn, qty: f.qty, unit_price: f.unit_price, total_price: f.qty * f.unit_price }],
+          }),
+        });
+        ElMessage.success('创建成功');
+        showDeclForm.value = false;
+        loadDeclarations();
+      } catch(e) { }
+    }
+    async function transitionDecl(id, action) {
+      try {
+        await fetch(`${API_BASE}/declaration/${id}/transition?action=${action}`, { method: 'POST' });
+        ElMessage.success(`状态已变更: ${action}`);
+        loadDeclarations();
+      } catch(e) { }
+    }
+    watch(declFilterStatus, loadDeclarations);
+
+    // ============ ENTERPRISE ============
+    const entName = ref('');
+    const enterprises = ref([]);
+    const showEntForm = ref(false);
+    const entForm = reactive({ name_cn: '', name_en: '', country: 'US', us_ein: '', credit_code: '' });
+
+    async function loadEnterprises() {
+      try {
+        const r = await fetch(`${API_BASE}/enterprise/list?limit=20`);
+        const data = await r.json();
+        enterprises.value = data.items || data || [];
+      } catch(e) { }
+    }
+    async function createEnterprise() {
+      try {
+        await fetch(`${API_BASE}/enterprise/create`, {
+          method: 'POST', headers: {'Content-Type':'application/json'},
+          body: JSON.stringify(entForm),
+        });
+        ElMessage.success('创建成功');
+        showEntForm.value = false;
+        loadEnterprises();
+      } catch(e) { }
+    }
+
+    // ============ PRODUCT ============
+    const products = ref([]);
+    const showProdForm = ref(false);
+    const prodForm = reactive({ product_code: 'PRD-001', name_cn: '电子产品', name_en: 'Electronic Product', hs_code: '8528420000' });
+
+    async function loadProducts() {
+      try {
+        const r = await fetch(`${API_BASE}/product/list?limit=20`);
+        const data = await r.json();
+        products.value = data.items || data || [];
+      } catch(e) { }
+    }
+    async function createProduct() {
+      try {
+        await fetch(`${API_BASE}/product/create`, {
+          method: 'POST', headers: {'Content-Type':'application/json'},
+          body: JSON.stringify(prodForm),
+        });
+        ElMessage.success('创建成功');
+        showProdForm.value = false;
+        loadProducts();
+      } catch(e) { }
+    }
+
+    // ============ ADMIN ============
+    const apiTestResult = ref(null);
+
+    async function testApi(type) {
+      try {
+        let url;
+        switch(type) {
+          case 'health': url = '/health'; break;
+          case 'tariff': url = `${API_BASE}/tariff/lookup?hs_code=8528420000&dest_country=US`; break;
+          case 'fta': url = `${API_BASE}/fta/recommend?hs_code=8528420000&origin=CN&dest=US`; break;
+          case 'cost': url = `${API_BASE}/cost/simulate`; break;
+          case 'origin': url = `${API_BASE}/origin/profiles`; break;
+          case 'declaration': url = `${API_BASE}/declaration/list`; break;
+          default: return;
+        }
+        const opts = type === 'cost' ? { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(costForm) } : {};
+        const r = await fetch(url, opts);
+        const data = await r.json();
+        apiTestResult.value = JSON.stringify(data, null, 2);
+      } catch(e) {
+        apiTestResult.value = JSON.stringify({ error: e.message });
+      }
+    }
+
+    // ============ AUTH ============
+    async function doLogin() {
+      loginLoading.value = true;
+      try {
+        const r = await fetch(`${API_BASE}/auth/login`, {
+          method: 'POST', headers: {'Content-Type':'application/json'},
+          body: JSON.stringify(loginForm),
+        });
+        const data = await r.json();
+        if (data.access_token) {
+          localStorage.setItem('gtcs_token', data.access_token);
+          localStorage.setItem('gtcs_user', loginForm.username);
+          localStorage.setItem('gtcs_role', 'admin');
+          userName.value = loginForm.username;
+          isLoggedIn.value = true;
+          ElMessage.success('登录成功');
+        }
+      } catch(e) { ElMessage.error('登录失败，请检查用户名密码'); }
+      loginLoading.value = false;
+    }
+
+    function logout() {
+      localStorage.removeItem('gtcs_token');
+      localStorage.removeItem('gtcs_user');
+      localStorage.removeItem('gtcs_role');
+      isLoggedIn.value = false;
+    }
+
+    // Init
+    onMounted(() => {
+      if (isLoggedIn.value) {
+        loadDeclarations();
+        loadEnterprises();
+        loadProducts();
+        loadOriginProfiles();
+        loadPriceHistory();
+        loadPriceAlerts();
+      }
+    });
+
+    return {
+      isLoggedIn, userName, userRole, loginForm, loginLoading, doLogin, logout,
+      currentPage, menuItems, statCards, moduleStatus, loginLoading,
+      // Tariff
+      tariffForm, tariffResult, tariffLoading, tariffSearchMode, tariffKeyword, tariffSearchResults, searchTariff,
+      // FTA
+      ftaForm, ftaResult, ftaCompare, ftaLoading, searchFta,
+      // Cost
+      costForm, costResult, costLoading, costSegments, simulateCost,
+      // HS
+      hsQuery, hsResults, hsHistory, hsLoading, searchHS,
+      // Price Risk
+      prTab, prForm, lastPriceRecord, prLoading, prHistoryCode, priceHistory, priceAlerts, addPriceRecord, loadPriceHistory, loadPriceAlerts,
+      // Origin
+      ctcForm, ctcResult, originProfiles, checkCtc, runOriginAssessment, viewOriginAgreements, showAgreementModal, ftaAgreements,
+      // Declaration
+      showDeclForm, declForm, declFilterStatus, declList, declPage, loadDeclarations, createDeclaration, transitionDecl, statusBadge,
+      // Enterprise
+      entName, enterprises, showEntForm, entForm, loadEnterprises, createEnterprise,
+      // Product
+      products, showProdForm, prodForm, loadProducts, createProduct,
+      // Admin
+      apiTestResult, testApi,
+    };
+  }
+});
+
+app.use(ElementPlus);
+app.mount('#app');
+</script>
+</body>
+</html>
