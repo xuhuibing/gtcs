@@ -6,314 +6,882 @@
 <title>GTCS 全球贸易通关系统 — 演示</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:#1a1a2e;background:#f8f9fc;line-height:1.6}
-a{color:#4361ee;text-decoration:none}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f0f2f5;color:#1a1a2e}
 
-/* ─── Hero ─── */
-.hero{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);color:#fff;padding:80px 40px;text-align:center}
-.hero h1{font-size:48px;font-weight:700;margin-bottom:12px}
-.hero p{font-size:20px;color:#a8b2d1;max-width:700px;margin:0 auto 24px}
-.hero .tag{display:inline-block;background:rgba(67,97,238,.25);color:#7b9cff;padding:6px 20px;border-radius:20px;font-size:14px;margin:0 4px}
-.hero .badge{display:inline-block;background:#4361ee;color:#fff;padding:4px 14px;border-radius:4px;font-size:13px;margin:0 2px}
+/* ─── Main Layout ─── */
+.app-container{display:flex;height:100vh;overflow:hidden}
+.sidebar{width:220px;background:#1a1a2e;color:#fff;display:flex;flex-direction:column;flex-shrink:0}
+.sidebar .logo{padding:18px 16px;font-size:18px;font-weight:700;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:8px}
+.sidebar .logo span{color:#7b9cff}
+.sidebar nav{flex:1;overflow-y:auto;padding:8px 0}
+.sidebar nav a{display:flex;align-items:center;gap:10px;padding:11px 16px;color:rgba(255,255,255,.6);text-decoration:none;font-size:14px;border-left:3px solid transparent;transition:.15s}
+.sidebar nav a:hover{color:#fff;background:rgba(255,255,255,.05)}
+.sidebar nav a.active{color:#fff;background:rgba(67,97,238,.2);border-left-color:#4361ee}
+.sidebar nav a .icon{width:20px;text-align:center;font-size:15px}
+.sidebar .userinfo{padding:14px 16px;border-top:1px solid rgba(255,255,255,.08);font-size:12px;color:rgba(255,255,255,.5)}
 
-/* ─── Stats Bar ─── */
-.stats-bar{display:flex;justify-content:center;gap:60px;padding:32px 40px;background:#fff;border-bottom:1px solid #e8ecf4}
-.stats-bar .stat{text-align:center}
-.stats-bar .num{font-size:32px;font-weight:700;color:#4361ee}
-.stats-bar .label{font-size:13px;color:#6b7280;margin-top:2px}
+/* ─── Main Content ─── */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.topbar{height:52px;background:#fff;border-bottom:1px solid #e8ecf4;display:flex;align-items:center;justify-content:space-between;padding:0 20px;flex-shrink:0}
+.topbar .title{font-weight:600;font-size:15px}
+.topbar .right{display:flex;align-items:center;gap:12px;font-size:13px;color:#6b7280}
+.topbar .avatar{width:30px;height:30px;border-radius:50%;background:#4361ee;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600}
+.content{flex:1;overflow-y:auto;padding:20px}
 
-/* ─── Section ─── */
-.section{padding:60px 40px;max-width:1100px;margin:0 auto}
-.section h2{font-size:28px;margin-bottom:32px;position:relative;padding-left:16px}
-.section h2::before{content:"";position:absolute;left:0;top:6px;bottom:6px;width:4px;background:#4361ee;border-radius:2px}
+/* ─── Dashboard ─── */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+.kpi-card{background:#fff;border-radius:8px;padding:18px;border:1px solid #e8ecf4}
+.kpi-card .label{font-size:12px;color:#6b7280}
+.kpi-card .value{font-size:26px;font-weight:700;margin:4px 0 2px}
+.kpi-card .sub{font-size:11px;color:#6b7280}
+.kpi-card.blue .value{color:#4361ee}
+.kpi-card.green .value{color:#059669}
+.kpi-card.orange .value{color:#d97706}
+.kpi-card.purple .value{color:#7c3aed}
 
-/* ─── Module Grid ─── */
-.module-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
-.module-card{background:#fff;border:1px solid #e8ecf4;border-radius:10px;padding:20px;transition:box-shadow .2s}
-.module-card:hover{box-shadow:0 4px 20px rgba(0,0,0,.08)}
-.module-card h3{font-size:16px;margin-bottom:6px}
-.module-card h3 .icon{width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;background:#4361ee;color:#fff;border-radius:6px;font-size:14px;margin-right:8px}
-.module-card p{font-size:13px;color:#6b7280}
-.module-card .api-badge{display:inline-block;background:#eef2ff;color:#4361ee;padding:2px 8px;border-radius:4px;font-size:11px;margin-top:8px}
+/* ─── Panel Row ─── */
+.panel-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px}
+.panel{background:#fff;border-radius:8px;border:1px solid #e8ecf4;overflow:hidden}
+.panel .panel-hd{padding:14px 18px;border-bottom:1px solid #e8ecf4;font-weight:600;font-size:14px;display:flex;justify-content:space-between;align-items:center}
+.panel .panel-hd .more{font-size:12px;color:#4361ee;cursor:default}
+.panel .panel-bd{padding:14px 18px}
 
-/* ─── Workflow Steps ─── */
-.flow{display:flex;gap:24px;flex-wrap:wrap;justify-content:center}
-.step{flex:1;min-width:180px;max-width:240px;text-align:center;padding:28px 20px;background:#fff;border:1px solid #e8ecf4;border-radius:12px;position:relative}
-.step .num{width:36px;height:36px;line-height:36px;border-radius:50%;background:#4361ee;color:#fff;font-weight:700;font-size:16px;margin:0 auto 12px}
-.step h4{font-size:15px;margin-bottom:6px}
-.step p{font-size:12px;color:#6b7280}
-.step::after{content:"→";position:absolute;right:-20px;top:50%;transform:translateY(-50%);font-size:24px;color:#4361ee;font-weight:700}
-.step:last-child::after{display:none}
+/* ─── Table ─── */
+.mock-table{width:100%;font-size:13px;border-collapse:collapse}
+.mock-table th{text-align:left;padding:8px 6px;font-weight:600;color:#6b7280;font-size:11px;border-bottom:1px solid #e8ecf4}
+.mock-table td{padding:8px 6px;border-bottom:1px solid #f3f4f6}
+.mock-table tr:last-child td{border-bottom:none}
+.tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:500}
+.tag.blue{background:#eef2ff;color:#4361ee}
+.tag.green{background:#ecfdf5;color:#059669}
+.tag.red{background:#fef2f2;color:#dc2626}
+.tag.yellow{background:#fffbeb;color:#d97706}
+.tag.gray{background:#f3f4f6;color:#6b7280}
 
-/* ─── Data Table ─── */
-.data-table{width:100%;border-collapse:collapse;font-size:14px}
-.data-table th{background:#f1f4fd;text-align:left;padding:10px 14px;font-weight:600;font-size:13px;color:#374151}
-.data-table td{padding:10px 14px;border-bottom:1px solid #e8ecf4}
-.data-table tr:hover td{background:#f8f9fc}
+/* ─── Two-panel workflow ─── */
+.twopanel{display:grid;grid-template-columns:380px 1fr;gap:14px;min-height:500px}
+.leftpanel,.rightpanel{background:#fff;border-radius:8px;border:1px solid #e8ecf4;padding:18px}
+.leftpanel h3,.rightpanel h3{font-size:14px;font-weight:600;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid #e8ecf4}
+.form-group{margin-bottom:10px}
+.form-group label{display:block;font-size:12px;color:#374151;margin-bottom:3px;font-weight:500}
+.form-group .input{width:100%;padding:7px 10px;border:1px solid #d1d5db;border-radius:5px;font-size:13px;background:#f9fafb;color:#6b7280}
+.form-group .input:focus{outline:none;border-color:#4361ee}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 
-/* ─── Tech Stack ─── */
-.tech-list{display:flex;flex-wrap:wrap;gap:12px}
-.tech-item{background:#fff;border:1px solid #e8ecf4;border-radius:8px;padding:14px 20px;flex:1;min-width:140px;text-align:center}
-.tech-item .name{font-weight:600;font-size:15px}
-.tech-item .desc{font-size:11px;color:#6b7280;margin-top:2px}
+/* ─── HS Recommended Table ─── */
+.rec-table{width:100%;font-size:13px;border-collapse:collapse}
+.rec-table th{text-align:left;padding:8px 8px;font-weight:600;color:#6b7280;font-size:11px;background:#f9fafb;border-bottom:1px solid #e8ecf4}
+.rec-table td{padding:8px;border-bottom:1px solid #f3f4f6}
+.rec-table tr.selected td{background:#eef2ff}
+.rec-table .hs-code{font-weight:600;color:#4361ee}
+.rec-table .desc{font-size:12px;color:#6b7280}
 
-/* ─── Footer ─── */
-.footer{text-align:center;padding:40px;color:#6b7280;font-size:13px;border-top:1px solid #e8ecf4;margin-top:40px}
+/* ─── Ruling card ─── */
+.ruling-box{margin-top:12px;background:#f9fafb;border-radius:6px;padding:14px;border:1px solid #e8ecf4}
+.ruling-box .ruling-hd{display:flex;justify-content:space-between;font-size:12px;margin-bottom:8px}
+.ruling-box .ruling-hd .no{color:#4361ee;font-weight:600}
+.ruling-box .ruling-hd .auth{color:#6b7280}
+.ruling-box .field{margin-bottom:6px;font-size:13px}
+.ruling-box .field .k{color:#6b7280;font-size:11px}
+
+/* ─── Cost card ─── */
+.cost-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.cost-item{text-align:center;padding:12px;background:#f9fafb;border-radius:6px}
+.cost-item .amt{font-size:18px;font-weight:700;color:#4361ee}
+.cost-item .lbl{font-size:11px;color:#6b7280;margin-top:2px}
+.cost-item.total .amt{color:#059669}
+
+/* ─── Bar chart ─── */
+.bar-chart{margin:12px 0}
+.bar-row{display:flex;align-items:center;margin-bottom:6px;font-size:12px}
+.bar-row .bar-lbl{width:70px;text-align:right;padding-right:10px;color:#6b7280;flex-shrink:0}
+.bar-row .bar-track{flex:1;height:18px;background:#f3f4f6;border-radius:4px;overflow:hidden}
+.bar-row .bar-fill{height:100%;border-radius:4px;display:flex;align-items:center;padding-left:6px;color:#fff;font-size:11px;font-weight:500;min-width:30px}
+.bar-row .bar-val{width:50px;padding-left:8px;color:#374151;flex-shrink:0}
+
+/* ─── Tabs ─── */
+.tabs{display:flex;gap:0;margin-bottom:16px;border-bottom:1px solid #e8ecf4}
+.tab{padding:10px 20px;font-size:13px;cursor:default;border-bottom:2px solid transparent;color:#6b7280}
+.tab.active{color:#4361ee;border-bottom-color:#4361ee;font-weight:600}
+.tab:hover{color:#4361ee}
+
+/* ─── Page sections ─── */
+.page{display:none}
+.page.active{display:block}
+
+/* ─── Cert card ─── */
+.cert-list{display:flex;flex-wrap:wrap;gap:8px}
+.cert-item{padding:6px 12px;background:#f9fafb;border-radius:5px;border:1px solid #e8ecf4;font-size:12px}
+
+/* ─── Cost waterfall ─── */
+.waterfall{margin:12px 0}
+.wf-row{display:flex;align-items:center;margin:4px 0;font-size:12px}
+.wf-row .wf-lbl{width:80px;text-align:right;padding-right:10px;color:#6b7280}
+.wf-row .wf-bar{height:22px;border-radius:4px;display:flex;align-items:center;padding:0 8px;color:#fff;font-size:11px;font-weight:500}
+
+/* ─── Origin comparison ─── */
+.comp-table{width:100%;font-size:13px;border-collapse:collapse;margin-top:10px}
+.comp-table th{text-align:left;padding:8px;font-weight:600;color:#6b7280;font-size:11px;background:#f9fafb;border-bottom:1px solid #e8ecf4}
+.comp-table td{padding:8px;border-bottom:1px solid #f3f4f6;text-align:center}
+.comp-table td:first-child{text-align:left;font-weight:600}
+.comp-table tr.best td{background:#ecfdf5}
+.best-badge{display:inline-block;padding:1px 8px;border-radius:10px;background:#059669;color:#fff;font-size:10px}
+
+/* ─── Declaration status ─── */
+.status-flow{display:flex;align-items:center;gap:8px;padding:16px 0;justify-content:center}
+.sf-node{display:flex;flex-direction:column;align-items:center;gap:4px}
+.sf-node .dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600}
+.sf-node .dot.done{background:#059669;color:#fff}
+.sf-node .dot.current{background:#4361ee;color:#fff}
+.sf-node .dot.pending{background:#e5e7eb;color:#9ca3af}
+.sf-node .sf-lbl{font-size:11px;color:#6b7280}
+.sf-node .sf-date{font-size:10px;color:#9ca3af}
+.sf-line{width:32px;height:2px;background:#e5e7eb}
+.sf-line.done{background:#059669}
 
 /* ─── Responsive ─── */
-@media(max-width:768px){
-  .hero h1{font-size:32px}
-  .stats-bar{gap:24px;flex-wrap:wrap}
-  .stats-bar .num{font-size:24px}
-  .flow{flex-direction:column;align-items:center}
-  .step::after{display:none}
-  .section{padding:40px 20px}
+@media(max-width:900px){
+  .sidebar{width:56px}
+  .sidebar .logo span,.sidebar .userinfo,.sidebar nav a span{display:none}
+  .sidebar .logo{justify-content:center;padding:14px 0}
+  .sidebar nav a{justify-content:center;padding:12px 0}
+  .kpi-grid{grid-template-columns:repeat(2,1fr)}
+  .panel-row{grid-template-columns:1fr}
+  .twopanel{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
 
-<!-- ==================== HERO ==================== -->
-<section class="hero">
-  <h1>🌐 GTCS</h1>
-  <p style="font-size:22px;font-weight:500;color:#fff;margin-bottom:4px">全球贸易通关系统</p>
-  <p style="font-size:14px;color:#a8b2d1;margin-bottom:24px">Global Trade Compliance System</p>
-  <p>从产品需求到通关合规的一站式决策平台</p>
-  <div style="margin-top:20px">
-    <span class="tag">HS 归类</span>
-    <span class="tag">关税计算</span>
-    <span class="tag">FTA 优惠</span>
-    <span class="tag">原产地判定</span>
-    <span class="tag">制裁筛查</span>
-    <span class="tag">成本分析</span>
-  </div>
-  <div style="margin-top:16px">
-    <span class="badge">FastAPI</span>
-    <span class="badge">SQLite</span>
-    <span class="badge">Vue 3</span>
-    <span class="badge">Element Plus</span>
-  </div>
-</section>
+<div class="app-container">
 
-<!-- ==================== STATS ==================== -->
-<section class="stats-bar">
-  <div class="stat"><div class="num">164K</div><div class="label">关税税则数据</div></div>
-  <div class="stat"><div class="num">11</div><div class="label">覆盖国家</div></div>
-  <div class="stat"><div class="num">9</div><div class="label">海关预裁定</div></div>
-  <div class="stat"><div class="num">235</div><div class="label">制裁名单</div></div>
-  <div class="stat"><div class="num">12</div><div class="label">功能模块</div></div>
-  <div class="stat"><div class="num">1</div><div class="label">数据库（SQLite）</div></div>
-</section>
+  <!-- ==================== SIDEBAR ==================== -->
+  <aside class="sidebar">
+    <div class="logo">⚡ <span>GTCS</span></div>
+    <nav>
+      <a href="#" class="active" data-page="dashboard"><span class="icon">📊</span><span>仪表盘</span></a>
+      <a href="#" data-page="hs"><span class="icon">🏷️</span><span>HS 归类</span></a>
+      <a href="#" data-page="cost"><span class="icon">💰</span><span>成本分析</span></a>
+      <a href="#" data-page="tariff"><span class="icon">🔍</span><span>税则查询</span></a>
+      <a href="#" data-page="fta"><span class="icon">🤝</span><span>FTA 优惠</span></a>
+      <a href="#" data-page="origin"><span class="icon">🌍</span><span>原产地</span></a>
+      <a href="#" data-page="screening"><span class="icon">🚫</span><span>制裁筛查</span></a>
+      <a href="#" data-page="declaration"><span class="icon">📋</span><span>报关单</span></a>
+      <a href="#" data-page="risk"><span class="icon">⚠️</span><span>价格风控</span></a>
+    </nav>
+    <div class="userinfo">👤 关务管理员 · admin</div>
+  </aside>
 
-<!-- ==================== 核心工作流程 ==================== -->
-<section class="section">
-  <h2>核心业务工作流</h2>
-  <div class="flow">
-    <div class="step">
-      <div class="num">1</div>
-      <h4>产品需求输入</h4>
-      <p>上游业务人员录入产品信息、目的国、贸易条款</p>
-    </div>
-    <div class="step">
-      <div class="num">2</div>
-      <h4>HS 归类推荐</h4>
-      <p>匹配预裁定数据库 + 税则关键词搜索，推荐 HS 编码及税率</p>
-    </div>
-    <div class="step">
-      <div class="num">3</div>
-      <h4>关务确认</h4>
-      <p>关务同事审核 HS 编码，确认归类依据，保存记录</p>
-    </div>
-    <div class="step">
-      <div class="num">4</div>
-      <h4>成本分析</h4>
-      <p>自动计算关税、VAT、认证费用，多原产国对比</p>
-    </div>
-    <div class="step">
-      <div class="num">5</div>
-      <h4>报关单管理</h4>
-      <p>生成报关数据，状态追踪，审计留痕</p>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== 功能模块 ==================== -->
-<section class="section">
-  <h2>功能模块一览</h2>
-  <div class="module-grid">
-
-    <div class="module-card">
-      <h3><span class="icon">📊</span>仪表盘</h3>
-      <p>全局 KPI 看板：关税数据量、筛查统计、企业/产品数、审计时间线</p>
-      <span class="api-badge">GET /dashboard/stats</span>
+  <!-- ==================== MAIN ==================== -->
+  <div class="main">
+    <div class="topbar">
+      <div class="title" id="pageTitle">仪表盘</div>
+      <div class="right">
+        <span>📅 2026-06-10</span>
+        <span class="avatar">管</span>
+      </div>
     </div>
 
-    <div class="module-card">
-      <h3><span class="icon">🔍</span>税则查询</h3>
-      <p>按 HS 编码、关键词查询各国关税税率，章节浏览、FTA 优惠税率</p>
-      <span class="api-badge">GET /tariff/lookup</span>
-    </div>
+    <div class="content">
 
-    <div class="module-card">
-      <h3><span class="icon">🏷️</span>HS 归类工作台</h3>
-      <p>企业级归类流程：产品需求 → 预裁定匹配推荐 → 关务确认 → 税率快照</p>
-      <span class="api-badge">POST /hs-classification/enterprise/recommend</span>
-    </div>
+      <!-- ─── PAGE: DASHBOARD ─── -->
+      <div class="page active" id="page-dashboard">
+        <div class="kpi-grid">
+          <div class="kpi-card blue">
+            <div class="label">关税税则数据</div>
+            <div class="value">164,112</div>
+            <div class="sub">覆盖 11 个国家</div>
+          </div>
+          <div class="kpi-card green">
+            <div class="label">企业 &amp; 产品</div>
+            <div class="value">42</div>
+            <div class="sub">6 家企业 · 36 个产品</div>
+          </div>
+          <div class="kpi-card orange">
+            <div class="label">制裁筛查名单</div>
+            <div class="value">235</div>
+            <div class="sub">联合国 · OFAC · EU 等</div>
+          </div>
+          <div class="kpi-card purple">
+            <div class="label">海关预裁定</div>
+            <div class="value">9</div>
+            <div class="sub">CN · US · DE · VN · JP</div>
+          </div>
+        </div>
 
-    <div class="module-card">
-      <h3><span class="icon">💰</span>成本模拟器</h3>
-      <p>进口到岸成本计算：FOB→运费→保费→CIF→关税→VAT→总成本，支持多原产国对比</p>
-      <span class="api-badge">POST /cost/enterprise-simulate</span>
-    </div>
+        <div class="panel-row">
+          <div class="panel">
+            <div class="panel-hd"><span>各国家关税数据量</span></div>
+            <div class="panel-bd">
+              <div class="bar-chart">
+                <div class="bar-row"><span class="bar-lbl">US</span><div class="bar-track"><div class="bar-fill" style="width:100%;background:#4361ee">29,581</div></div><span class="bar-val"></span></div>
+                <div class="bar-row"><span class="bar-lbl">KR</span><div class="bar-track"><div class="bar-fill" style="width:50%;background:#4361ee">14,453</div></div></div>
+                <div class="bar-row"><span class="bar-lbl">DE</span><div class="bar-track"><div class="bar-fill" style="width:56%;background:#4361ee">16,466</div></div></div>
+                <div class="bar-row"><span class="bar-lbl">GB</span><div class="bar-track"><div class="bar-fill" style="width:66%;background:#4361ee">19,623</div></div></div>
+                <div class="bar-row"><span class="bar-lbl">CA</span><div class="bar-track"><div class="bar-fill" style="width:51%;background:#4361ee">15,060</div></div></div>
+                <div class="bar-row"><span class="bar-lbl">JP</span><div class="bar-track"><div class="bar-fill" style="width:43%;background:#4361ee">12,605</div></div></div>
+                <div class="bar-row"><span class="bar-lbl">MX</span><div class="bar-track"><div class="bar-fill" style="width:44%;background:#4361ee">12,876</div></div></div>
+                <div class="bar-row"><span class="bar-lbl">AU</span><div class="bar-track"><div class="bar-fill" style="width:49%;background:#4361ee">14,425</div></div></div>
+                <div class="bar-row"><span class="bar-lbl">VN</span><div class="bar-track"><div class="bar-fill" style="width:45%;background:#4361ee">13,501</div></div></div>
+                <div class="bar-row"><span class="bar-lbl">BR</span><div class="bar-track"><div class="bar-fill" style="width:31%;background:#4361ee">9,194</div></div></div>
+                <div class="bar-row"><span class="bar-lbl">TW</span><div class="bar-track"><div class="bar-fill" style="width:21%;background:#4361ee">6,328</div></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-hd"><span>最近审计日志</span><span class="more">查看全部 →</span></div>
+            <div class="panel-bd">
+              <table class="mock-table">
+                <tr><th>时间</th><th>用户</th><th>操作</th><th>资源</th></tr>
+                <tr><td>10:32</td><td>admin</td><td><span class="tag green">查询</span></td><td>HS 归类 · 852852</td></tr>
+                <tr><td>10:15</td><td>admin</td><td><span class="tag blue">创建</span></td><td>报关单 · DEC-2026-003</td></tr>
+                <tr><td>09:58</td><td>admin</td><td><span class="tag yellow">登录</span></td><td>AUTH</td></tr>
+                <tr><td>09:45</td><td>admin</td><td><span class="tag blue">创建</span></td><td>企业 · 华为技术</td></tr>
+                <tr><td>09:22</td><td>admin</td><td><span class="tag green">查询</span></td><td>美国 HTS 税则</td></tr>
+                <tr><td>08:50</td><td>admin</td><td><span class="tag red">筛查</span></td><td>Iran Shipping Co.</td></tr>
+              </table>
+            </div>
+          </div>
+        </div>
 
-    <div class="module-card">
-      <h3><span class="icon">🤝</span>FTA 优惠推荐</h3>
-      <p>基于原产国和 HS 编码，自动匹配适用的自由贸易协定及优惠税率</p>
-      <span class="api-badge">GET /fta/recommend</span>
-    </div>
+        <div class="panel" style="margin-bottom:14px">
+          <div class="panel-hd"><span>🌐 核心业务工作流</span></div>
+          <div class="panel-bd" style="display:flex;gap:20px;padding:20px;justify-content:center;flex-wrap:wrap">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:100px">
+              <div style="width:36px;height:36px;border-radius:50%;background:#4361ee;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">1</div>
+              <div style="font-size:12px;font-weight:600">产品需求</div>
+              <div style="font-size:10px;color:#6b7280;text-align:center">名称·描述·目的国</div>
+            </div>
+            <div style="font-size:24px;color:#4361ee;font-weight:700;padding-top:8px">→</div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:100px">
+              <div style="width:36px;height:36px;border-radius:50%;background:#4361ee;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">2</div>
+              <div style="font-size:12px;font-weight:600">HS 归类</div>
+              <div style="font-size:10px;color:#6b7280;text-align:center">预裁定匹配→推荐</div>
+            </div>
+            <div style="font-size:24px;color:#4361ee;font-weight:700;padding-top:8px">→</div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:100px">
+              <div style="width:36px;height:36px;border-radius:50%;background:#4361ee;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">3</div>
+              <div style="font-size:12px;font-weight:600">成本分析</div>
+              <div style="font-size:10px;color:#6b7280;text-align:center">关税·VAT·多国对比</div>
+            </div>
+            <div style="font-size:24px;color:#4361ee;font-weight:700;padding-top:8px">→</div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:100px">
+              <div style="width:36px;height:36px;border-radius:50%;background:#4361ee;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">4</div>
+              <div style="font-size:12px;font-weight:600">报关管理</div>
+              <div style="font-size:10px;color:#6b7280;text-align:center">申报·状态追踪</div>
+            </div>
+            <div style="font-size:24px;color:#4361ee;font-weight:700;padding-top:8px">→</div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;min-width:100px">
+              <div style="width:36px;height:36px;border-radius:50%;background:#059669;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">✓</div>
+              <div style="font-size:12px;font-weight:600">通关放行</div>
+              <div style="font-size:10px;color:#6b7280;text-align:center">合规·审计留痕</div>
+            </div>
+          </div>
+        </div>
 
-    <div class="module-card">
-      <h3><span class="icon">🌍</span>原产地判定</h3>
-      <p>RVC 计算、CTC 税则归类改变检查、原产地证书管理</p>
-      <span class="api-badge">POST /origin/rvc/calculate/{id}</span>
-    </div>
+        <div style="text-align:center;color:#6b7280;font-size:12px">
+          <span style="background:#eef2ff;color:#4361ee;padding:4px 14px;border-radius:12px;font-weight:500">
+            💡 点击左侧菜单切换功能模块
+          </span>
+        </div>
+      </div>
 
-    <div class="module-card">
-      <h3><span class="icon">📋</span>报关单管理</h3>
-      <p>报关单创建、状态流转（草稿→申报→放行）、要素检查、审计日志</p>
-      <span class="api-badge">POST /declaration/create</span>
-    </div>
+      <!-- ─── PAGE: HS CLASSIFICATION ─── -->
+      <div class="page" id="page-hs">
+        <div class="twopanel">
 
-    <div class="module-card">
-      <h3><span class="icon">🚫</span>制裁名单筛查</h3>
-      <p>模糊匹配引擎（difflib），FTS5 全文本搜索，筛查日志留痕</p>
-      <span class="api-badge">POST /screening/check</span>
-    </div>
+          <!-- Left: Product Input -->
+          <div class="leftpanel">
+            <h3>📝 产品信息录入</h3>
+            <div class="form-group">
+              <label>产品名称</label>
+              <div class="input">交互式智能平板</div>
+            </div>
+            <div class="form-group">
+              <label>产品描述</label>
+              <div class="input">85英寸触摸屏，4K，内置Android，无线投屏</div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>品牌</label><div class="input">华为</div></div>
+              <div class="form-group"><label>型号</label><div class="input">IdeaHub S</div></div>
+            </div>
+            <div class="form-group">
+              <label>规格参数</label>
+              <div class="input">85寸/4K/8GB+64GB/WiFi6</div>
+            </div>
+            <div class="form-group">
+              <label>功能描述</label>
+              <div class="input">触控显示/无线投屏/视频会议/电子白板</div>
+            </div>
+            <div class="form-group">
+              <label>用途说明</label>
+              <div class="input">企业会议室协作设备</div>
+            </div>
+            <div class="form-group">
+              <label>目的国（进口国）</label>
+              <div style="position:relative">
+                <div class="input" style="background:#4361ee;color:#fff;font-weight:600;display:inline-block;padding:7px 16px">🇨🇳 中国 (CN)</div>
+              </div>
+            </div>
+            <div style="margin-top:8px;text-align:center">
+              <div style="background:#4361ee;color:#fff;padding:8px 0;border-radius:6px;font-size:13px;font-weight:600">🔄 推荐 HS 编码</div>
+            </div>
+            <div style="margin-top:14px;background:#f9fafb;border-radius:6px;padding:12px;border:1px solid #e8ecf4">
+              <div style="font-size:12px;color:#6b7280;margin-bottom:6px">📋 历史归类记录</div>
+              <table class="mock-table">
+                <tr><th>产品</th><th>HS</th><th>状态</th></tr>
+                <tr><td>交互式智能平板</td><td>852859</td><td><span class="tag green">有效</span></td></tr>
+                <tr><td>液晶显示器</td><td>85285200</td><td><span class="tag green">有效</span></td></tr>
+                <tr><td>5G CPE 终端</td><td>85176299</td><td><span class="tag green">有效</span></td></tr>
+              </table>
+            </div>
+          </div>
 
-    <div class="module-card">
-      <h3><span class="icon">⚠️</span>价格风险监控</h3>
-      <p>申报价格与基准价对比，阈值告警，价格异常追踪</p>
-      <span class="api-badge">POST /price-risk/record</span>
-    </div>
+          <!-- Right: Results -->
+          <div class="rightpanel">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid #e8ecf4">
+              <h3 style="border:none;padding:0;margin:0">🎯 HS 推荐结果</h3>
+              <div style="display:flex;gap:8px;align-items:center">
+                <span class="tag blue" style="font-size:12px;padding:4px 12px">3 个候选</span>
+                <span class="tag green" style="font-size:12px;padding:4px 12px">推荐: 852852</span>
+                <div style="background:#059669;color:#fff;padding:6px 16px;border-radius:5px;font-size:12px;font-weight:600">✅ 确认归类</div>
+              </div>
+            </div>
 
-    <div class="module-card">
-      <h3><span class="icon">🏢</span>企业管理</h3>
-      <p>企业信息维护、统一社会信用代码、资质管理</p>
-      <span class="api-badge">GET /enterprise/list</span>
-    </div>
+            <table class="rec-table">
+              <tr><th>#</th><th>HS 编码</th><th>商品描述</th><th>MFN</th><th>FTA</th><th>预裁定</th></tr>
+              <tr class="selected">
+                <td>1</td>
+                <td class="hs-code">852852</td>
+                <td><div>交互式智能平板(触控一体机)</div><div style="font-size:10px;color:#6b7280">85英寸触摸显示屏内置计算机模块</div></td>
+                <td><span class="tag red">25%</span></td>
+                <td><span class="tag yellow">ACFTA 0%</span></td>
+                <td><span class="tag blue">1条</span></td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td class="hs-code">847141</td>
+                <td><div>工业控制计算机</div><div style="font-size:10px;color:#6b7280">数据处理设备</div></td>
+                <td><span class="tag red">15%</span></td>
+                <td><span class="tag yellow">ACFTA 0%</span></td>
+                <td><span class="tag blue">1条</span></td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td class="hs-code">851762</td>
+                <td><div>5G CPE 无线终端</div><div style="font-size:10px;color:#6b7280">通信设备</div></td>
+                <td><span class="tag red">20%</span></td>
+                <td><span class="tag gray">-</span></td>
+                <td><span class="tag blue">1条</span></td>
+              </tr>
+            </table>
 
-    <div class="module-card">
-      <h3><span class="icon">📦</span>产品管理</h3>
-      <p>产品库维护、HS 编码关联、产品档案管理</p>
-      <span class="api-badge">POST /product/create</span>
-    </div>
+            <!-- Ruling Detail -->
+            <div class="ruling-box">
+              <div class="ruling-hd">
+                <span class="no">📜 匹配预裁定：CN-2024-852852-001</span>
+                <span class="auth">中国海关总署 · 2024-03-15</span>
+              </div>
+              <div class="field"><span class="k">产品名称：</span>交互式智能平板(触控一体机)</div>
+              <div class="field"><span class="k">裁定结论：</span><strong>归入 85285200</strong></div>
+              <div class="field"><span class="k">归类推理：</span>该产品兼具显示器和视频信号分配功能，主要功能为显示器，按监视器归入85285200</div>
+              <div class="field"><span class="k">关键因素：</span>带HDMI输入、VGA输入、触摸功能为附加功能不影响归类</div>
+              <div class="field"><span class="k">法律依据：</span>归类总规则一及六</div>
+            </div>
 
-    <div class="module-card">
-      <h3><span class="icon">📜</span>审计日志</h3>
-      <p>全操作审计追踪，按操作类型/资源类型筛选，合规留痕</p>
-      <span class="api-badge">GET /audit/logs</span>
-    </div>
+            <!-- Tariff Detail -->
+            <div style="margin-top:12px;background:#f9fafb;border-radius:6px;padding:14px;border:1px solid #e8ecf4">
+              <div style="font-size:13px;font-weight:600;margin-bottom:8px">💰 选定 HS 852852 关税税率（目的国：中国）</div>
+              <div class="cost-grid">
+                <div class="cost-item">
+                  <div class="amt" style="color:#dc2626">25%</div>
+                  <div class="lbl">MFN 税率</div>
+                </div>
+                <div class="cost-item">
+                  <div class="amt" style="color:#059669">0%</div>
+                  <div class="lbl">ACFTA 优惠</div>
+                </div>
+                <div class="cost-item total">
+                  <div class="amt">0%</div>
+                  <div class="lbl">综合有效税率</div>
+                </div>
+              </div>
+            </div>
 
-  </div>
-</section>
+            <!-- Success -->
+            <div style="margin-top:12px;background:#ecfdf5;border:1px solid #a7f3d0;border-radius:6px;padding:14px;text-align:center">
+              <div style="font-size:16px;font-weight:700;color:#059669">✅ 归类确认成功</div>
+              <div style="font-size:12px;color:#6b7280;margin-top:4px">HS 852852 | 归类依据：SELF_CLASSIFY | 状态：ACTIVE</div>
+              <div style="margin-top:8px;display:flex;gap:8px;justify-content:center">
+                <span style="background:#059669;color:#fff;padding:4px 12px;border-radius:4px;font-size:11px">继续新归类</span>
+                <span style="background:#4361ee;color:#fff;padding:4px 12px;border-radius:4px;font-size:11px">进入成本分析 →</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-<!-- ==================== HS 归类工作台详解 ==================== -->
-<section class="section" style="background:#fff;border-radius:12px;border:1px solid #e8ecf4;max-width:1100px;margin:0 auto 40px;padding:40px">
-  <h2 style="margin-bottom:20px">🚀 演示亮点：HS 归类工作台</h2>
+      <!-- ─── PAGE: COST ANALYSIS ─── -->
+      <div class="page" id="page-cost">
+        <div class="twopanel">
+          <!-- Left -->
+          <div class="leftpanel">
+            <h3>📦 进口成本分析</h3>
+            <div class="form-group">
+              <label>产品名称</label>
+              <div class="input">交互式智能平板</div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>HS 编码</label><div class="input">852852</div></div>
+              <div class="form-group"><label>目的国</label><div class="input">🇻🇳 越南 (VN)</div></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>数量</label><div class="input">100 台</div></div>
+              <div class="form-group"><label>单价 (FOB)</label><div class="input">$850 USD</div></div>
+            </div>
+            <div class="form-group"><label>贸易术语</label><div class="input">FOB</div></div>
 
-  <p style="margin-bottom:24px;color:#374151">从产品需求输入到 HS 确认，全程 2 步完成，背后智能匹配预裁定数据库 + 关税税率。</p>
+            <h3 style="margin-top:16px">🌍 多原产国对比</h3>
+            <table class="mock-table">
+              <tr><th>原产国</th><th>运费/台</th><th>保费/台</th><th>FTA</th></tr>
+              <tr style="background:#ecfdf5">
+                <td><strong>🇨🇳 中国</strong></td><td>$30</td><td>$5</td><td><span class="tag green">ACFTA 0%</span></td>
+              </tr>
+              <tr>
+                <td><strong>🇻🇳 越南</strong></td><td>$15</td><td>$3</td><td>-</td>
+              </tr>
+            </table>
 
-  <table class="data-table">
-    <thead>
-      <tr><th style="width:120px">步骤</th><th>操作</th><th>结果</th></tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><strong>1. 推荐</strong></td>
-        <td>输入产品信息 + 目的国<br>
-          <span style="font-size:12px;color:#6b7280">如："85英寸触摸显示屏 内置计算机模块" → 目的国 CN</span>
-        </td>
-        <td>返回 HS 候选列表<br>
-          <span style="font-size:12px;color:#4361ee">✓ 85285200 交互式智能平板 — 匹配预裁定 CN-2024-852852-001</span>
-        </td>
-      </tr>
-      <tr>
-        <td><strong>2. 确认</strong></td>
-        <td>选择 HS 编码，点击确认归类</td>
-        <td>保存归类记录 + 税率快照<br>
-          <span style="font-size:12px;color:#4361ee">✓ 记录状态 ACTIVE</span>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+            <div style="margin-top:12px;text-align:center">
+              <div style="background:#4361ee;color:#fff;padding:8px 0;border-radius:6px;font-size:13px;font-weight:600">🔄 执行成本模拟</div>
+            </div>
+          </div>
 
-  <div style="margin-top:24px;background:#f1f4fd;padding:16px 20px;border-radius:8px;font-size:13px;color:#374151">
-    <strong>预裁定匹配效果：</strong>
-    <span style="margin-left:12px">"交互式智能平板" → 852852 | "5G CPE无线终端" → 851762 | "工控机" → 847141</span>
-    <br>
-    <strong>覆盖国家：</strong>
-    <span style="margin-left:12px">中国、美国、欧盟（德国）、越南、日本</span>
-    <br>
-    <strong>下一环节：</strong>
-    <span style="margin-left:12px">确认归类后可跳转至成本分析，自动计算关税 + VAT + 认证费用</span>
-  </div>
-</section>
+          <!-- Right -->
+          <div class="rightpanel">
+            <h3>📊 成本分析结果</h3>
 
-<!-- ==================== 技术架构 ==================== -->
-<section class="section">
-  <h2>技术架构</h2>
-  <div class="tech-list">
-    <div class="tech-item"><div class="name">FastAPI</div><div class="desc">Python Web 框架</div></div>
-    <div class="tech-item"><div class="name">SQLAlchemy 2.0</div><div class="desc">ORM 同步模式</div></div>
-    <div class="tech-item"><div class="name">SQLite</div><div class="desc">内网部署，零运维</div></div>
-    <div class="tech-item"><div class="name">FTS5</div><div class="desc">全文搜索引擎</div></div>
-    <div class="tech-item"><div class="name">JWT</div><div class="desc">认证 + RBAC</div></div>
-    <div class="tech-item"><div class="name">bcrypt</div><div class="desc">密码加密</div></div>
-    <div class="tech-item"><div class="name">Vue 3</div><div class="desc">前端框架</div></div>
-    <div class="tech-item"><div class="name">Element Plus</div><div class="desc">UI 组件库</div></div>
-    <div class="tech-item"><div class="name">Vite</div><div class="desc">前端构建</div></div>
-  </div>
+            <!-- HS Summary -->
+            <div style="display:flex;gap:8px;margin-bottom:12px">
+              <span style="background:#eef2ff;color:#4361ee;padding:4px 12px;border-radius:4px;font-size:12px">HS 852852 · 交互式智能平板</span>
+              <span style="background:#ecfdf5;color:#059669;padding:4px 12px;border-radius:4px;font-size:12px">目的国: VN</span>
+            </div>
 
-  <div style="margin-top:28px;background:#fff;border:1px solid #e8ecf4;border-radius:10px;padding:24px">
-    <h3 style="font-size:16px;margin-bottom:12px">📁 项目结构</h3>
-    <pre style="font-size:13px;color:#374151;line-height:1.8;overflow-x:auto">
-backend/
-├── app/
-│   ├── api/v1/       # 12 个路由模块
-│   ├── services/     # 业务逻辑层
-│   ├── models/       # ORM 数据模型
-│   ├── schemas/      # Pydantic 请求/响应
-│   └── core/         # 配置/数据库/安全
-├── data/gtcs.db      # SQLite 数据库
-├── scripts/          # 数据导入工具
-└── tests/            # API 测试
-frontend/
-└── src/views/        # 12 个页面组件</pre>
-  </div>
-</section>
+            <!-- VAT + Certification -->
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
+              <div style="background:#f9fafb;border-radius:6px;padding:12px;border:1px solid #e8ecf4">
+                <div style="font-size:11px;color:#6b7280;margin-bottom:4px">VAT 增值税</div>
+                <div style="font-size:20px;font-weight:700;color:#4361ee">10%</div>
+                <div style="font-size:10px;color:#6b7280">越南 VAT (GTGT)</div>
+              </div>
+              <div style="background:#f9fafb;border-radius:6px;padding:12px;border:1px solid #e8ecf4">
+                <div style="font-size:11px;color:#6b7280;margin-bottom:4px">认证要求</div>
+                <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:4px">
+                  <span style="padding:2px 8px;background:#eef2ff;border-radius:3px;font-size:10px;color:#4361ee">CR Mark</span>
+                  <span style="padding:2px 8px;background:#eef2ff;border-radius:3px;font-size:10px;color:#4361ee">QCVN</span>
+                </div>
+              </div>
+            </div>
 
-<!-- ==================== 启动方式 ==================== -->
-<section class="section" style="background:#fff;border-radius:12px;border:1px solid #e8ecf4;max-width:1100px;margin:0 auto 40px;padding:40px">
-  <h2 style="margin-bottom:16px">⚡ 快速启动</h2>
-  <pre style="background:#1a1a2e;color:#e8ecf4;padding:20px;border-radius:8px;font-size:14px;line-height:1.7;overflow-x:auto">
-# 后端
-cd backend
-pip install -r requirements.txt
-python3 -m uvicorn app.main:app --reload
+            <!-- Comparison table -->
+            <table class="comp-table">
+              <tr><th>原产国</th><th>完税价格(CIF)</th><th>关税</th><th>VAT</th><th>到岸总成本</th><th></th></tr>
+              <tr class="best">
+                <td>🇨🇳 中国</td>
+                <td>$88,500</td>
+                <td><span class="tag green">$0 (ACFTA)</span></td>
+                <td>$8,850</td>
+                <td><strong>$97,350</strong></td>
+                <td><span class="best-badge">推荐</span></td>
+              </tr>
+              <tr>
+                <td>🇻🇳 越南</td>
+                <td>$86,800</td>
+                <td>$21,700 <span style="font-size:10px;color:#6b7280">(MFN 25%)</span></td>
+                <td>$10,850</td>
+                <td><strong>$119,350</strong></td>
+                <td></td>
+              </tr>
+            </table>
 
-# 前端（开发模式）
-cd frontend
-npm install
-npm run dev
+            <!-- Waterfall -->
+            <div style="margin-top:12px;background:#f9fafb;border-radius:6px;padding:14px;border:1px solid #e8ecf4">
+              <div style="font-size:12px;font-weight:600;margin-bottom:8px">📈 成本瀑布图（中国原产）</div>
+              <div class="waterfall">
+                <div class="wf-row"><span class="wf-lbl">FOB 货值</span><div class="wf-bar" style="width:120px;background:#4361ee">$85,000</div></div>
+                <div class="wf-row"><span class="wf-lbl">+ 运费</span><div class="wf-bar" style="width:20px;background:#7c3aed">$3,000</div></div>
+                <div class="wf-row"><span class="wf-lbl">+ 保费</span><div class="wf-bar" style="width:10px;background:#7c3aed">$500</div></div>
+                <div class="wf-row"><span class="wf-lbl">= CIF</span><div class="wf-bar" style="width:130px;background:#0891b2">$88,500</div></div>
+                <div class="wf-row"><span class="wf-lbl">+ 关税</span><div class="wf-bar" style="width:5px;background:#059669">$0</div></div>
+                <div class="wf-row"><span class="wf-lbl">+ VAT</span><div class="wf-bar" style="width:40px;background:#d97706">$8,850</div></div>
+                <div class="wf-row" style="font-weight:700"><span class="wf-lbl">= 总成本</span><div class="wf-bar" style="width:160px;background:#059669">$97,350</div></div>
+              </div>
+            </div>
 
-# 访问 http://localhost:5173</pre>
-</section>
+            <!-- Recommendation -->
+            <div style="margin-top:12px;background:#ecfdf5;border:1px solid #a7f3d0;border-radius:6px;padding:14px">
+              <div style="font-size:14px;font-weight:700;color:#059669">🏆 推荐方案：中国原产</div>
+              <div style="font-size:12px;color:#374151;margin-top:4px">通过 ACFTA 优惠税率 0%，较越南原产节省 <strong>$22,000</strong>（18.4%）</div>
+              <div style="margin-top:6px;display:flex;gap:8px;flex-wrap:wrap">
+                <span style="background:#059669;color:#fff;padding:3px 10px;border-radius:4px;font-size:11px">生成报关单</span>
+                <span style="background:#eef2ff;color:#4361ee;padding:3px 10px;border-radius:4px;font-size:11px">导出报告</span>
+                <span style="background:#fffbeb;color:#d97706;padding:3px 10px;border-radius:4px;font-size:11px">FTA 原产地证</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-<!-- ==================== Footer ==================== -->
-<section class="footer">
-  <p>GTCS 全球贸易通关系统 v2.0.0</p>
-  <p style="margin-top:4px">GitHub: <a href="https://github.com/xuhuibing/gtcs">github.com/xuhuibing/gtcs</a></p>
-</section>
+      <!-- ─── PAGE: TARIFF ─── -->
+      <div class="page" id="page-tariff">
+        <div style="display:grid;grid-template-columns:300px 1fr;gap:14px;min-height:400px">
+          <div style="background:#fff;border-radius:8px;border:1px solid #e8ecf4;padding:18px">
+            <h3 style="font-size:14px;font-weight:600;margin-bottom:12px">🔍 税则查询</h3>
+            <div class="form-group"><label>HS 编码</label><div class="input">852852</div></div>
+            <div class="form-group"><label>目的国</label><div class="input">🇨🇳 中国</div></div>
+            <div class="form-group"><label>原产国</label><div class="input">🇻🇳 越南</div></div>
+            <div style="margin-top:8px;text-align:center">
+              <div style="background:#4361ee;color:#fff;padding:8px 0;border-radius:6px;font-size:13px;font-weight:600">查税率</div>
+            </div>
+
+            <div style="margin-top:14px">
+              <div style="font-size:12px;color:#6b7280;margin-bottom:6px">📂 章节浏览</div>
+              <div style="display:flex;flex-wrap:wrap;gap:4px">
+                <span style="padding:4px 8px;background:#f3f4f6;border-radius:3px;font-size:11px;color:#374151;cursor:default">84 · 核反应堆</span>
+                <span style="padding:4px 8px;background:#eef2ff;border-radius:3px;font-size:11px;color:#4361ee;cursor:default;font-weight:600">85 · 电机设备</span>
+                <span style="padding:4px 8px;background:#f3f4f6;border-radius:3px;font-size:11px;color:#374151;cursor:default">90 · 光学仪器</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="background:#fff;border-radius:8px;border:1px solid #e8ecf4;padding:18px">
+            <h3 style="font-size:14px;font-weight:600;margin-bottom:12px">📊 HS 852852 关税详情（目的国：中国）</h3>
+            <div class="cost-grid">
+              <div class="cost-item"><div class="amt" style="color:#dc2626">25%</div><div class="lbl">MFN 最惠国</div></div>
+              <div class="cost-item"><div class="amt" style="color:#059669">0%</div><div class="lbl">ACFTA</div></div>
+              <div class="cost-item"><div class="amt">0%</div><div class="lbl">综合有效</div></div>
+            </div>
+            <table class="rec-table" style="margin-bottom:12px">
+              <tr><th>协定</th><th>优惠税率</th><th>适用条件</th><th>原产地规则</th></tr>
+              <tr>
+                <td>ACFTA（中国-东盟）</td>
+                <td><span class="tag green">0%</span></td>
+                <td>东盟成员国原产</td>
+                <td><span class="tag blue" style="font-size:10px">RVC ≥ 40%</span></td>
+              </tr>
+              <tr>
+                <td>RCEP</td>
+                <td><span class="tag green">0%</span></td>
+                <td>RCEP 成员国原产</td>
+                <td><span class="tag blue" style="font-size:10px">RVC ≥ 40%</span></td>
+              </tr>
+              <tr>
+                <td>MFN 基本税率</td>
+                <td><span class="tag red">25%</span></td>
+                <td>无 FTA</td>
+                <td><span class="tag gray">-</span></td>
+              </tr>
+            </table>
+
+            <div style="background:#f1f4fd;padding:12px;border-radius:6px;font-size:12px;color:#374151">
+              <strong>提示：</strong>中国对 8528 项下显示器征收 25% MFN 关税。如从东盟/韩国/澳大利亚进口且满足原产地规则，可申请 ACFTA/RCEP 优惠税率 0%。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── PAGE: FTA ─── -->
+      <div class="page" id="page-fta">
+        <div style="background:#fff;border-radius:8px;border:1px solid #e8ecf4;padding:18px;margin-bottom:14px">
+          <h3 style="font-size:14px;font-weight:600;margin-bottom:12px">🤝 FTA 自由贸易协定推荐</h3>
+          <div class="form-row" style="margin-bottom:10px;max-width:500px">
+            <div class="form-group"><label>HS 编码</label><div class="input">852852</div></div>
+            <div class="form-group"><label>原产国</label><div class="input">🇨🇳 中国</div></div>
+            <div class="form-group"><label>目的国</label><div class="input">🇻🇳 越南</div></div>
+          </div>
+          <div style="background:#4361ee;color:#fff;padding:6px 20px;border-radius:5px;display:inline-block;font-size:13px;font-weight:600">查询优惠</div>
+        </div>
+
+        <table class="rec-table" style="background:#fff;border-radius:8px;overflow:hidden;border:1px solid #e8ecf4">
+          <tr><th>协定</th><th>国家</th><th>MFN</th><th>优惠税率</th><th>降税模式</th><th>原产地规则</th></tr>
+          <tr>
+            <td><strong>ACFTA</strong></td><td>中国 → 越南</td>
+            <td><span class="tag red">25%</span></td>
+            <td><span class="tag green" style="font-weight:600">0%</span></td>
+            <td style="font-size:11px">零关税</td>
+            <td><span class="tag blue">RVC ≥ 40%</span></td>
+          </tr>
+          <tr>
+            <td><strong>RCEP</strong></td><td>中国 → 越南</td>
+            <td><span class="tag red">25%</span></td>
+            <td><span class="tag green" style="font-weight:600">0%</span></td>
+            <td style="font-size:11px">零关税</td>
+            <td><span class="tag blue">RVC ≥ 40%</span></td>
+          </tr>
+          <tr>
+            <td><strong>AIFTA</strong></td><td>中国 → 东盟</td>
+            <td><span class="tag red">25%</span></td>
+            <td><span class="tag yellow">15%</span></td>
+            <td style="font-size:11px">敏感清单</td>
+            <td><span class="tag blue">CTC</span></td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- ─── PAGE: ORIGIN ─── -->
+      <div class="page" id="page-origin">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div style="background:#fff;border-radius:8px;border:1px solid #e8ecf4;padding:18px">
+            <h3 style="font-size:14px;font-weight:600;margin-bottom:12px">🌍 原产地判定</h3>
+            <div class="form-group"><label>原产国</label><div class="input">🇨🇳 中国</div></div>
+            <div class="form-group"><label>HS 编码</label><div class="input">852852（显示器）</div></div>
+            <div class="form-group"><label>原材料构成</label><div class="input">面板（HS 9013）+ 电路板（HS 8473）+ 外壳（HS 3926）</div></div>
+            <div style="margin-top:8px">
+              <div style="background:#4361ee;color:#fff;padding:6px 16px;display:inline-block;border-radius:5px;font-size:13px;font-weight:600">开始判定</div>
+            </div>
+          </div>
+          <div style="background:#fff;border-radius:8px;border:1px solid #e8ecf4;padding:18px">
+            <h3 style="font-size:14px;font-weight:600;margin-bottom:12px">📋 判定结果</h3>
+            <div style="padding:12px;background:#ecfdf5;border:1px solid #a7f3d0;border-radius:6px;margin-bottom:10px">
+              <div style="font-size:15px;font-weight:700;color:#059669">✅ 符合中国原产资格</div>
+              <div style="font-size:12px;color:#374151;margin-top:4px">HS 852852 → 子目级改变，满足 CTC 规则</div>
+            </div>
+            <table class="mock-table">
+              <tr><th>规则</th><th>要求</th><th>结果</th></tr>
+              <tr><td>CTC (税则归类改变)</td><td>从 90→85 章</td><td><span class="tag green">通过</span></td></tr>
+              <tr><td>RVC (区域价值)</td><td>≥ 40%</td><td><span class="tag green">62% 通过</span></td></tr>
+              <tr><td>生产工序</td><td>实质性加工</td><td><span class="tag green">通过</span></td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── PAGE: SCREENING ─── -->
+      <div class="page" id="page-screening">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div style="background:#fff;border-radius:8px;border:1px solid #e8ecf4;padding:18px">
+            <h3 style="font-size:14px;font-weight:600;margin-bottom:12px">🚫 制裁名单筛查</h3>
+            <div class="form-group"><label>公司/个人名称</label><div class="input">Iran Shipping Company</div></div>
+            <div class="form-group"><label>国家</label><div class="input">🇮🇷 Iran</div></div>
+            <div style="margin-top:8px">
+              <div style="background:#4361ee;color:#fff;padding:6px 16px;display:inline-block;border-radius:5px;font-size:13px;font-weight:600">开始筛查</div>
+            </div>
+            <div style="margin-top:10px;background:#f9fafb;border-radius:6px;padding:12px;border:1px solid #e8ecf4">
+              <div style="font-size:12px;color:#6b7280;margin-bottom:6px">📋 筛查历史</div>
+              <table class="mock-table">
+                <tr><td>Iran Shipping Co.</td><td><span class="tag red">命中</span></td><td style="font-size:11px;color:#6b7280">2026-06-09</td></tr>
+                <tr><td>华为技术有限公司</td><td><span class="tag green">未命中</span></td><td style="font-size:11px;color:#6b7280">2026-06-08</td></tr>
+              </table>
+            </div>
+          </div>
+          <div style="background:#fff;border-radius:8px;border:1px solid #e8ecf4;padding:18px">
+            <h3 style="font-size:14px;font-weight:600;margin-bottom:12px">🔍 筛查结果</h3>
+            <div style="padding:12px;background:#fef2f2;border:1px solid #fecaca;border-radius:6px;margin-bottom:10px">
+              <div style="font-size:15px;font-weight:700;color:#dc2626">⚠️ 命中 2 条记录</div>
+              <div style="font-size:12px;color:#6b7280;margin-top:2px">相似度：92%</div>
+            </div>
+            <table class="mock-table">
+              <tr><th>匹配名称</th><th>名单</th><th>相似度</th></tr>
+              <tr>
+                <td>IRAN SHIPPING COMPANY</td>
+                <td><span class="tag red">OFAC SDN</span></td>
+                <td><span style="color:#dc2626;font-weight:600">95%</span></td>
+              </tr>
+              <tr>
+                <td>Iran Shipping Lines</td>
+                <td><span class="tag yellow">UN 制裁</span></td>
+                <td><span style="color:#d97706;font-weight:600">88%</span></td>
+              </tr>
+            </table>
+            <div style="margin-top:8px;display:flex;gap:8px">
+              <span style="background:#dc2626;color:#fff;padding:6px 16px;border-radius:5px;font-size:12px;font-weight:600">标记为违规</span>
+              <span style="background:#f3f4f6;color:#374151;padding:6px 16px;border-radius:5px;font-size:12px">忽略（误报）</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── PAGE: DECLARATION ─── -->
+      <div class="page" id="page-declaration">
+        <div style="background:#fff;border-radius:8px;border:1px solid #e8ecf4;padding:18px;margin-bottom:14px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+            <h3 style="font-size:14px;font-weight:600">📋 报关单管理</h3>
+            <div style="background:#4361ee;color:#fff;padding:6px 16px;border-radius:5px;font-size:12px;font-weight:600">+ 新建报关单</div>
+          </div>
+
+          <!-- Status flow -->
+          <div style="background:#f9fafb;border-radius:6px;padding:16px;margin-bottom:12px">
+            <div style="font-size:12px;font-weight:600;margin-bottom:10px">报关单 DEC-2026-003 状态流转</div>
+            <div class="status-flow">
+              <div class="sf-node">
+                <div class="dot done">✓</div>
+                <span class="sf-lbl">草稿</span>
+                <span class="sf-date">06-08</span>
+              </div>
+              <div class="sf-line done"></div>
+              <div class="sf-node">
+                <div class="dot done">✓</div>
+                <span class="sf-lbl">申报</span>
+                <span class="sf-date">06-09</span>
+              </div>
+              <div class="sf-line done"></div>
+              <div class="sf-node">
+                <div class="dot current">●</div>
+                <span class="sf-lbl">海关审核</span>
+                <span class="sf-date">进行中</span>
+              </div>
+              <div class="sf-line"></div>
+              <div class="sf-node">
+                <div class="dot pending">4</div>
+                <span class="sf-lbl">缴税</span>
+                <span class="sf-date">待处理</span>
+              </div>
+              <div class="sf-line"></div>
+              <div class="sf-node">
+                <div class="dot pending">5</div>
+                <span class="sf-lbl">放行</span>
+                <span class="sf-date">待处理</span>
+              </div>
+            </div>
+          </div>
+
+          <table class="rec-table">
+            <tr><th>报关单号</th><th>企业</th><th>HS 编码</th><th>金额</th><th>状态</th><th>日期</th></tr>
+            <tr>
+              <td><span style="color:#4361ee;font-weight:600">DEC-2026-003</span></td>
+              <td>华为技术</td>
+              <td>852852</td>
+              <td>$97,350</td>
+              <td><span class="tag yellow">海关审核</span></td>
+              <td>2026-06-09</td>
+            </tr>
+            <tr>
+              <td><span style="color:#4361ee;font-weight:600">DEC-2026-002</span></td>
+              <td>比亚迪电子</td>
+              <td>847141</td>
+              <td>$45,200</td>
+              <td><span class="tag green">已放行</span></td>
+              <td>2026-06-05</td>
+            </tr>
+            <tr>
+              <td><span style="color:#4361ee;font-weight:600">DEC-2026-001</span></td>
+              <td>华为技术</td>
+              <td>851762</td>
+              <td>$12,800</td>
+              <td><span class="tag green">已放行</span></td>
+              <td>2026-06-01</td>
+            </tr>
+          </table>
+        </div>
+
+        <!-- Declaration detail mock -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div style="background:#fff;border-radius:8px;border:1px solid #e8ecf4;padding:18px">
+            <h3 style="font-size:14px;font-weight:600;margin-bottom:10px">📄 报关单详情</h3>
+            <table class="mock-table">
+              <tr><td style="color:#6b7280">报关单号</td><td>DEC-2026-003</td></tr>
+              <tr><td style="color:#6b7280">申报企业</td><td>华为技术有限公司</td></tr>
+              <tr><td style="color:#6b7280">HS 编码</td><td>85285200</td></tr>
+              <tr><td style="color:#6b7280">原产国</td><td>中国</td></tr>
+              <tr><td style="color:#6b7280">目的国</td><td>越南</td></tr>
+              <tr><td style="color:#6b7280">成交方式</td><td>FOB</td></tr>
+              <tr><td style="color:#6b7280">申报金额</td><td>$97,350</td></tr>
+              <tr><td style="color:#6b7280">申报日期</td><td>2026-06-09</td></tr>
+            </table>
+          </div>
+          <div style="background:#fff;border-radius:8px;border:1px solid #e8ecf4;padding:18px">
+            <h3 style="font-size:14px;font-weight:600;margin-bottom:10px">✅ 合规检查</h3>
+            <table class="mock-table">
+              <tr><th>检查项</th><th>状态</th></tr>
+              <tr><td>HS 编码归类一致性</td><td><span class="tag green">通过</span></td></tr>
+              <tr><td>制裁名单筛查</td><td><span class="tag green">未命中</span></td></tr>
+              <tr><td>价格合理性</td><td><span class="tag green">在阈值内</span></td></tr>
+              <tr><td>FTA 优惠资格</td><td><span class="tag green">ACFTA 0%</span></td></tr>
+              <tr><td>原产地证明</td><td><span class="tag green">有效</span></td></tr>
+              <tr><td>认证要求 (CR Mark)</td><td><span class="tag green">已满足</span></td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── PAGE: PRICE RISK ─── -->
+      <div class="page" id="page-risk">
+        <div class="kpi-grid" style="grid-template-columns:repeat(3,1fr)">
+          <div class="kpi-card blue">
+            <div class="label">监控产品数</div>
+            <div class="value">28</div>
+            <div class="sub">12 个存在波动</div>
+          </div>
+          <div class="kpi-card orange">
+            <div class="label">触发告警</div>
+            <div class="value">3</div>
+            <div class="sub">今日新增 1 条</div>
+          </div>
+          <div class="kpi-card green">
+            <div class="label">平均偏差率</div>
+            <div class="value">5.2%</div>
+            <div class="sub">较上周 -1.1%</div>
+          </div>
+        </div>
+
+        <div style="background:#fff;border-radius:8px;border:1px solid #e8ecf4;padding:18px">
+          <div class="panel-hd" style="padding:0 0 12px 0">
+            <span style="font-weight:600;font-size:14px">⚠️ 价格异常告警</span>
+          </div>
+          <table class="rec-table">
+            <tr><th>产品</th><th>HS 编码</th><th>申报价</th><th>基准价</th><th>偏差</th><th>状态</th></tr>
+            <tr>
+              <td>交互式智能平板</td><td>852852</td>
+              <td>$780</td><td>$850</td>
+              <td><span style="color:#d97706;font-weight:600">-8.2%</span></td>
+              <td><span class="tag yellow">关注</span></td>
+            </tr>
+            <tr>
+              <td>5G CPE 终端</td><td>851762</td>
+              <td>$45</td><td>$55</td>
+              <td><span style="color:#dc2626;font-weight:600">-18.2%</span></td>
+              <td><span class="tag red">预警</span></td>
+            </tr>
+            <tr>
+              <td>工业相机</td><td>852589</td>
+              <td>$320</td><td>$305</td>
+              <td><span style="color:#059669;font-weight:600">+4.9%</span></td>
+              <td><span class="tag green">正常</span></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+  </div><!-- /main -->
+</div><!-- /app-container -->
+
+<script>
+// ─── Tab switching ───
+document.querySelectorAll('.sidebar nav a').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const page = link.dataset.page;
+
+    // Sidebar active
+    document.querySelectorAll('.sidebar nav a').forEach(a => a.classList.remove('active'));
+    link.classList.add('active');
+
+    // Page visibility
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const target = document.getElementById('page-' + page);
+    if (target) target.classList.add('active');
+
+    // Topbar title
+    const titles = {
+      dashboard:'📊 仪表盘', hs:'🏷️ HS 归类工作台', cost:'💰 进口成本分析',
+      tariff:'🔍 税则查询', fta:'🤝 FTA 优惠推荐', origin:'🌍 原产地判定',
+      screening:'🚫 制裁名单筛查', declaration:'📋 报关单管理', risk:'⚠️ 价格风险监控'
+    };
+    document.getElementById('pageTitle').textContent = titles[page] || page;
+  });
+});
+</script>
 
 </body>
 </html>
